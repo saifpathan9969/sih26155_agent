@@ -1,0 +1,15 @@
+services:
+  # Full-Stack Web Service (FastAPI Engine serving built Frontend UI)
+  - type: web
+    name: sih26155-network-compliance-auditor
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "cd sih26155_agent && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: "/api/health"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false

@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environments & Secret Credentials
+.env
+.env.local
+*.env
+serviceAccountKey*.json
+*firebase-adminsdk*.json
+
+# Build outputs
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
