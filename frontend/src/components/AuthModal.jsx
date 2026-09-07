@@ -26,8 +26,8 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
   const [googleOtpDigits, setGoogleOtpDigits] = useState(['', '', '', '', '', '']);
   const [googleNewPassword, setGoogleNewPassword] = useState('');
   const [googleConfirmPassword, setGoogleConfirmPassword] = useState('');
-  const [receivedOtpHint, setReceivedOtpHint] = useState(null);
   const [resendCountdown, setResendCountdown] = useState(0);
+
 
   // Status state
   const [loading, setLoading] = useState(false);
@@ -107,8 +107,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
     setLoading(true);
 
     try {
-      const res = await api.sendOtp(emailToUse, 'email');
-      setReceivedOtpHint(res.demo_otp || "123456");
+      await api.sendOtp(emailToUse, 'email');
       setResendCountdown(30);
       setGoogleOtpDigits(['', '', '', '', '', '']);
       setViewMode('google_otp');
@@ -475,22 +474,17 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
               <span className="text-amber-300 font-bold">{activeEmailDisplay}</span>
             </div>
 
-            {/* Simulated Delivery Banner (painless for demo & hackathon evaluation) */}
-            {receivedOtpHint && (
-              <div className="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/40 flex items-center justify-between text-xs font-mono text-amber-200">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>OTP Code: <span className="font-bold text-white tracking-widest">{receivedOtpHint}</span></span>
+            {/* Email Dispatch Confirmation Banner */}
+            <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-start gap-2.5 text-xs font-mono text-cyan-200">
+              <Mail className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <div className="font-semibold text-white">One-Time Code Sent</div>
+                <div className="text-[11px] text-slate-300 leading-relaxed">
+                  A 6-digit verification code has been dispatched to <strong className="text-cyan-300">{activeEmailDisplay}</strong>. Please check your email inbox and enter the code below.
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setGoogleOtpDigits(receivedOtpHint.split('').slice(0, 6))}
-                  className="px-2 py-0.5 rounded bg-amber-500/20 hover:bg-amber-500/30 text-[10px] text-amber-300 border border-amber-400/40 transition"
-                >
-                  Auto-fill
-                </button>
               </div>
-            )}
+            </div>
+
 
             {/* 6 Digit Input Boxes */}
             <div>

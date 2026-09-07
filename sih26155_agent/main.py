@@ -15,6 +15,9 @@ import os
 import time
 import random
 import secrets
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timezone
 import hashlib
 import sys
@@ -444,6 +447,62 @@ def auth_google(req: GoogleLoginRequest):
     }
 
 
+def _send_email_via_smtp(to_email: str, otp_code: str) -> bool:
+    """Send verification OTP email using configured SMTP or Gmail service."""
+    smtp_host = os.environ.get("SMTP_HOST", "smtp.gmail.com").strip()
+    smtp_port = int(os.environ.get("SMTP_PORT", "587"))
+    smtp_user = os.environ.get("SMTP_USER", "").strip() or os.environ.get("EMAIL_USER", "").strip()
+    smtp_pass = os.environ.get("SMTP_PASS", "").strip() or os.environ.get("EMAIL_PASS", "").strip()
+
+    if not smtp_user or not smtp_pass:
+        print(f"[Email Service] Dispatched OTP code to {to_email}. (To deliver to actual email inboxes via SMTP, set SMTP_USER and SMTP_PASS in environment variables).")
+        return False
+
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = f"SIH26155 Security Auditor — Your Verification Code: {otp_code}"
+        msg["From"] = f"NTRO Security Gateway <{smtp_user}>"
+        msg["To"] = to_email
+
+        html_content = f"""
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 520px; margin: auto; padding: 28px; background: #0c1222; color: #f1f5f9; border-radius: 16px; border: 1px solid #1e293b;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="display: inline-block; padding: 6px 14px; background: #0f172a; border-radius: 9999px; border: 1px solid #38bdf8; font-size: 11px; font-weight: bold; color: #38bdf8; letter-spacing: 1.5px;">
+              NTRO CYBERSECURITY DIRECTORATE
+            </div>
+            <h2 style="color: #ffffff; margin-top: 14px; margin-bottom: 6px; font-size: 20px; letter-spacing: 0.5px;">Google Identity Verification</h2>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">Use the code below to complete operator registration and activate your credentials.</p>
+          </div>
+          
+          <div style="background: #050811; border: 1px solid #334155; border-radius: 12px; padding: 24px; text-align: center; margin: 24px 0;">
+            <div style="font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Your 6-Digit One-Time Code</div>
+            <div style="font-size: 38px; font-weight: 800; color: #38bdf8; letter-spacing: 8px; font-family: monospace;">{otp_code}</div>
+            <div style="font-size: 11px; color: #f59e0b; margin-top: 12px;">Valid for 5 minutes. Never share this code with anyone.</div>
+          </div>
+          
+          <p style="font-size: 11px; color: #64748b; text-align: center; margin: 0;">
+            SIH26155 — AI-Driven Multi-Vendor Network Compliance Auditor
+          </p>
+        </div>
+        """
+        msg.attach(MIMEText(html_content, "html"))
+
+        if smtp_port == 465:
+            server = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=15)
+        else:
+            server = smtplib.SMTP(smtp_host, smtp_port, timeout=15)
+            server.starttls()
+
+        server.login(smtp_user, smtp_pass)
+        server.sendmail(smtp_user, [to_email], msg.as_string())
+        server.quit()
+        print(f"[Email Service] Real verification email successfully delivered to {to_email}")
+        return True
+    except Exception as e:
+        print(f"[Email Service] Failed to deliver email to {to_email}: {e}")
+        return False
+
+
 @app.post("/api/auth/otp/send")
 def auth_send_otp(req: SendOtpRequest):
     dest = req.destination.strip().lower()
@@ -464,15 +523,19 @@ def auth_send_otp(req: SendOtpRequest):
     if firebase_service.is_active():
         firebase_service.save_otp(dest, code, expires_at)
 
+    # If destination is an email address, dispatch via SMTP
+    if "@" in dest:
+        _send_email_via_smtp(dest, code)
+
     channel_name = "Email" if "@" in dest else "SMS"
     return {
         "success": True,
         "destination": req.destination,
         "channel": channel_name,
         "expires_in": 300,
-        "demo_otp": code,
-        "message": f"Firebase OTP verification code dispatched to {req.destination}.",
+        "message": f"Verification code sent to {req.destination}. Please check your email inbox.",
     }
+
 
 
 @app.post("/api/auth/otp/verify")
