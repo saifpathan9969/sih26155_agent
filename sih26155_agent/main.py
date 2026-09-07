@@ -81,13 +81,13 @@ _episodic = EpisodicMemory()
 _rule_manager = RuleManager()
 _blockchain = BlockchainLedger()
 
-# Global dynamic configurations storage (seeded with initial fixtures for demo user)
-_all_configs: Dict[str, str] = dict(DEVICE_CONFIGS)
+# Global dynamic configurations storage — strictly populated only via user uploads
+_all_configs: Dict[str, str] = {}
 _user_configs: Dict[str, Dict[str, str]] = {}  # username -> {filename: content}
 _custom_metadata: Dict[str, dict] = {}
 
 # In-memory authenticated users store
-# Special profile for Saifullah with pre-fed configs
+# All accounts start with zero static configurations (configs must be uploaded manually)
 _users: Dict[str, dict] = {
     "saifullahpathan49@gmail.com": {
         "username": "saifullahpathan49@gmail.com",
@@ -97,7 +97,7 @@ _users: Dict[str, dict] = {
         "organization": "Cyber Defense Network Directorate",
         "full_name": "Saifullah Pathan",
         "audience": "enterprise",
-        "has_prefed_configs": True,
+        "has_prefed_configs": False,
     },
 }
 
@@ -220,6 +220,27 @@ class ConfigUploadRequest(BaseModel):
 class MissionRequest(BaseModel):
     goal: str = "Audit all network configurations and identify critical security compliance violations."
     selected_devices: Optional[List[str]] = None
+    username: Optional[str] = None
+
+
+class TrainingResolveCommandRequest(BaseModel):
+    filename: str
+    command_raw: str
+    category: str
+    verdict: str  # "PASS" | "FAIL"
+    documentation: Optional[str] = ""
+    rule_id: Optional[str] = "CIS-GENERIC-REVIEW"
+    reviewer: Optional[str] = "Lead Security Auditor"
+    username: Optional[str] = None
+
+
+class SubmitVendorSolutionRequest(BaseModel):
+    device_id: str
+    rule_id: str
+    command_raw: str
+    solution_text: str
+    vendor_name: Optional[str] = "Vendor Technical Support"
+    provider: Optional[str] = "Operator Manual Input"
     username: Optional[str] = None
 
 
@@ -685,24 +706,21 @@ HOME_CONFIG_NAMES = ["mikrotik_routeros_test.rsc", "dev01_cisco.conf", "dev06_fo
 
 def _get_target_configs_for_user(username: Optional[str] = None, audience: Optional[str] = None) -> Dict[str, str]:
     """
-    If username is 'saifullahpathan49@gmail.com', return the pre-fed configurations (or filtered by audience).
-    For any other user, return only what they have uploaded (blank initially).
+    Returns only configurations that have been explicitly uploaded by the user.
+    All users (including saifullahpathan49@gmail.com) start with zero configurations
+    in both Home and Enterprise modes until they manually upload their own configuration files.
     """
     uname = (username or "").strip().lower()
-    is_prefed_user = uname == "saifullahpathan49@gmail.com"
+    if not uname:
+        return {}
 
-    if is_prefed_user:
-        source = _all_configs
-        if audience == "home" or audience == "soho":
-            return {k: v for k, v in source.items() if k in HOME_CONFIG_NAMES}
-        return source
-    else:
-        # Non-prefed user: only configs they personally uploaded into _user_configs
-        if firebase_service.is_active() and uname and uname not in _user_configs:
-            cloud_configs = firebase_service.get_user_configs(uname)
-            if cloud_configs:
-                _user_configs[uname] = {k: v["content"] for k, v in cloud_configs.items()}
-        return _user_configs.get(uname, {})
+    # Load from cloud storage if active
+    if firebase_service.is_active() and uname not in _user_configs:
+        cloud_configs = firebase_service.get_user_configs(uname)
+        if cloud_configs:
+            _user_configs[uname] = {k: v["content"] for k, v in cloud_configs.items()}
+
+    return _user_configs.get(uname, {})
 
 
 
@@ -1454,6 +1472,176 @@ def training_reset():
     _training_kb = VendorKnowledgeBase()
     _init_baselines()
     return {"reset": True, "message": "Knowledge base and baseline state reset to clean baseline."}
+
+
+# ---------------------------------------------------------------------------
+# Config-File-Wise Human Review & Federated Learning Endpoints
+# ---------------------------------------------------------------------------
+
+@app.get("/api/training/human-needed-by-config")
+def get_human_needed_by_config(username: Optional[str] = None):
+    """
+    Returns unknown / human-needed commands grouped by configuration file.
+    Only checks configs belonging to the user.
+    """
+    user_configs = _get_target_configs_for_user(username=username)
+    files_result = []
+
+    for fname, raw_text in user_configs.items():
+        vendor, conf = fingerprint_vendor(raw_text)
+        _, unknowns = parse_config(vendor, raw_text, fname)
+        needed_cmds = []
+        seen = set()
+        for unk in unknowns:
+            cmd_str = unk.raw.strip()
+            if cmd_str not in seen:
+                seen.add(cmd_str)
+                from vendor_config_kb import vendor_kb
+                kb_match = vendor_kb.match_command(cmd_str, vendor)
+                needed_cmds.append({
+                    "command_raw": cmd_str,
+                    "line": unk.line,
+                    "has_prior_info": kb_match is not None,
+                    "suggested_category": kb_match[2] if kb_match else "Management",
+                    "suggested_field": kb_match[0] if kb_match else None,
+                    "rule_id": "CIS-AUTH-03" if "lockout" in cmd_str.lower() or "retry" in cmd_str.lower() else "CIS-GENERIC-REVIEW",
+                })
+
+        # Also check if mission findings flagged this file with needs_human_review
+        if _cached_mission_result and "findings_by_device" in _cached_mission_result:
+            dev_findings = _cached_mission_result["findings_by_device"].get(fname, [])
+            for f in dev_findings:
+                if f.get("status") == "needs_human_review":
+                    ev = f.get("evidence_field") or {}
+                    src = ev.get("source") or {}
+                    raw_c = src.get("raw") or f.get("rule_id", "Unknown directive")
+                    if raw_c not in seen:
+                        seen.add(raw_c)
+                        needed_cmds.append({
+                            "command_raw": raw_c,
+                            "line": src.get("line"),
+                            "has_prior_info": False,
+                            "suggested_category": "Authentication" if "auth" in str(raw_c).lower() else "Management",
+                            "suggested_field": f.get("baseline_field_path"),
+                            "rule_id": f.get("rule_id"),
+                        })
+
+        files_result.append({
+            "filename": fname,
+            "vendor": vendor.value,
+            "vendor_display": vendor.value.replace("_", " ").title(),
+            "commands": needed_cmds,
+            "total_commands_needing_review": len(needed_cmds),
+        })
+
+    return {"files": files_result}
+
+
+@app.post("/api/training/resolve-command")
+def resolve_command_in_training(req: TrainingResolveCommandRequest):
+    """
+    Solves an unknown syntax at the AI Retrieval page.
+    If PASS: flips status to pass, seals block.
+    If FAIL: flips status to fail, posts to failed commands page with remedy options.
+    Both trigger Federated Learning model training and dynamic dataset updates!
+    """
+    from federated_learning import federated_engine
+
+    vendor_str = "Generic"
+    if req.filename in _all_configs:
+        v, _ = fingerprint_vendor(_all_configs[req.filename])
+        vendor_str = v.value
+
+    # 1. Run Federated Learning update on local weights and append to dataset
+    round_res = federated_engine.train_on_human_resolution(
+        raw_command=req.command_raw,
+        category=req.category,
+        verdict=req.verdict,
+        documentation=req.documentation or "",
+        vendor=vendor_str,
+        client_id=req.reviewer or "operator_node",
+    )
+
+    # 2. Update live baseline & cached mission findings
+    status_flipped = "pass" if req.verdict.upper() == "PASS" else "fail"
+    flips = []
+
+    if _cached_mission_result and "findings_by_device" in _cached_mission_result:
+        dev_findings = _cached_mission_result["findings_by_device"].get(req.filename, [])
+        for f in dev_findings:
+            if f.get("rule_id") == req.rule_id or req.command_raw in str(f.get("evidence_field", {})):
+                prev = f.get("status", "needs_human_review")
+                f["status"] = status_flipped
+                f["human_notes"] = req.documentation
+                f["human_category"] = req.category
+                flips.append({
+                    "device_id": req.filename,
+                    "rule_id": f.get("rule_id"),
+                    "before_status": prev,
+                    "after_status": status_flipped,
+                })
+
+    # 3. Cryptographic provenance sealing on blockchain
+    block = _blockchain.record_human_decision(
+        device_id=req.filename,
+        rule_id=req.rule_id or "CIS-GENERIC-REVIEW",
+        command_raw=req.command_raw,
+        decision=req.verdict.upper(),
+        reviewer=req.reviewer or "Lead Security Auditor",
+        notes=f"Category: {req.category} | Federated Round: {round_res.round_id} | {req.documentation or ''}",
+        uploaded_info=req.documentation or "",
+    )
+
+    return {
+        "success": True,
+        "verdict": req.verdict.upper(),
+        "flips": flips,
+        "blockchain_block_index": block.index,
+        "federated_round": round_res.__dict__,
+        "message": f"Directive successfully recorded as {req.verdict.upper()} and integrated into Federated Learning round #{round_res.round_id}.",
+    }
+
+
+@app.post("/api/remediation/submit-vendor-solution")
+def submit_vendor_solution(req: SubmitVendorSolutionRequest):
+    """
+    Submits a vendor-provided fix or solution for a failed command.
+    Automatically updates the dataset and trains the agent via Federated Learning.
+    """
+    from federated_learning import federated_engine
+
+    round_res = federated_engine.train_on_human_resolution(
+        raw_command=req.command_raw,
+        category="RemediationFix",
+        verdict="PASS",
+        documentation=f"Vendor Remedy by {req.vendor_name}: {req.solution_text}",
+        vendor=req.vendor_name or "Vendor",
+        client_id=req.provider or "operator_node",
+    )
+
+    # Seal solution into blockchain
+    block = _blockchain.record_human_decision(
+        device_id=req.device_id or "generic_asset",
+        rule_id=req.rule_id or "CIS-VENDOR-FIX",
+        command_raw=req.command_raw,
+        decision="VENDOR_REMEDY_PASS",
+        reviewer="Vendor Support Specialist",
+        notes=f"Vendor Remedy by {req.vendor_name}: {req.solution_text} | FedRound: {round_res.round_id}",
+        uploaded_info=req.solution_text or "",
+    )
+
+    return {
+        "success": True,
+        "message": f"Vendor solution successfully learned and synced into dataset via Federated Learning Round #{round_res.round_id}.",
+        "blockchain_block_index": block.index,
+        "federated_round": round_res.__dict__,
+    }
+
+
+@app.get("/api/federated/status")
+def get_federated_status():
+    from federated_learning import federated_engine
+    return federated_engine.get_status()
 
 
 # ---------------------------------------------------------------------------

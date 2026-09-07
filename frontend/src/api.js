@@ -140,11 +140,19 @@ export const api = {
   askGuideBot: (message, history = []) =>
     client.post('/api/guide/chat', { message, history }).then(r => r.data),
 
-  // Interactive Training Flow
+  // Interactive Training & Dynamic Federated Learning Flow
   trainingDetect: (configFile) => client.get('/api/training/detect', { params: { config_file: configFile } }).then(r => r.data),
   trainingRetrieve: (query) => client.post('/api/training/retrieve', { query }).then(r => r.data),
   trainingValidate: (data) => client.post('/api/training/validate', data).then(r => r.data),
   trainingConfirm: (data) => client.post('/api/training/confirm', data).then(r => r.data),
+  getHumanNeededByConfig: (username = null) =>
+    client.get('/api/training/human-needed-by-config', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
+  resolveCommandInTraining: (payload) =>
+    client.post('/api/training/resolve-command', payload).then(r => r.data),
+  submitVendorSolution: (payload) =>
+    client.post('/api/remediation/submit-vendor-solution', payload).then(r => r.data),
+  getFederatedStatus: () =>
+    client.get('/api/federated/status').then(r => r.data),
   getSohoChecks: () => client.get('/api/soho/checks').then(r => r.data),
   trainingReuse: () => client.post('/api/training/reuse').then(r => r.data),
   trainingReset: () => client.post('/api/training/reset').then(r => r.data),
