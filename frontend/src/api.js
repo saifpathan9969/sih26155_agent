@@ -35,7 +35,9 @@ export function resolveApiBaseUrl() {
     if (window.location.port === '5173') {
       return 'http://localhost:8000';
     }
-    return window.location.origin;
+    // In production (e.g. Vercel), return empty string so requests route to same-origin /api
+    // and are handled by Vercel edge reverse proxy to Railway, bypassing any local ISP DNS blocks!
+    return '';
   }
 
   return 'http://localhost:8000';
