@@ -278,3 +278,52 @@ def get_latest_audit_report() -> Optional[dict]:
     except Exception as e:
         logger.error(f"[Firebase] Error fetching latest report: {e}")
         return None
+
+
+# ---------------------------------------------------------------------------
+# OTP Verification Persistence
+# ---------------------------------------------------------------------------
+
+def save_otp(destination: str, otp_code: str, expires_at: float) -> bool:
+    """Store active verification OTP in Firestore for multi-instance scaling."""
+    if not is_active():
+        return False
+    try:
+        dest_clean = destination.strip().lower().replace("+", "_plus_")
+        payload = {
+            "destination": destination.strip().lower(),
+            "otp_code": otp_code,
+            "expires_at": expires_at,
+            "created_at": firestore.SERVER_TIMESTAMP if _firestore_db else None,
+        }
+        _firestore_db.collection("otp_verifications").document(dest_clean).set(payload)
+        return True
+    except Exception as e:
+        logger.error(f"[Firebase] Error saving OTP for {destination}: {e}")
+        return False
+
+
+def verify_cloud_otp(destination: str, otp_code: str) -> bool:
+    """Verify OTP against Firestore collection."""
+    if not is_active():
+        return False
+    try:
+        import time
+        dest_clean = destination.strip().lower().replace("+", "_plus_")
+        doc = _firestore_db.collection("otp_verifications").document(dest_clean).get()
+        if not doc.exists:
+            return False
+        data = doc.to_dict() or {}
+        saved_otp = str(data.get("otp_code", "")).strip()
+        expires_at = float(data.get("expires_at", 0))
+        if time.time() > expires_at:
+            return False
+        if saved_otp == str(otp_code).strip():
+            # Invalidate after single use
+            _firestore_db.collection("otp_verifications").document(dest_clean).delete()
+            return True
+        return False
+    except Exception as e:
+        logger.error(f"[Firebase] Error verifying cloud OTP: {e}")
+        return False
+
