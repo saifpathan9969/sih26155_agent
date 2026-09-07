@@ -9,7 +9,6 @@ import {
 import api from './api';
 import MissionControl from './components/MissionControl';
 import DeviceViewer from './components/DeviceViewer';
-import ComplianceTable from './components/ComplianceTable';
 import TrainingWizard from './components/TrainingWizard';
 import FailedRulesView from './components/FailedRulesView';
 import RuleManagement from './components/RuleManagement';
@@ -142,13 +141,12 @@ export default function App() {
   };
 
   // Navigation Items:
-  // Order: Guide -> (SOHO Hub) -> Mission -> Devices -> Compliance -> Autonomy -> Training -> Failed -> Rules -> Blockchain -> Report -> Summary
+  // Order: Guide -> (SOHO Hub) -> Mission -> Devices -> Autonomy -> Training -> Failed -> Rules -> Blockchain -> Report -> Summary
   const navItems = audienceMode === 'soho' ? [
     { id: 'guide', label: '📖 HOME GUIDE & COPILOT', icon: BookOpen },
     { id: 'soho', label: '🏠 WI-FI SECURITY HUB', icon: Wifi },
     { id: 'mission', label: '🎯 MISSION CONTROL (3 ROUTERS)', icon: Terminal },
     { id: 'devices', label: `🖥️ ROUTERS & APs (${fixtures.length})`, icon: Server },
-    { id: 'compliance', label: '🛡️ COMPLIANCE CHECKS', icon: Shield },
     { id: 'autonomy', label: '⚙️ AUTONOMY POLICY', icon: Wrench },
     { id: 'training', label: '🧠 AI RETRIEVAL / KB', icon: Cpu },
     { id: 'failed', label: '❌ FAILED COMMANDS', icon: XCircle },
@@ -160,7 +158,6 @@ export default function App() {
     { id: 'guide', label: '📖 GUIDE & COPILOT', icon: BookOpen },
     { id: 'mission', label: '🎯 MISSION CONTROL', icon: Terminal },
     { id: 'devices', label: `🖥️ DEVICES (${fixtures.length})`, icon: Server },
-    { id: 'compliance', label: '🛡️ COMPLIANCE (20)', icon: Shield },
     { id: 'autonomy', label: '⚙️ AUTONOMY POLICY', icon: Wrench },
     { id: 'training', label: '🧠 AI RETRIEVAL / KB', icon: Cpu },
     { id: 'failed', label: '❌ FAILED COMMANDS', icon: XCircle },
@@ -350,14 +347,6 @@ export default function App() {
 
             {activeTab === 'devices' && (
               <DeviceViewer fixtures={fixtures} />
-            )}
-
-            {activeTab === 'compliance' && (
-              <ComplianceTable
-                findingsByDevice={missionResult?.findings_by_device || {}}
-                rules={rules}
-                onOpenHumanReview={handleOpenHumanReview}
-              />
             )}
 
             {activeTab === 'soho' && (
