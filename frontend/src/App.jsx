@@ -494,7 +494,10 @@ export default function App() {
             )}
 
             {activeTab === 'soho' && (
-              <HomeSecurityHub />
+              <HomeSecurityHub
+                fixtures={fixtures}
+                onOpenUploadModal={() => setIsConfigModalOpen(true)}
+              />
             )}
 
             {activeTab === 'autonomy' && (

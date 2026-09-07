@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import api from '../api';
 
-export default function HomeSecurityHub() {
+export default function HomeSecurityHub({ fixtures = [], onOpenUploadModal }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
@@ -56,46 +56,71 @@ export default function HomeSecurityHub() {
             Every issue includes clear step-by-step fix instructions and ready-to-copy configuration payloads.
           </p>
         </div>
-
-        <button
-          onClick={fetchChecks}
-          className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono hover:text-white flex items-center gap-1.5 shrink-0"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          Refresh Router Status
-        </button>
+        <div className="flex items-center gap-2">
+          {onOpenUploadModal && (
+            <button
+              type="button"
+              onClick={onOpenUploadModal}
+              className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 border border-slate-700 flex items-center gap-1.5 transition cursor-pointer"
+            >
+              <span>📤 Upload Router Config</span>
+            </button>
+          )}
+          <button
+            onClick={fetchChecks}
+            disabled={loading}
+            className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold flex items-center gap-1.5 transition cursor-pointer"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            Refresh Router Status
+          </button>
+        </div>
       </div>
 
-      {/* 3 Dedicated Home Router Configurations Selector */}
+      {/* Dynamic Target Home Router Configurations Selector */}
       <div className="glass-panel p-4 rounded-xl border border-amber-500/30 bg-[#070b16] space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xs font-mono font-bold text-amber-300 flex items-center gap-1.5">
             <Radio className="w-4 h-4 text-amber-400" />
-            SELECT TARGET HOME / SOHO CONFIGURATION:
+            TARGET HOME / SOHO CONFIGURATIONS:
           </span>
-          <span className="text-[11px] font-mono text-slate-400">3 Configs Active</span>
+          <span className="text-[11px] font-mono text-slate-400">{fixtures.length} Config{fixtures.length === 1 ? '' : 's'} Active</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 font-mono text-xs">
-          {[
-            { id: 'mikrotik_routeros_test.rsc', name: 'MikroTik RouterOS SOHO Gateway', role: 'Main Fiber Gateway & Wi-Fi' },
-            { id: 'dev01_cisco.conf', name: 'Cisco SOHO Edge Router', role: 'Hardened Small Business Edge' },
-            { id: 'dev06_fortinet.conf', name: 'FortiGate Home Office Firewall', role: 'Branch Office UTM' },
-          ].map((r, idx) => (
-            <div
-              key={r.id}
-              className="p-3 rounded-lg border border-amber-500/20 bg-slate-900/60 flex flex-col justify-between"
-            >
-              <div>
-                <div className="text-[10px] text-amber-400 font-bold uppercase">Config #{idx + 1}</div>
-                <div className="text-white font-semibold text-xs mt-0.5">{r.name}</div>
-                <div className="text-[10px] text-slate-400 mt-1 font-mono">{r.id}</div>
+
+        {fixtures.length === 0 ? (
+          <div className="p-6 rounded-xl border border-dashed border-slate-800 text-center space-y-3 font-mono">
+            <p className="text-xs text-slate-400">
+              No home router configurations uploaded yet. Upload your Wi-Fi router / firewall backup file (<code className="text-amber-300">.conf, .cfg, .rsc, .txt</code>) to evaluate security hardening.
+            </p>
+            {onOpenUploadModal && (
+              <button
+                type="button"
+                onClick={onOpenUploadModal}
+                className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs inline-flex items-center gap-2 cursor-pointer transition shadow-lg shadow-amber-500/20"
+              >
+                <span>📤 Upload Wi-Fi Router Config</span>
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 font-mono text-xs">
+            {fixtures.map((r, idx) => (
+              <div
+                key={r.filename}
+                className="p-3 rounded-lg border border-amber-500/20 bg-slate-900/60 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-[10px] text-amber-400 font-bold uppercase">Device #{idx + 1}</div>
+                  <div className="text-white font-semibold text-xs mt-0.5">{r.filename}</div>
+                  <div className="text-[10px] text-slate-400 mt-1 font-mono">{r.vendor_display || r.vendor} ({r.line_count || 0} lines)</div>
+                </div>
+                <div className="text-[10px] text-emerald-400 mt-2 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" /> Ready for Audit
+                </div>
               </div>
-              <div className="text-[10px] text-emerald-400 mt-2 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> {r.role}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Quick Summary Cards */}
@@ -103,7 +128,7 @@ export default function HomeSecurityHub() {
         <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
           <div>
             <div className="text-slate-400 text-[11px]">AUDITED HOME FLEET</div>
-            <div className="text-white font-bold text-sm mt-0.5">3 SOHO Wi-Fi Routers</div>
+            <div className="text-white font-bold text-sm mt-0.5">{fixtures.length} SOHO Device{fixtures.length === 1 ? '' : 's'}</div>
           </div>
           <div className="w-10 h-10 rounded-xl bg-slate-800/80 flex items-center justify-center text-brand-400">
             <Wifi className="w-5 h-5" />

@@ -13,7 +13,12 @@ export default function ReportTamperView() {
   const fetchReport = async () => {
     setLoading(true);
     try {
-      const data = await api.getCurrentReport();
+      let uname = null;
+      try {
+        const u = JSON.parse(localStorage.getItem('ntro_user') || '{}');
+        uname = u.username || u.email || null;
+      } catch (e) {}
+      const data = await api.getCurrentReport(uname);
       setReport(data.report || '');
       setReportHash(data.sha256 || '');
       setTamperResult(null);

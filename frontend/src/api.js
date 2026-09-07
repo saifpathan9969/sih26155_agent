@@ -173,7 +173,8 @@ export const api = {
   verifyBlockchain: () => client.get('/api/blockchain/verify').then(r => r.data),
 
   // Report & Tamper Demo
-  getCurrentReport: () => client.get('/api/report/current').then(r => r.data),
+  getCurrentReport: (username = null) =>
+    client.get('/api/report/current', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
   tamperReport: (target_rule = 'CIS-MGMT-01', fake_status = 'PASS') =>
     client.post('/api/report/tamper', { target_rule, fake_status }).then(r => r.data),
 };

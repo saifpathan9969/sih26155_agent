@@ -1875,11 +1875,17 @@ def verify_blockchain():
 # ---------------------------------------------------------------------------
 
 @app.get("/api/report/current")
-def get_current_report():
+def get_current_report(username: Optional[str] = None):
     if not _current_report:
-        # Generate default report if not yet run
+        target_configs = _get_target_configs_for_user(username=username)
+        if not target_configs:
+            msg = "# Mission Report\n\nNo configurations uploaded yet. Please upload network device configurations and run an audit mission to generate a certified report."
+            return {
+                "report": msg,
+                "sha256": compute_data_hash(msg),
+            }
         agent = SecurityAuditAgent(kb=_kb)
-        state = agent.run_mission("Audit all configurations and report findings.", DEVICE_CONFIGS, trace=False)
+        state = agent.run_mission("Audit all configurations and report findings.", target_configs, trace=False)
         return {
             "report": state.final_report,
             "sha256": compute_data_hash(state.final_report or ""),
@@ -1898,9 +1904,11 @@ def tamper_report(req: TamperRequest):
     """
     report_text = _current_report
     if not report_text:
-        # Fallback to fresh report
+        target_configs = _get_target_configs_for_user()
+        if not target_configs:
+            raise HTTPException(status_code=400, detail="No audit report available to tamper. Please upload configurations and run an audit mission first.")
         agent = SecurityAuditAgent(kb=_kb)
-        state = agent.run_mission("Audit all configurations.", DEVICE_CONFIGS, trace=False)
+        state = agent.run_mission("Audit all configurations.", target_configs, trace=False)
         report_text = state.final_report or ""
 
     result = _blockchain.simulate_tamper(

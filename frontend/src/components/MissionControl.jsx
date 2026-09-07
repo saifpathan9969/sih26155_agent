@@ -43,10 +43,15 @@ export default function MissionControl({
     setSelectedDevices(fixtures.map(f => f.filename));
   };
 
-  // Vendor summary counts
-  const ciscoCount = fixtures.filter(f => f.vendor?.includes('cisco')).length;
-  const juniperCount = fixtures.filter(f => f.vendor?.includes('juniper')).length;
-  const fortinetCount = fixtures.filter(f => f.vendor?.includes('fortinet')).length;
+  // Dynamic Vendor summary counts from real uploaded fixtures
+  const ciscoDevices = fixtures.filter(f => f.vendor?.includes('cisco'));
+  const juniperDevices = fixtures.filter(f => f.vendor?.includes('juniper'));
+  const fortinetDevices = fixtures.filter(f => f.vendor?.includes('fortinet'));
+  const otherDevices = fixtures.filter(f => !f.vendor?.includes('cisco') && !f.vendor?.includes('juniper') && !f.vendor?.includes('fortinet'));
+
+  const ciscoCount = ciscoDevices.length;
+  const juniperCount = juniperDevices.length;
+  const fortinetCount = fortinetDevices.length;
 
   const flips = missionResult?.flips || [];
   const reviews = missionResult?.grouped_reviews || [];
@@ -85,75 +90,78 @@ export default function MissionControl({
           </div>
         </div>
 
-        {/* Device Selection Strip */}
-        <div className="pt-4 border-b border-slate-800/80 pb-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-mono text-slate-400">
-              SELECT CONFIGURATIONS TO AUDIT:
-            </span>
-            <button
-              type="button"
-              onClick={handleSelectAll}
-              className="text-[11px] font-mono text-brand-400 hover:text-brand-300 underline underline-offset-2"
-            >
-              Select All ({fixtures.length})
-            </button>
-          </div>
-          <div className="flex flex-wrap gap-2 font-mono text-xs">
-            {fixtures.map((f) => {
-              const isSelected = selectedDevices.includes(f.filename);
-              return (
-                <button
-                  key={f.filename}
-                  type="button"
-                  onClick={() => handleToggleDevice(f.filename)}
-                  className={`px-3 py-1.5 rounded-xl border flex items-center gap-2 transition ${
-                    isSelected
-                      ? 'bg-brand-600/30 border-brand-400 text-white shadow-sm shadow-brand-500/20 font-bold'
-                      : 'bg-[#050811] border-slate-800 text-slate-500 hover:border-slate-700'
-                  }`}
-                >
-                  <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-emerald-400' : 'bg-slate-700'}`} />
-                  <span>{f.filename}</span>
-                  <span className="text-[10px] text-slate-400">({f.vendor_display})</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Goal Input Form */}
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+        {/* Step 1: Mission Goal Input */}
+        <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           <div>
-            <label className="block text-xs font-mono text-slate-400 mb-1.5">
-              SPECIFY MISSION GOAL (NATURAL LANGUAGE AUDIT INTENT):
+            <label className="text-xs font-mono text-slate-400 block mb-1.5 font-semibold">
+              INPUT AUDIT OBJECTIVE / INTENT:
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
-                placeholder="e.g. Audit all network configurations and identify critical security compliance violations."
-                disabled={isRunning}
-                className="w-full bg-[#050811] border border-slate-700 rounded-xl px-4 py-3 text-xs sm:text-sm font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 shadow-inner"
+                placeholder="e.g. Audit all uploaded configurations for CIS compliance and discover unmapped directives..."
+                className="w-full bg-[#050811] border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 font-mono focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition"
               />
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-xs text-slate-400">
-              Agent orchestrates: <span className="text-slate-300 font-mono">Discover ➔ Fingerprint ➔ Parse ➔ Cluster ➔ Human Gate ➔ Compliance ➔ Blockchain Sealed Report</span>
-            </p>
+          {/* Selected Devices Chips */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-400 font-mono font-medium">TARGET ASSETS:</span>
+              <button
+                type="button"
+                onClick={handleSelectAll}
+                className="text-[11px] font-mono text-brand-400 hover:underline cursor-pointer"
+              >
+                (Select All {fixtures.length})
+              </button>
+            </div>
 
+            <div className="flex flex-wrap gap-1.5">
+              {fixtures.length === 0 ? (
+                <span className="text-xs text-slate-500 font-mono italic">
+                  No configuration files uploaded yet. Click 'Upload Config' above.
+                </span>
+              ) : (
+                fixtures.map((f) => {
+                  const isSelected = selectedDevices.includes(f.filename);
+                  return (
+                    <button
+                      key={f.filename}
+                      type="button"
+                      onClick={() => handleToggleDevice(f.filename)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-mono transition border cursor-pointer ${
+                        isSelected
+                          ? 'bg-brand-950 border-brand-500/60 text-brand-300 font-semibold'
+                          : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-700'
+                      }`}
+                    >
+                      {isSelected ? '✓ ' : ''}{f.filename}
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
+
+          {/* Submit Action Button */}
+          <div className="pt-2 flex justify-end">
             <button
               type="submit"
-              disabled={isRunning}
-              className="w-full sm:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-mono font-bold text-xs sm:text-sm tracking-wide shadow-xl shadow-brand-500/25 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              disabled={isRunning || fixtures.length === 0}
+              className={`px-6 py-3 rounded-xl font-mono text-xs font-bold flex items-center gap-2 shadow-lg transition ${
+                isRunning || fixtures.length === 0
+                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
+                  : 'bg-brand-500 hover:bg-brand-400 text-white shadow-brand-500/30 cursor-pointer'
+              }`}
             >
               {isRunning ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  EXECUTING MISSION PIPELINE...
+                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                  PROCESSING MISSION...
                 </>
               ) : (
                 <>
@@ -182,8 +190,10 @@ export default function MissionControl({
             <span className="text-xs text-slate-400 font-mono">CISCO IOS</span>
             <span className="w-2 h-2 rounded-full bg-blue-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{ciscoCount || 2}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">dev01, dev02</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">{ciscoCount}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={ciscoDevices.map(d => d.filename).join(', ')}>
+            {ciscoCount > 0 ? ciscoDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
+          </div>
         </div>
 
         <div className="glass-panel p-4 rounded-xl border border-slate-800">
@@ -191,17 +201,21 @@ export default function MissionControl({
             <span className="text-xs text-slate-400 font-mono">JUNIPER JUNOS</span>
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{juniperCount || 3}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">dev03, dev04, dev05</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">{juniperCount}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={juniperDevices.map(d => d.filename).join(', ')}>
+            {juniperCount > 0 ? juniperDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
+          </div>
         </div>
 
         <div className="glass-panel p-4 rounded-xl border border-slate-800">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">FORTIOS (DEGRADED)</span>
+            <span className="text-xs text-slate-400 font-mono">FORTINET / OTHER</span>
             <span className="w-2 h-2 rounded-full bg-amber-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{fortinetCount || 1}</div>
-          <div className="text-[11px] text-amber-400/80 mt-0.5">dev06 (Needs Review)</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">{fortinetCount + otherDevices.length}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={[...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ')}>
+            {(fortinetCount + otherDevices.length) > 0 ? [...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ') : '0 configs uploaded'}
+          </div>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { Server, FileText, CheckCircle, ShieldAlert, Cpu, Eye, Code, Search } fr
 import api from '../api';
 
 export default function DeviceViewer({ fixtures = [], onSelectDevice, selectedDeviceId }) {
-  const [activeDevice, setActiveDevice] = useState(selectedDeviceId || (fixtures[0]?.filename || 'dev01_cisco.conf'));
+  const [activeDevice, setActiveDevice] = useState(selectedDeviceId || (fixtures[0]?.filename || null));
   const [baselineData, setBaselineData] = useState(null);
   const [loadingBaseline, setLoadingBaseline] = useState(false);
   const [viewMode, setViewMode] = useState('both'); // 'both' | 'raw' | 'normalized'
@@ -241,6 +241,16 @@ export default function DeviceViewer({ fixtures = [], onSelectDevice, selectedDe
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {fixtures.length === 0 && (
+        <div className="glass-panel rounded-2xl p-12 border border-dashed border-slate-800 text-center font-mono space-y-3">
+          <Server className="w-10 h-10 text-slate-600 mx-auto" />
+          <h3 className="text-white text-sm font-bold">NO DEVICE CONFIGURATIONS</h3>
+          <p className="text-xs text-slate-500 max-w-md mx-auto">
+            Upload configuration files (.conf, .cfg, .rsc) in the Configuration Manager to view normalized Pydantic V2 baseline models and raw CLI syntax.
+          </p>
         </div>
       )}
     </div>
