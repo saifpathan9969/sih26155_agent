@@ -197,6 +197,10 @@ class VerifyOtpRequest(BaseModel):
     audience: Optional[str] = "enterprise"
 
 
+class SwitchAudienceRequest(BaseModel):
+    username: str
+    audience: str  # "enterprise" | "home" | "soho"
+
 
 class ConfigUploadRequest(BaseModel):
     filename: str
@@ -323,14 +327,41 @@ def auth_register(req: RegisterRequest):
     if not uname:
         raise HTTPException(status_code=400, detail="Username cannot be blank.")
 
-    exists = False
+    # Check if account already exists
+    existing_user = None
     if firebase_service.is_active():
-        exists = firebase_service.get_user(uname) is not None
-    if not exists and uname in _users:
-        exists = True
+        existing_user = firebase_service.get_user(uname)
+    if not existing_user and uname in _users:
+        existing_user = _users[uname]
 
-    if exists:
-        raise HTTPException(status_code=400, detail="Username is already registered.")
+    if existing_user:
+        # If user exists, verify password (or if password not set yet) to allow updating audience mode or logging in
+        if not existing_user.get("password") or existing_user.get("password") == req.password:
+            existing_user["audience"] = req.audience or existing_user.get("audience", "enterprise")
+            if req.password:
+                existing_user["password"] = req.password
+            if req.full_name and req.full_name != "Security Operator":
+                existing_user["full_name"] = req.full_name
+            _users[uname] = existing_user
+            if firebase_service.is_active():
+                firebase_service.save_user(existing_user)
+            token = f"sess_{hashlib.sha256(uname.encode()).hexdigest()[:16]}"
+            return {
+                "success": True,
+                "token": token,
+                "user": {
+                    "username": existing_user["username"],
+                    "email": existing_user.get("email", existing_user["username"]),
+                    "role": existing_user["role"],
+                    "organization": existing_user["organization"],
+                    "full_name": existing_user["full_name"],
+                    "audience": existing_user.get("audience", "enterprise"),
+                    "has_prefed_configs": existing_user.get("has_prefed_configs", False),
+                },
+            }
+        else:
+            raise HTTPException(status_code=400, detail="Username is already registered. Please sign in with your credentials or Google account.")
+
     if len(req.password) < 4:
         raise HTTPException(status_code=400, detail="Password must be at least 4 characters.")
 
@@ -365,6 +396,22 @@ def auth_register(req: RegisterRequest):
             "has_prefed_configs": False,
         },
     }
+
+
+@app.post("/api/auth/profile/switch-audience")
+def auth_switch_audience(req: SwitchAudienceRequest):
+    uname = req.username.strip().lower()
+    aud = "soho" if req.audience in ("home", "soho") else "enterprise"
+    user = _users.get(uname)
+    if not user and firebase_service.is_active():
+        user = firebase_service.get_user(uname)
+    if user:
+        user["audience"] = aud
+        _users[uname] = user
+        if firebase_service.is_active():
+            firebase_service.save_user(user)
+    return {"success": True, "username": uname, "audience": aud}
+
 
 
 @app.get("/api/auth/me")
@@ -646,7 +693,10 @@ def _get_target_configs_for_user(username: Optional[str] = None, audience: Optio
             if cloud_configs:
                 _user_configs[uname] = {k: v["content"] for k, v in cloud_configs.items()}
         user_uploaded = _user_configs.get(uname, {})
+        if (audience == "home" or audience == "soho") and not user_uploaded:
+            return {k: v for k, v in _all_configs.items() if k in HOME_CONFIG_NAMES}
         return user_uploaded
+
 
 
 @app.get("/api/fixtures")

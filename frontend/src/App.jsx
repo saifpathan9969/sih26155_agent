@@ -4,7 +4,7 @@ import {
   Shield, Server, Terminal, Wrench, Lock, Link2, FileText,
   AlertTriangle, CheckCircle2, RefreshCw, Cpu, Zap, BookOpen,
   User, UserCheck, LogOut, BarChart3, Database, Wifi, Building2,
-  XCircle
+  XCircle, Layers, ArrowRightLeft, Home
 } from 'lucide-react';
 import api from './api';
 import MissionControl from './components/MissionControl';
@@ -20,6 +20,7 @@ import CyberLoadingOverlay from './components/CyberLoadingOverlay';
 import AuthModal from './components/AuthModal';
 import ConfigManagerModal from './components/ConfigManagerModal';
 import HumanReviewModal from './components/HumanReviewModal';
+import ProfileModal from './components/ProfileModal';
 import GuidePage from './components/GuidePage';
 import SummaryPage from './components/SummaryPage';
 import HomeSecurityHub from './components/HomeSecurityHub';
@@ -50,6 +51,7 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
   const [isHumanReviewOpen, setIsHumanReviewOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [activeHumanReview, setActiveHumanReview] = useState(null);
 
   // Load initial data (filters to user's configs: pre-fed for saifullahpathan49@gmail.com; blank for new users until uploaded)
@@ -85,6 +87,24 @@ export default function App() {
     // As requested: Once logged in, user first lands on the Guide Page!
     setActiveTab('guide');
     loadInitialData(user.audience === 'home' ? 'soho' : 'enterprise', user);
+  };
+
+  // Switch between Enterprise and Home & SOHO panel anytime
+  const handleSwitchPanel = async (newMode) => {
+    const targetMode = (newMode === 'soho' || newMode === 'home') ? 'soho' : 'enterprise';
+    setAudienceMode(targetMode);
+    if (currentUser) {
+      const updatedUser = { ...currentUser, audience: targetMode };
+      setCurrentUser(updatedUser);
+      localStorage.setItem('ntro_user', JSON.stringify(updatedUser));
+      try {
+        await api.switchAudience(currentUser.username, targetMode);
+      } catch (e) {
+        console.warn("Could not sync audience switch with backend:", e);
+      }
+    }
+    setActiveTab(targetMode === 'soho' ? 'soho' : 'guide');
+    loadInitialData(targetMode, currentUser);
   };
 
   const handleLogout = () => {
@@ -197,6 +217,15 @@ export default function App() {
         currentUser={currentUser}
       />
 
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        currentUser={currentUser}
+        audienceMode={audienceMode}
+        onSwitchPanel={handleSwitchPanel}
+        onLogout={handleLogout}
+      />
+
       {/* Top Universal App Header */}
       <header className="sticky top-0 z-40 bg-[#0b1120]/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xl">
         <div className="flex items-center gap-3">
@@ -228,25 +257,45 @@ export default function App() {
         {/* User Profile Pill / Login Trigger & Health */}
         <div className="flex flex-wrap items-center gap-2.5">
           {currentUser ? (
-            <div className="flex items-center gap-2 bg-[#050811] px-3 py-1.5 rounded-xl border border-slate-800 font-mono text-xs">
+            <div className="flex items-center gap-2">
+              {/* Quick Panel Mode Switcher Button */}
               <button
-                onClick={() => setIsAuthModalOpen(true)}
-                className="flex items-center gap-1.5 text-slate-200 hover:text-brand-300 transition"
-                title="Manage Account"
+                type="button"
+                onClick={() => handleSwitchPanel(audienceMode === 'soho' ? 'enterprise' : 'soho')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition shadow-sm cursor-pointer ${
+                  audienceMode === 'soho'
+                    ? 'bg-amber-950/70 border-amber-500/50 text-amber-300 hover:bg-amber-900/60'
+                    : 'bg-brand-950/70 border-brand-500/50 text-brand-300 hover:bg-brand-900/60'
+                }`}
+                title={`Currently in ${audienceMode === 'soho' ? 'Home & SOHO' : 'Enterprise'} panel. Click to switch!`}
               >
-                <UserCheck className="w-3.5 h-3.5 text-brand-400" />
-                <span className="font-semibold">{currentUser.full_name || currentUser.username}</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-brand-950 text-brand-300 border border-brand-500/30 hidden md:inline">
-                  {currentUser.role}
+                <ArrowRightLeft className="w-3.5 h-3.5" />
+                <span>{audienceMode === 'soho' ? '🏠 Home Security' : '🏢 Enterprise Compliance'}</span>
+                <span className="text-[10px] text-slate-400 font-normal hidden lg:inline">
+                  (Switch to {audienceMode === 'soho' ? 'Enterprise' : 'Home'})
                 </span>
               </button>
-              <button
-                onClick={handleLogout}
-                className="text-slate-500 hover:text-rose-400 p-0.5 rounded transition"
-                title="Sign Out"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
+
+              <div className="flex items-center gap-2 bg-[#050811] px-3 py-1.5 rounded-xl border border-slate-800 font-mono text-xs">
+                <button
+                  onClick={() => setIsProfileModalOpen(true)}
+                  className="flex items-center gap-1.5 text-slate-200 hover:text-brand-300 transition cursor-pointer"
+                  title="Manage Account & Switch Audit Interface"
+                >
+                  <UserCheck className="w-3.5 h-3.5 text-brand-400" />
+                  <span className="font-semibold">{currentUser.full_name || currentUser.username}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-brand-950 text-brand-300 border border-brand-500/30 hidden md:inline">
+                    {currentUser.role}
+                  </span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="text-slate-500 hover:text-rose-400 p-0.5 rounded transition"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           ) : (
             <button

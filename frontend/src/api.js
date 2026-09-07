@@ -86,8 +86,12 @@ export const api = {
   verifyOtp: (destination, otp, password = null, full_name = null, audience = 'enterprise') =>
     client.post('/api/auth/otp/verify', { destination, otp, password, full_name, audience }).then(r => r.data),
 
+  switchAudience: (username, audience) =>
+    client.post('/api/auth/profile/switch-audience', { username, audience }).then(r => r.data),
+
   me: (username) =>
     client.get('/api/auth/me', { params: { username } }).then(r => r.data),
+
 
   // Configurations & Devices
   getFixtures: (audience = null, username = null) =>
