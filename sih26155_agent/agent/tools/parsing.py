@@ -418,6 +418,17 @@ def parse_config(vendor, raw_text: str, filename: str,
                 matched = True
                 break
 
+        if not matched:
+            try:
+                from vendor_config_kb import vendor_kb
+                kb_match = vendor_kb.match_command(line, vendor)
+                if kb_match:
+                    field_path, val, cat = kb_match
+                    flat[field_path] = _ef(val, raw=line, line=i, filename=filename)
+                    matched = True
+            except Exception:
+                pass
+
         if not matched and any(k in line.lower() for k in SECURITY_KEYWORDS):
             unknowns.append(UnknownCommandDetection(
                 raw=line, vendor_fingerprint=vendor,

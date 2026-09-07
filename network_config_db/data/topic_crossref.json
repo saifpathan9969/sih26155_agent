@@ -1,0 +1,222 @@
+{
+  "metadata": {
+    "generated_date": "2026-09-07",
+    "total_vendors": 7,
+    "vendors_documented": 6,
+    "total_topics": 18,
+    "description": "Cross-reference index mapping each topic to vendor implementations"
+  },
+  "topics": {
+    "initial_setup": {
+      "description": "Initial device configuration including hostname, management interface, and admin accounts",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "interfaces": {
+      "description": "Physical and logical interface configuration including IP addressing",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "vlans_l2": {
+      "description": "VLAN configuration and Layer 2 switching",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "routing_static": {
+      "description": "Static route configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "routing_ospf": {
+      "description": "OSPF dynamic routing protocol configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "routing_bgp": {
+      "description": "BGP routing protocol configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "routing_eigrp_isis_other": {
+      "description": "EIGRP, IS-IS, and other routing protocols",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x", "note": "IS-IS focus"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x", "note": "IS-IS focus"},
+        "Fortinet_FortiOS": {"available": false, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "reason": "No IS-IS/EIGRP, RIP only"},
+        "PaloAlto_PAN-OS": {"available": false, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "reason": "RIP only, no IS-IS/EIGRP"},
+        "Arista_EOS": {"available": false, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x", "reason": "No EIGRP, IS-IS rarely used"}
+      }
+    },
+    "vrrp_hsrp_ha": {
+      "description": "First-hop redundancy protocols (VRRP, HSRP) and gateway HA",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x", "note": "HSRP and VRRP"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x", "note": "VRRP"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x", "note": "VRRP"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "note": "VRRP and HA clustering"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "note": "HA clustering"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x", "note": "VRRP and MLAG"}
+      }
+    },
+    "acls_firewall_policy": {
+      "description": "Access control lists and firewall policy configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x", "note": "Firewall filters"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "note": "Security policies"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "note": "Security policies with App-ID"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "nat": {
+      "description": "Network Address Translation configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "vpn_ipsec": {
+      "description": "IPsec VPN configuration for site-to-site connectivity",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "qos": {
+      "description": "Quality of Service configuration for traffic prioritization",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x", "note": "CoS configuration"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "aaa_authentication": {
+      "description": "AAA authentication, authorization, and accounting configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "snmp_logging_monitoring": {
+      "description": "SNMP, logging, and monitoring configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "vxlan_evpn": {
+      "description": "VXLAN and EVPN configuration for data center fabrics",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": false, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x", "reason": "Nexus-only feature"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": false, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "reason": "Limited to high-end models"},
+        "PaloAlto_PAN-OS": {"available": false, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "reason": "VM-Series only, not fabric"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x", "note": "Strong EVPN-VXLAN support"}
+      }
+    },
+    "mpls": {
+      "description": "MPLS and L3VPN configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x", "note": "Strong SP focus"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": false, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "reason": "SD-WAN focus instead"},
+        "PaloAlto_PAN-OS": {"available": false, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "reason": "Security appliance, not SP router"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    },
+    "high_availability_clustering": {
+      "description": "High availability and clustering configuration",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x", "note": "StackWise and SSO"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x", "note": "NSR and ISSU"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x", "note": "Chassis cluster"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x", "note": "HA clustering"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x", "note": "Active-passive/active-active"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x", "note": "MLAG"}
+      }
+    },
+    "system_management": {
+      "description": "System management including backups, upgrades, and configuration management",
+      "vendors": {
+        "Cisco_IOS-XE": {"available": true, "file": "Cisco_IOS-XE_17.15.x.jsonl", "version": "17.15.x"},
+        "Cisco_IOS-XR": {"available": true, "file": "Cisco_IOS-XR_7.10.x.jsonl", "version": "7.10.x"},
+        "Juniper_Junos": {"available": true, "file": "Juniper_Junos_23.x.jsonl", "version": "23.x"},
+        "Fortinet_FortiOS": {"available": true, "file": "Fortinet_FortiOS_7.4.x.jsonl", "version": "7.4.x"},
+        "PaloAlto_PAN-OS": {"available": true, "file": "PaloAlto_PAN-OS_11.1.x.jsonl", "version": "11.1.x"},
+        "Arista_EOS": {"available": true, "file": "Arista_EOS_4.32.x.jsonl", "version": "4.32.x"}
+      }
+    }
+  },
+  "statistics": {
+    "total_records": 108,
+    "topics_fully_available": 15,
+    "topics_partially_available": 3,
+    "vendor_coverage": {
+      "Cisco_IOS-XE": 17,
+      "Cisco_IOS-XR": 18,
+      "Juniper_Junos": 18,
+      "Fortinet_FortiOS": 15,
+      "PaloAlto_PAN-OS": 15,
+      "Arista_EOS": 17
+    }
+  }
+}

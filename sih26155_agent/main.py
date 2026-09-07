@@ -155,6 +155,14 @@ def startup_event():
     else:
         print("[Startup] Operating in high-performance local in-memory mode.")
 
+    try:
+        from vendor_config_kb import vendor_kb
+        vendor_kb.seed_agent_kb(_kb)
+        vendor_kb.seed_agent_kb(_training_kb)
+        print(f"[Startup] Pre-seeded agent knowledge base with {len(vendor_kb.dataset_records)} vendor dataset records.")
+    except Exception as e:
+        print(f"[Startup] Error seeding vendor knowledge base: {e}")
+
 
 # ---------------------------------------------------------------------------
 # Request / Response Schemas
@@ -416,14 +424,16 @@ def auth_switch_audience(req: SwitchAudienceRequest):
 
 @app.get("/api/auth/me")
 def auth_me(username: Optional[str] = None):
-    uname = username.strip().lower() if username else "saifullahpathan49@gmail.com"
+    if not username:
+        return {"authenticated": False}
+    uname = username.strip().lower()
     user = None
     if firebase_service.is_active():
         user = firebase_service.get_user(uname)
         if user:
             _users[uname] = user
     if not user:
-        user = _users.get(uname, _users.get("saifullahpathan49@gmail.com"))
+        user = _users.get(uname)
 
     if not user:
         return {"authenticated": False}
@@ -679,7 +689,7 @@ def _get_target_configs_for_user(username: Optional[str] = None, audience: Optio
     For any other user, return only what they have uploaded (blank initially).
     """
     uname = (username or "").strip().lower()
-    is_prefed_user = uname == "saifullahpathan49@gmail.com" or _users.get(uname, {}).get("has_prefed_configs", False)
+    is_prefed_user = uname == "saifullahpathan49@gmail.com"
 
     if is_prefed_user:
         source = _all_configs
@@ -688,14 +698,11 @@ def _get_target_configs_for_user(username: Optional[str] = None, audience: Optio
         return source
     else:
         # Non-prefed user: only configs they personally uploaded into _user_configs
-        if firebase_service.is_active() and uname not in _user_configs:
+        if firebase_service.is_active() and uname and uname not in _user_configs:
             cloud_configs = firebase_service.get_user_configs(uname)
             if cloud_configs:
                 _user_configs[uname] = {k: v["content"] for k, v in cloud_configs.items()}
-        user_uploaded = _user_configs.get(uname, {})
-        if (audience == "home" or audience == "soho") and not user_uploaded:
-            return {k: v for k, v in _all_configs.items() if k in HOME_CONFIG_NAMES}
-        return user_uploaded
+        return _user_configs.get(uname, {})
 
 
 

@@ -7,59 +7,19 @@ import {
 } from 'lucide-react';
 import api from '../api';
 
-// Pre-seeded Google accounts matching user's exact device profiles & browser state
-const GOOGLE_ACCOUNTS = [
-  {
-    name: 'Saifullah Pathan',
-    email: 'saifullahpathan49@gmail.com',
-    initial: 'S',
-    avatarBg: '#0f766e',
-    color: '#5eead4',
-  },
-  {
-    name: 'saif pathan',
-    email: 'testuseid01@gmail.com',
-    initial: 's',
-    avatarBg: '#4338ca',
-    color: '#a5b4fc',
-  },
-  {
-    name: 'saifullah Pathan',
-    email: 'useforws@gmail.com',
-    initial: 's',
-    avatarBg: '#701a75',
-    color: '#f0abfc',
-  },
-  {
-    name: 'saifullah pathan',
-    email: 'saifullah.pathan24@sanjivani.edu.in',
-    initial: 's',
-    avatarBg: '#3730a3',
-    color: '#c7d2fe',
-  },
-  {
-    name: 'sample text',
-    email: 'stext313@gmail.com',
-    initial: 's',
-    avatarBg: '#c2410c',
-    color: '#fdba74',
-  },
-];
-
 export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }) {
   // Views: 'signin' | 'register' | 'google_popup'
   const [viewMode, setViewMode] = useState('signin');
 
-  // Manual credentials
-  const [username, setUsername] = useState('saifullahpathan49@gmail.com');
-  const [password, setPassword] = useState('Sentry@779969');
+  // Manual credentials — empty by default (no prefilled user credentials)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [role, setRole] = useState('Lead Security Auditor');
   const [organization, setOrganization] = useState('NTRO Cybersecurity Directorate');
   const [audience, setAudience] = useState('enterprise'); // 'enterprise' | 'home'
 
   // Custom Google input
-  const [showCustomEmailInput, setShowCustomEmailInput] = useState(false);
   const [customEmail, setCustomEmail] = useState('');
 
   // Status
@@ -213,86 +173,58 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center text-white shadow-md mb-4">
               <Shield className="w-5 h-5 fill-current" />
             </div>
-            <h3 className="text-2xl font-normal text-slate-900 tracking-tight">
-              Choose an account
+            <h3 className="text-xl font-normal text-slate-900 tracking-tight">
+              Sign in with Google
             </h3>
-            <p className="text-sm text-slate-600 mt-1">
-              to continue to <span className="text-brand-600 font-medium">SIH26155 Auditor</span>
+            <p className="text-xs text-slate-600 mt-1">
+              Enter your Google account email to continue to <span className="text-brand-600 font-medium">SIH26155 Auditor</span>
             </p>
           </div>
 
           {/* Feedback alerts inside Google dialog */}
           {error && (
-            <div className="mx-6 mb-2 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
+            <div className="mx-6 mb-3 p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
               <span>{error}</span>
             </div>
           )}
 
-          {/* Account List */}
-          <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
-            {GOOGLE_ACCOUNTS.map((acc, idx) => (
-              <button
-                key={idx}
-                type="button"
-                disabled={loading}
-                onClick={() => handleSelectGoogleAccount(acc)}
-                className="w-full px-6 py-3 flex items-center gap-3.5 hover:bg-slate-50 transition text-left disabled:opacity-50"
-              >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0 shadow-inner"
-                  style={{ backgroundColor: acc.avatarBg }}
-                >
-                  {acc.initial}
+          {/* Direct Google Account Entry Form */}
+          <div className="px-6 py-4">
+            <form onSubmit={handleCustomEmailSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                  Google Email or Phone:
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+                  <input
+                    type="email"
+                    required
+                    autoFocus
+                    value={customEmail}
+                    onChange={(e) => setCustomEmail(e.target.value)}
+                    placeholder="e.g. yourname@gmail.com"
+                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition"
+                  />
                 </div>
-                <div className="overflow-hidden">
-                  <div className="text-sm font-medium text-slate-900 truncate">
-                    {acc.name}
-                  </div>
-                  <div className="text-xs text-slate-500 truncate">
-                    {acc.email}
-                  </div>
-                </div>
-              </button>
-            ))}
+              </div>
 
-            {/* Custom Account Option */}
-            <div className="px-6 py-3">
-              {!showCustomEmailInput ? (
-                <button
-                  type="button"
-                  onClick={() => setShowCustomEmailInput(true)}
-                  className="w-full flex items-center gap-3.5 text-slate-700 hover:text-slate-900 text-left transition py-1"
-                >
-                  <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 shrink-0">
-                    <UserPlus className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-800">Use another account</span>
-                </button>
-              ) : (
-                <form onSubmit={handleCustomEmailSubmit} className="space-y-2 pt-1">
-                  <div className="text-xs text-slate-600 font-medium">Enter your Google email:</div>
-                  <div className="flex gap-2">
-                    <input
-                      type="email"
-                      required
-                      autoFocus
-                      value={customEmail}
-                      onChange={(e) => setCustomEmail(e.target.value)}
-                      placeholder="name@gmail.com"
-                      className="flex-1 px-3 py-2 text-xs border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
-                    />
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="px-3 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-medium transition"
-                    >
-                      Sign In
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
+              <button
+                type="submit"
+                disabled={loading || !customEmail.trim()}
+                className="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white rounded-xl text-xs font-semibold shadow-md shadow-brand-500/20 transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {loading ? (
+                  <span>Verifying Google Account...</span>
+                ) : (
+                  <>
+                    <span>Continue with Google</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </>
+                )}
+              </button>
+            </form>
           </div>
 
           {/* Footer note */}
@@ -434,7 +366,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. saifullahpathan49@gmail.com"
+                  placeholder="e.g. operator@agency.gov or name@gmail.com"
                   className="w-full bg-[#050811] border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-500"
                 />
               </div>

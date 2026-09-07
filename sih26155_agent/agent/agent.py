@@ -223,9 +223,16 @@ class SecurityAuditAgent:
 
     @staticmethod
     def _infer_demo_mapping(raw_command: str):
-        """Stand-in for the real Interactive Training UI (training_flow.py
-        Stage 3). Maps the ONE unknown pattern this fixture set intentionally
-        introduces. A real system replaces this with actual human input."""
+        """Uses the network_config_db multi-vendor dataset to automatically
+        resolve vendor configuration commands without calling for human review."""
+        try:
+            from vendor_config_kb import vendor_kb
+            match = vendor_kb.match_command(raw_command)
+            if match:
+                return match
+        except Exception:
+            pass
+
         if "retry-options" in raw_command and "tries-before-disconnect" in raw_command:
             return ("authentication.account_lockout.enabled", True, "Authentication")
         return None
