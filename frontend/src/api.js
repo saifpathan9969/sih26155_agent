@@ -1,21 +1,76 @@
 import axios from 'axios';
 
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL ||
-  (typeof window !== 'undefined' && window.location.port !== '5173'
-    ? window.location.origin
-    : 'http://localhost:8000');
+// Resolve Backend API URL with multi-tier fallback:
+// 1. URL Query parameter ?backend=... or ?api=... (instant judge link sharing)
+// 2. localStorage 'ntro_backend_url' (in-app configuration modal)
+// 3. import.meta.env.VITE_API_BASE_URL (standard Vercel environment variable)
+// 4. Local Vite dev server fallback (port 5173 -> localhost:8000)
+// 5. Default window.location.origin
+export function resolveApiBaseUrl() {
+  if (typeof window !== 'undefined') {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const queryBackend = params.get('backend') || params.get('api');
+      if (queryBackend) {
+        const cleanUrl = queryBackend.replace(/\/+$/, '');
+        localStorage.setItem('ntro_backend_url', cleanUrl);
+        return cleanUrl;
+      }
+
+      const saved = localStorage.getItem('ntro_backend_url');
+      if (saved && saved.trim()) {
+        return saved.trim().replace(/\/+$/, '');
+      }
+    } catch (e) {
+      // Ignore in SSR / strict mode
+    }
+  }
+
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && envUrl.trim()) {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+
+  if (typeof window !== 'undefined') {
+    if (window.location.port === '5173') {
+      return 'http://localhost:8000';
+    }
+    return window.location.origin;
+  }
+
+  return 'http://localhost:8000';
+}
 
 const client = axios.create({
-  baseURL: API_BASE,
+  baseURL: resolveApiBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 45000,
+});
+
+// Dynamic interceptor to ensure requests always use current active backend URL
+client.interceptors.request.use((config) => {
+  config.baseURL = resolveApiBaseUrl();
+  return config;
 });
 
 export const api = {
+  // Backend Connection Management
+  getBaseUrl: () => resolveApiBaseUrl(),
+  setBaseUrl: (url) => {
+    if (typeof window !== 'undefined') {
+      if (url && url.trim()) {
+        localStorage.setItem('ntro_backend_url', url.trim().replace(/\/+$/, ''));
+      } else {
+        localStorage.removeItem('ntro_backend_url');
+      }
+    }
+  },
+
   // System Health
   health: () => client.get('/api/health').then(r => r.data),
+
 
   // Authentication
   login: (username, password) =>

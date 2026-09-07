@@ -34,6 +34,8 @@ export default function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [systemHealth, setSystemHealth] = useState('checking');
   const [currentGoal, setCurrentGoal] = useState("Audit all network configurations and identify critical security compliance violations.");
+  const [isBackendModalOpen, setIsBackendModalOpen] = useState(false);
+  const [customBackendUrl, setCustomBackendUrl] = useState(() => api.getBaseUrl());
 
   // Authentication State (Null by default so user logs in, or pre-seeded to requested profile if stored)
   const [currentUser, setCurrentUser] = useState(() => {
@@ -256,15 +258,108 @@ export default function App() {
             </button>
           )}
 
-          {/* System Health */}
-          <div className="flex items-center gap-1.5 font-mono text-xs bg-slate-900 px-2.5 py-1.5 rounded-xl border border-slate-800">
+          {/* System Health / Backend Switcher */}
+          <button
+            type="button"
+            onClick={() => {
+              setCustomBackendUrl(api.getBaseUrl());
+              setIsBackendModalOpen(true);
+            }}
+            className="flex items-center gap-1.5 font-mono text-xs bg-slate-900 hover:bg-slate-800 px-2.5 py-1.5 rounded-xl border border-slate-800 transition cursor-pointer"
+            title="Click to view or update Railway backend connection URL"
+          >
             <span className={`w-2 h-2 rounded-full ${
               systemHealth === 'online' ? 'bg-emerald-400 shadow-sm shadow-emerald-400' : 'bg-rose-400'
             } animate-pulse`} />
-            <span className="text-slate-300 capitalize hidden sm:inline">{systemHealth === 'online' ? 'Live' : 'Offline'}</span>
-          </div>
+            <span className="text-slate-300 capitalize hidden sm:inline">{systemHealth === 'online' ? 'Railway Live' : 'Backend Offline'}</span>
+            <Server className="w-3 h-3 text-slate-500 ml-0.5" />
+          </button>
         </div>
       </header>
+
+      {/* Backend Disconnected Warning Banner (for Vercel deployment) */}
+      {systemHealth === 'offline' && (
+        <div className="bg-amber-950/90 border-b border-amber-500/40 px-4 py-2 text-xs font-mono text-amber-200 flex flex-wrap items-center justify-between gap-2 shadow-md">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 animate-bounce" />
+            <span>
+              Backend Disconnected: pointing to <code className="bg-black/40 px-1.5 py-0.5 rounded text-amber-300 font-bold">{api.getBaseUrl()}</code>
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setCustomBackendUrl(api.getBaseUrl());
+              setIsBackendModalOpen(true);
+            }}
+            className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-200 font-semibold transition text-[11px]"
+          >
+            Connect Railway Backend URL ↗
+          </button>
+        </div>
+      )}
+
+      {/* Backend URL Configuration Modal */}
+      {isBackendModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-[#0c1222] border border-brand-500/40 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <Server className="w-5 h-5 text-brand-400" />
+                <h3 className="font-mono font-bold text-white text-sm">RAILWAY BACKEND CONNECTION</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsBackendModalOpen(false)}
+                className="text-slate-400 hover:text-white p-1"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              When hosting the frontend on <span className="text-white font-bold">Vercel</span>, enter your public Railway service URL below (e.g. <span className="text-brand-300 font-mono">https://web-production-xxxx.up.railway.app</span>).
+            </p>
+            <div>
+              <label className="block text-[11px] font-mono text-slate-400 mb-1">
+                RAILWAY API BASE URL:
+              </label>
+              <input
+                type="url"
+                value={customBackendUrl}
+                onChange={(e) => setCustomBackendUrl(e.target.value)}
+                placeholder="https://sih26155-production.up.railway.app"
+                className="w-full bg-[#050811] border border-slate-700 rounded-xl px-3 py-2.5 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  api.setBaseUrl('');
+                  setCustomBackendUrl(api.getBaseUrl());
+                  loadInitialData();
+                  setIsBackendModalOpen(false);
+                }}
+                className="text-xs text-slate-400 hover:text-slate-200 underline font-mono"
+              >
+                Reset Default
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  api.setBaseUrl(customBackendUrl);
+                  await loadInitialData();
+                  setIsBackendModalOpen(false);
+                }}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-cyan-600 hover:from-brand-500 hover:to-cyan-500 text-white font-mono text-xs font-bold shadow-lg shadow-brand-500/25 transition"
+              >
+                Save & Connect
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Navigation Tab Bar — Hidden when on initial Landing page */}
       {activeTab !== 'landing' && (
