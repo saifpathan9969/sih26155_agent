@@ -83,8 +83,9 @@ export const api = {
     client.post('/api/auth/google', data).then(r => r.data),
   sendOtp: (destination, channel = 'sms') =>
     client.post('/api/auth/otp/send', { destination, channel }).then(r => r.data),
-  verifyOtp: (destination, otp, audience = 'enterprise') =>
-    client.post('/api/auth/otp/verify', { destination, otp, audience }).then(r => r.data),
+  verifyOtp: (destination, otp, password = null, full_name = null, audience = 'enterprise') =>
+    client.post('/api/auth/otp/verify', { destination, otp, password, full_name, audience }).then(r => r.data),
+
   me: (username) =>
     client.get('/api/auth/me', { params: { username } }).then(r => r.data),
 

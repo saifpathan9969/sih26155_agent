@@ -187,9 +187,12 @@ class SendOtpRequest(BaseModel):
 class VerifyOtpRequest(BaseModel):
     destination: str
     otp: str
+    password: Optional[str] = None
+    full_name: Optional[str] = None
     role: Optional[str] = "Lead Security Auditor"
     organization: Optional[str] = "NTRO Cybersecurity Directorate"
     audience: Optional[str] = "enterprise"
+
 
 
 class ConfigUploadRequest(BaseModel):
@@ -511,17 +514,24 @@ def auth_verify_otp(req: VerifyOtpRequest):
     if not user:
         user = _users.get(dest)
 
-    if not user:
+    if user:
+        if req.password:
+            user["password"] = req.password
+        if req.full_name:
+            user["full_name"] = req.full_name
+        if firebase_service.is_active():
+            firebase_service.save_user(user)
+    else:
         user = {
             "username": dest,
             "email": dest if "@" in dest else f"{dest.replace('+', '').replace(' ', '')}@phone.sentry.internal",
-            "password": "",  # passwordless
+            "password": req.password or "",
             "role": req.role or "Lead Security Auditor",
             "organization": req.organization or "NTRO Cybersecurity Directorate",
-            "full_name": f"Operator {dest[-4:]}" if len(dest) >= 4 else f"Operator ({dest})",
+            "full_name": req.full_name or (f"Operator ({dest.split('@')[0]})" if "@" in dest else f"Operator {dest[-4:]}"),
             "audience": req.audience or "enterprise",
             "has_prefed_configs": (dest == "saifullahpathan49@gmail.com"),
-            "auth_provider": "firebase_phone_otp" if "@" not in dest else "firebase_email_otp",
+            "auth_provider": "google_otp" if "@" in dest else "firebase_phone_otp",
         }
         _users[dest] = user
         if dest not in _user_configs and not user["has_prefed_configs"]:
