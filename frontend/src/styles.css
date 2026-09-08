@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Animation Speeds & Standard Curves from ANIMATIONS_DOCUMENTATION.md */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:   250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --shadow-glow-cyan:    0 0 25px rgba(14, 165, 233, 0.35);
+  --shadow-glow-gold:    0 0 25px rgba(234, 179, 8, 0.35);
+  --shadow-glow-purple:  0 0 25px rgba(168, 85, 247, 0.35);
+  --shadow-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.35);
+}
+
 @layer base {
   body {
     @apply bg-[#0b1120] text-slate-100;
@@ -39,60 +53,285 @@
   background: #334155;
 }
 
-/* Radar Sweep Animation */
-@keyframes radar-sweep {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+/* ========================================================
+   ANIMATION ENGINE (FROM ANIMATIONS_DOCUMENTATION.md)
+   ======================================================== */
+
+/* 1. Enter Animation */
+@keyframes enterAnimation {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-enter {
+  animation: enterAnimation var(--transition-smooth) ease-out both;
 }
 
+/* 2. Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn var(--transition-base) ease-out both;
+}
+
+/* 3. Fade In Up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp var(--transition-smooth) ease-out both;
+}
+
+/* 4. Fade In Down */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-down {
+  animation: fadeInDown var(--transition-smooth) ease-out both;
+}
+
+/* 5. Fade Out */
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+.animate-fade-out {
+  animation: fadeOut var(--transition-base) ease-out both;
+}
+
+/* 6. Slide In Left */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-left {
+  animation: slideInLeft var(--transition-smooth) ease-out both;
+}
+
+/* 7. Slide In Right (Toasts / Drawers) */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-right {
+  animation: slideInRight var(--transition-smooth) ease-out both;
+}
+
+/* 8. Scale In */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scaleIn var(--transition-smooth) ease-out both;
+}
+
+/* 9. Scale In Bounce (Hero Logo & Badge Entrance) */
+@keyframes scaleInBounce {
+  0%   { opacity: 0; transform: scale(0) translateY(-60px); }
+  60%  { opacity: 1; transform: scale(1.08) translateY(0); }
+  80%  { transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-scale-bounce {
+  animation: scaleInBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 10. Scroll Reveal */
+@keyframes scrollReveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-scroll-reveal {
+  animation: scrollReveal 0.6s ease-out both;
+}
+
+/* 11. Subtle Pulse */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-subtle {
+  animation: pulseSubtle 2s ease-in-out infinite;
+}
+
+/* 12. Shimmer Effect (Skeleton & Highlights) */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer, .animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(56,189,248,0.12) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+/* 13. Count Up Fade & Lift */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-count-up {
+  animation: countUp 0.5s cubic-bezier(0, 0, 0.2, 1) both;
+}
+
+/* 14. Spin Smooth */
+@keyframes spinSmooth {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-smooth {
+  animation: spinSmooth 1s linear infinite;
+}
+
+/* 15. Ripple Effect on Click */
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.45; }
+  100% { transform: scale(4); opacity: 0; }
+}
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+/* 16. Float (Ambient Floating Orbs & Badges) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-1deg); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-reverse {
+  animation: floatReverse 8s ease-in-out infinite;
+}
+
+/* 17. Gold & Cyber Metallic Shimmer */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.gold-text, .gold-shimmer {
+  background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 25%, #fef08a 50%, #fbbf24 75%, #f59e0b 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 3s linear infinite;
+}
+.cyber-shimmer-text {
+  background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 25%, #a5f3fc 50%, #38bdf8 75%, #0ea5e9 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 3s linear infinite;
+}
+
+/* Radar Sweep Animation */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .animate-radar {
   animation: radar-sweep 2.5s linear infinite;
 }
 
 /* Cyber Scanline */
 @keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(1000%);
-  }
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
 }
-
 .animate-scanline {
   animation: scanline 4s linear infinite;
 }
 
-/* Shimmer Effect */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(56,189,248,0.12) 50%, rgba(255,255,255,0.03) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
-}
-
 /* Pulse Glow */
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(14, 165, 233, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
-  }
+  0%, 100% { box-shadow: 0 0 15px rgba(14, 165, 233, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(14, 165, 233, 0.5); }
 }
-
 .glow-active {
   animation: pulse-glow 2s infinite ease-in-out;
+}
+
+/* ========================================================
+   STAGGER UTILITY DELAY SYSTEM
+   ======================================================== */
+.stagger-1  { animation-delay: 50ms; }
+.stagger-2  { animation-delay: 100ms; }
+.stagger-3  { animation-delay: 150ms; }
+.stagger-4  { animation-delay: 200ms; }
+.stagger-5  { animation-delay: 250ms; }
+.stagger-6  { animation-delay: 300ms; }
+.stagger-7  { animation-delay: 350ms; }
+.stagger-8  { animation-delay: 400ms; }
+.stagger-9  { animation-delay: 450ms; }
+.stagger-10 { animation-delay: 500ms; }
+
+/* ========================================================
+   INTERACTIVE TACTILE DYNAMICS & HOVER ELEVATIONS
+   ======================================================== */
+.interactive-hover-card {
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+.interactive-hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(14, 165, 233, 0.25);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+.interactive-hover-card:hover .card-icon-bounce {
+  transform: scale(1.15) rotate(-3deg);
+  transition: transform var(--transition-spring);
+}
+
+/* Ambient Glowing Background Orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.22;
+}
+.ambient-orb-cyan {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.75) 0%, rgba(14, 165, 233, 0) 70%);
+  animation: float 7s ease-in-out infinite;
+}
+.ambient-orb-purple {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.75) 0%, rgba(168, 85, 247, 0) 70%);
+  animation: floatReverse 9s ease-in-out infinite;
+}
+
+/* Toast Notifications */
+.toast-slide-in {
+  animation: slideInRight var(--transition-smooth) ease-out both;
+}
+.toast-slide-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+/* ========================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ======================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

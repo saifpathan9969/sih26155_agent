@@ -7,6 +7,7 @@ import {
 import MissionTraceLog from './MissionTraceLog';
 import StatusFlipCard from './StatusFlipCard';
 import StatusBadge from './StatusBadge';
+import AnimatedCounter from './AnimatedCounter';
 
 export default function MissionControl({
   onRunMission,
@@ -176,43 +177,53 @@ export default function MissionControl({
 
       {/* Step 2: Device Discovery & Fingerprint Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="glass-panel p-4 rounded-xl border border-slate-800">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-1">
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400 font-mono">TOTAL DEVICES</span>
-            <Server className="w-4 h-4 text-brand-400" />
+            <div className="p-1 rounded-md bg-brand-500/10 card-icon-bounce">
+              <Server className="w-4 h-4 text-brand-400" />
+            </div>
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{fixtures.length}</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">
+            <AnimatedCounter target={fixtures.length} duration={1200} />
+          </div>
           <div className="text-[11px] text-slate-500 mt-0.5">Multi-Vendor Inventory</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-slate-800">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-2">
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400 font-mono">CISCO IOS</span>
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse-subtle" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{ciscoCount}</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">
+            <AnimatedCounter target={ciscoCount} duration={1200} />
+          </div>
           <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={ciscoDevices.map(d => d.filename).join(', ')}>
             {ciscoCount > 0 ? ciscoDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
           </div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-slate-800">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-3">
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400 font-mono">JUNIPER JUNOS</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-subtle" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{juniperCount}</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">
+            <AnimatedCounter target={juniperCount} duration={1200} />
+          </div>
           <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={juniperDevices.map(d => d.filename).join(', ')}>
             {juniperCount > 0 ? juniperDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
           </div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-slate-800">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-4">
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400 font-mono">FORTINET / OTHER</span>
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse-subtle" />
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">{fortinetCount + otherDevices.length}</div>
+          <div className="text-2xl font-bold font-mono text-white mt-1">
+            <AnimatedCounter target={fortinetCount + otherDevices.length} duration={1200} />
+          </div>
           <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={[...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ')}>
             {(fortinetCount + otherDevices.length) > 0 ? [...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ') : '0 configs uploaded'}
           </div>

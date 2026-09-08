@@ -5,6 +5,7 @@ import {
   ExternalLink, ArrowRight, RefreshCw, Lock, Radio, Cpu, Wrench
 } from 'lucide-react';
 import api from '../api';
+import AnimatedCounter from './AnimatedCounter';
 
 export default function HomeSecurityHub({ fixtures = [], onOpenUploadModal }) {
   const [data, setData] = useState(null);
@@ -123,35 +124,41 @@ export default function HomeSecurityHub({ fixtures = [], onOpenUploadModal }) {
         )}
       </div>
 
-      {/* Quick Summary Cards */}
+      {/* Quick Summary Cards with AnimatedCounter and Hover Bounce */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between interactive-hover-card animate-fade-in-up stagger-1">
           <div>
             <div className="text-slate-400 text-[11px]">AUDITED HOME FLEET</div>
-            <div className="text-white font-bold text-sm mt-0.5">{fixtures.length} SOHO Device{fixtures.length === 1 ? '' : 's'}</div>
+            <div className="text-white font-bold text-sm mt-0.5">
+              <AnimatedCounter target={fixtures.length} duration={1200} /> SOHO Device{fixtures.length === 1 ? '' : 's'}
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-slate-800/80 flex items-center justify-center text-brand-400">
+          <div className="w-10 h-10 rounded-xl bg-slate-800/80 flex items-center justify-center text-brand-400 card-icon-bounce">
             <Wifi className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/10 flex items-center justify-between">
+        <div className="glass-panel p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/10 flex items-center justify-between interactive-hover-card animate-fade-in-up stagger-2">
           <div>
             <div className="text-emerald-400 text-[11px]">SECURE CHECKS</div>
-            <div className="text-emerald-300 font-bold text-lg mt-0.5">{passCount} PASS</div>
+            <div className="text-emerald-300 font-bold text-lg mt-0.5">
+              <AnimatedCounter target={passCount} duration={1200} suffix=" PASS" />
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-950/60 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <div className="w-10 h-10 rounded-xl bg-emerald-950/60 border border-emerald-500/30 flex items-center justify-center text-emerald-400 card-icon-bounce">
             <CheckCircle2 className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-rose-500/20 bg-rose-950/10 flex items-center justify-between">
+        <div className="glass-panel p-4 rounded-xl border border-rose-500/20 bg-rose-950/10 flex items-center justify-between interactive-hover-card animate-fade-in-up stagger-3">
           <div>
             <div className="text-rose-400 text-[11px]">ACTION REQUIRED</div>
-            <div className="text-rose-300 font-bold text-lg mt-0.5">{failCount} VULNERABLE</div>
+            <div className="text-rose-300 font-bold text-lg mt-0.5">
+              <AnimatedCounter target={failCount} duration={1200} suffix=" VULNERABLE" />
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-rose-950/60 border border-rose-500/30 flex items-center justify-center text-rose-400">
-            <AlertTriangle className="w-5 h-5" />
+          <div className="w-10 h-10 rounded-xl bg-rose-950/60 border border-rose-500/30 flex items-center justify-center text-rose-400 card-icon-bounce">
+            <AlertTriangle className="w-5 h-5 animate-bounce" />
           </div>
         </div>
       </div>

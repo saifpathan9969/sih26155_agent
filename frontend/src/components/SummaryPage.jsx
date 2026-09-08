@@ -6,6 +6,7 @@ import {
   Copy, Check, ArrowRight, Activity, HelpCircle, Layers
 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import AnimatedCounter from './AnimatedCounter';
 
 export default function SummaryPage({
   missionResult,
@@ -102,40 +103,41 @@ export default function SummaryPage({
       </div>
 
       {/* KPI Cards */}
+      {/* 5 Key Metric Cards with AnimatedCounter and Staggered Hover Physics */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-        <div className="glass-panel p-4 rounded-xl border border-slate-800">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-1">
           <div className="text-xs text-slate-400 font-mono">AUDITED DEVICES</div>
           <div className="text-2xl font-bold font-mono text-white mt-1">
-            {auditedDevices.length || fixtures.length}
+            <AnimatedCounter target={auditedDevices.length || fixtures.length} duration={1200} />
           </div>
           <div className="text-[11px] text-slate-500 mt-0.5">Heterogeneous Nodes</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/10">
+        <div className="glass-panel p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/10 interactive-hover-card animate-fade-in-up stagger-2">
           <div className="text-xs text-emerald-400 font-mono">COMPLIANCE RATE</div>
           <div className="text-2xl font-bold font-mono text-emerald-300 mt-1">
-            {complianceRate}%
+            <AnimatedCounter target={complianceRate} duration={1200} suffix="%" />
           </div>
           <div className="text-[11px] text-emerald-500/80 mt-0.5">{passCount} Deterministic Pass</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-rose-500/30 bg-rose-950/10">
+        <div className="glass-panel p-4 rounded-xl border border-rose-500/30 bg-rose-950/10 interactive-hover-card animate-fade-in-up stagger-3">
           <div className="text-xs text-rose-400 font-mono">SECURITY VIOLATIONS</div>
           <div className="text-2xl font-bold font-mono text-rose-300 mt-1">
-            {failCount}
+            <AnimatedCounter target={failCount} duration={1200} />
           </div>
           <div className="text-[11px] text-rose-500/80 mt-0.5">Immediate Remediation</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-amber-500/30 bg-amber-950/10">
+        <div className="glass-panel p-4 rounded-xl border border-amber-500/30 bg-amber-950/10 interactive-hover-card animate-fade-in-up stagger-4">
           <div className="text-xs text-amber-400 font-mono">HUMAN REVIEWS</div>
           <div className="text-2xl font-bold font-mono text-amber-300 mt-1">
-            {needsReviewCount}
+            <AnimatedCounter target={needsReviewCount} duration={1200} />
           </div>
           <div className="text-[11px] text-amber-500/80 mt-0.5">Clickable & Actionable</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-brand-500/30 bg-brand-950/10">
+        <div className="glass-panel p-4 rounded-xl border border-brand-500/30 bg-brand-950/10 interactive-hover-card animate-fade-in-up stagger-5">
           <div className="text-xs text-brand-400 font-mono">BLOCKCHAIN SEAL</div>
           <div className="text-2xl font-bold font-mono text-brand-300 mt-1">
             #{missionResult?.blockchain_block_index ?? 'Live'}

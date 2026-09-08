@@ -190,7 +190,11 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col font-sans relative overflow-x-hidden">
+      {/* Master Ambient Glowing Background Orbs (From ANIMATIONS_DOCUMENTATION.md) */}
+      <div className="ambient-orb ambient-orb-cyan w-[500px] h-[500px] top-10 -left-20 fixed pointer-events-none opacity-20 -z-10" />
+      <div className="ambient-orb ambient-orb-purple w-[600px] h-[600px] bottom-10 -right-20 fixed pointer-events-none opacity-15 -z-10" />
+
       {/* Global High-Tech Cyber Mission Loading Overlay */}
       <CyberLoadingOverlay isVisible={isRunning} goal={currentGoal} />
 
@@ -231,14 +235,14 @@ export default function App() {
         <div className="flex items-center gap-3">
           <div
             onClick={() => setActiveTab('landing')}
-            className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 cursor-pointer card-icon-bounce animate-scale-bounce"
             title="Return to Get Started landing"
           >
             <Shield className="w-5 h-5 fill-current" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-sm font-extrabold text-white tracking-wider cursor-pointer" onClick={() => setActiveTab('landing')}>
+              <span className="font-mono text-sm font-extrabold text-white tracking-wider cursor-pointer cyber-shimmer-text" onClick={() => setActiveTab('landing')}>
                 SIH26155
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-950 text-brand-300 font-mono border border-brand-500/30">
@@ -422,7 +426,7 @@ export default function App() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all relative ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all relative interactive-hover-card ${
                     isActive
                       ? 'text-white bg-brand-600/90 shadow-md shadow-brand-500/20 font-bold'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
