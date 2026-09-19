@@ -1919,6 +1919,66 @@ def tamper_report(req: TamperRequest):
     return result
 
 
+from fastapi.responses import FileResponse
+
+@app.get("/api/report/pdf")
+@app.post("/api/report/pdf")
+def get_pdf_report(username: Optional[str] = None):
+    """
+    Generates and returns the Government of India & GAACA Approved
+    Network Security & Configuration Compliance Audit Report PDF.
+    """
+    from report_to_pdf import build_pdf, parse_report
+
+    report_text = _current_report
+    if not report_text:
+        target_configs = _get_target_configs_for_user(username=username)
+        if target_configs:
+            agent = SecurityAuditAgent(kb=_kb)
+            state = agent.run_mission("Audit all network configurations and identify critical security compliance violations.", target_configs, trace=False)
+            report_text = state.final_report or ""
+
+    parsed = parse_report(report_text or "")
+    out_pdf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "compliance_audit_report_2026-09-19.pdf")
+    build_pdf(parsed, out_pdf)
+
+    return FileResponse(
+        out_pdf,
+        media_type="application/pdf",
+        filename="compliance_audit_report_2026-09-19.pdf",
+        headers={
+            "Content-Disposition": "attachment; filename=compliance_audit_report_2026-09-19.pdf",
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+@app.get("/api/report/pdf/view")
+def view_pdf_report(username: Optional[str] = None):
+    """
+    Inline view of the Government of India & GAACA Compliance Audit Report PDF.
+    """
+    from report_to_pdf import build_pdf, parse_report
+
+    report_text = _current_report
+    if not report_text:
+        target_configs = _get_target_configs_for_user(username=username)
+        if target_configs:
+            agent = SecurityAuditAgent(kb=_kb)
+            state = agent.run_mission("Audit all network configurations.", target_configs, trace=False)
+            report_text = state.final_report or ""
+
+    parsed = parse_report(report_text or "")
+    out_pdf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "compliance_audit_report_2026-09-19.pdf")
+    build_pdf(parsed, out_pdf)
+
+    return FileResponse(
+        out_pdf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "inline; filename=compliance_audit_report_2026-09-19.pdf"}
+    )
+
+
 # ---------------------------------------------------------------------------
 # Serve Production Built React Frontend (for Render & Unified Deployment)
 # ---------------------------------------------------------------------------

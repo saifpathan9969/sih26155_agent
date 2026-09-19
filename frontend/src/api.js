@@ -177,6 +177,11 @@ export const api = {
     client.get('/api/report/current', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
   tamperReport: (target_rule = 'CIS-MGMT-01', fake_status = 'PASS') =>
     client.post('/api/report/tamper', { target_rule, fake_status }).then(r => r.data),
+  downloadPdfReportUrl: (username = null) => {
+    const base = resolveApiBaseUrl();
+    const q = username ? `?username=${encodeURIComponent(username)}` : '';
+    return `${base}/api/report/pdf${q}`;
+  },
 };
 
 export default api;

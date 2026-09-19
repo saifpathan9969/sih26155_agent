@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 import AnimatedCounter from './AnimatedCounter';
+import api from '../api';
 
 export default function SummaryPage({
   missionResult,
@@ -40,6 +41,16 @@ export default function SummaryPage({
   });
 
   const complianceRate = totalChecks > 0 ? Math.round((passCount / totalChecks) * 100) : 0;
+
+  const handleDownloadPdf = () => {
+    let uname = null;
+    try {
+      const u = JSON.parse(localStorage.getItem('ntro_user') || '{}');
+      uname = u.username || u.email || null;
+    } catch (e) {}
+    const url = api.downloadPdfReportUrl(uname);
+    window.open(url, '_blank');
+  };
 
   const handleCopyReport = () => {
     if (missionResult?.report) {
@@ -82,6 +93,14 @@ export default function SummaryPage({
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={handleDownloadPdf}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-mono font-bold flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/25 border border-emerald-400/40 active:scale-95 cursor-pointer"
+              title="Download Government of India Approved Compliance Audit Report (PDF)"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Download Audit Report (PDF)</span>
+            </button>
             <button
               onClick={handleCopyReport}
               disabled={!missionResult?.report}
@@ -350,6 +369,14 @@ export default function SummaryPage({
               CERTIFIED EXECUTIVE AUDIT REPORT (PREVIEW)
             </span>
             <div className="flex gap-2">
+              <button
+                onClick={handleDownloadPdf}
+                className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-mono text-white font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+                title="Download Government of India Approved Compliance Audit Report (PDF)"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Download PDF</span>
+              </button>
               <button
                 onClick={handleCopyReport}
                 className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-mono text-slate-300 border border-slate-700 flex items-center gap-1"

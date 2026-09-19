@@ -29,6 +29,16 @@ export default function ReportTamperView() {
     }
   };
 
+  const handleDownloadPdf = () => {
+    let uname = null;
+    try {
+      const u = JSON.parse(localStorage.getItem('ntro_user') || '{}');
+      uname = u.username || u.email || null;
+    } catch (e) {}
+    const url = api.downloadPdfReportUrl(uname);
+    window.open(url, '_blank');
+  };
+
   useEffect(() => {
     fetchReport();
   }, []);
@@ -67,6 +77,15 @@ export default function ReportTamperView() {
         </div>
 
         <div className="flex items-center gap-2 self-start md:self-auto">
+          <button
+            onClick={handleDownloadPdf}
+            className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-mono font-bold flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/25 border border-emerald-400/30 cursor-pointer active:scale-95"
+            title="Download Government of India Approved Compliance Audit Report (PDF)"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Download PDF Report</span>
+          </button>
+
           <button
             onClick={fetchReport}
             className="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono hover:text-white flex items-center gap-1.5"
