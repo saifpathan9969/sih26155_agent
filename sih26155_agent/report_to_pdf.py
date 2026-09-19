@@ -80,7 +80,7 @@ class GAACAAuditCanvas(canvas.Canvas):
 
         self.setFont("Helvetica-Bold", 7.5)
         self.setFillColor(PRIMARY_NAVY)
-        self.drawString(45.35, 814.96, "GAACA")
+        self.drawString(45.35, 814.96, "VigilNet")
 
         self.setFont("Helvetica", 7)
         self.setFillColor(TEXT_MUTED)
@@ -288,19 +288,19 @@ def build_pdf(data: dict, out_path: str):
     # PAGE 1: TITLE BLOCK & METADATA
     # =========================================================================
     story.append(Spacer(1, 20))
-    story.append(Paragraph("GAACA", styles["CoverMainTitle"]))
-    story.append(Paragraph("GENERAL AUTONOMOUS AGENT COGNITIVE ARCHITECTURE", styles["CoverSubTitle"]))
+    story.append(Paragraph("VigilNet", styles["CoverMainTitle"]))
+    story.append(Paragraph("AUTONOMOUS NETWORK SECURITY &amp; CONFIGURATION COMPLIANCE SYSTEM", styles["CoverSubTitle"]))
     story.append(Spacer(1, 10))
     story.append(Paragraph("NETWORK SECURITY &amp; CONFIGURATION<br/>COMPLIANCE AUDIT REPORT", styles["CoverReportName"]))
     story.append(Spacer(1, 15))
 
     today_str = datetime.now().strftime("%d-%b-%Y").upper()
     meta_rows = [
-        ["Report ID", "GAACA-NET-AUDIT-2026-09-19"],
+        ["Report ID", "VIGILNET-NET-AUDIT-2026-09-19"],
         ["Assessment Type", "Multi-Vendor Network Configuration Security Audit"],
         ["Assessment Status", "FINAL"],
         ["Assessment Period", f"{today_str} to {today_str}"],
-        ["Prepared By", "GAACA Autonomous Agent"],
+        ["Prepared By", "VigilNet Autonomous Agent"],
         ["Review Authority", "Human Security Reviewer"],
         ["Classification", "CONFIDENTIAL"],
     ]
@@ -516,7 +516,7 @@ def build_pdf(data: dict, out_path: str):
     ))
     gov_rows = [
         ["Role", "Name", "Organization", "Date", "Signature / Approval"],
-        ["System / Agent", "GAACA Autonomous Agent", "Cyber Security Audit Center", today_str, "Automated trace (SHA256 verified)"],
+        ["System / Agent", "VigilNet Autonomous Agent", "Cyber Security Audit Center", today_str, "Automated trace (SHA256 verified)"],
         ["Security Analyst", "Auditor / Reviewer", "Cyber Security Audit Center", today_str, "Reviewed & Validated"],
         ["Review Authority", "Chief Information Security Officer", "Approving Authority", today_str, "Approved"],
     ]
@@ -565,8 +565,8 @@ def build_pdf(data: dict, out_path: str):
         rightMargin=70.87,
         topMargin=42.0,
         bottomMargin=42.0,
-        title="GAACA Network Security & Configuration Compliance Audit Report Template",
-        author="GAACA Autonomous Agent",
+        title="VigilNet Network Security & Configuration Compliance Audit Report",
+        author="VigilNet Autonomous Agent",
     )
     doc.build(story, canvasmaker=GAACAAuditCanvas)
 
