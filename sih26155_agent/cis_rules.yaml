@@ -1,0 +1,742 @@
+---
+# CIS-Subset Compliance Rules — SIH26155
+# ==========================================
+# 20 checks, deliberately weighted toward management-plane hardening for the
+# demo:
+#   8  management-plane hardening   (SSH, Telnet, HTTP/HTTPS, SNMP, admin access)
+#   4  authentication / access-control
+#   3  logging / auditing
+#   3  cryptographic / security-service
+#   2  ACL / network hardening
+#
+# IMPORTANT — VERIFICATION NOTICE
+# --------------------------------
+# CIS Benchmarks are licensed, versioned documents (per-vendor, per-release).
+# The `references.control_id` fields below are left as `null` / "VERIFY"
+# placeholders rather than invented control numbers, because control numbering
+# changes between benchmark versions and I have not cross-checked each one
+# against a specific licensed PDF revision. Before submission, pull the exact
+# control IDs from the actual benchmark documents you have access to (CIS
+# publishes a free PDF per benchmark after a no-cost account signup at
+# cisecurity.org) and fill in `control_id` + `benchmark_version`.
+#
+# The remediation *commands* below are standard, publicly documented vendor
+# CLI syntax (Cisco IOS, Junos, FortiOS, PAN-OS command references) — not
+# quoted CIS document text — so they're safe to ship, but still validate them
+# against your actual lab devices/firmware versions before the demo.
+#
+# RULE OUTCOME MODEL (enforced by rule_engine.py, not by this file)
+# -------------------------------------------------------------------
+# This YAML NEVER states PASS/FAIL directly. It only supplies:
+#   - which field to look at (baseline_field_path)
+#   - what "compliant" looks like (evaluation.operator / expected)
+#   - how much evidence quality is required (evidence.*)
+# The engine combines this with EvidenceField.explicitly_configured and
+# EvidenceField.interpretation.confidence to produce one of:
+#   PASS | FAIL | NEEDS_HUMAN_REVIEW | NOT_APPLICABLE
+# per the table:
+#   explicit + high-confidence + matches expected      -> PASS
+#   explicit + high-confidence + does not match         -> FAIL
+#   not explicit + known insecure default (this vendor) -> FAIL
+#   not explicit + default unknown                      -> NEEDS_HUMAN_REVIEW
+#   confidence below evidence.minimum_confidence         -> NEEDS_HUMAN_REVIEW
+
+schema_version: "1.0.0"
+default_minimum_confidence: 0.75
+
+rules:
+
+  # ============================================================
+  # MANAGEMENT PLANE (8)
+  # ============================================================
+
+  - id: CIS-MGMT-01
+    title: Telnet management access disabled
+    framework: cis
+    baseline_field_path: management.telnet.enabled
+    description: >
+      Telnet transmits credentials and session data in cleartext. Remote
+      administrative access must not be available over Telnet.
+    severity: critical
+    evaluation:
+      operator: equals
+      expected: disabled
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: true
+      huawei_vrp: true
+    remediation:
+      cisco_ios:
+        command: "line vty 0 4\n transport input ssh"
+        rationale: "Restricts VTY lines to SSH only, removing Telnet as an accepted transport."
+      juniper_junos:
+        command: "delete system services telnet"
+        rationale: "Removes the Telnet service definition entirely."
+      fortinet_fortios:
+        command: "config system global\n set admin-telnet disable\nend"
+        rationale: "Disables the Telnet administrative service globally."
+      palo_alto_panos:
+        command: "set deviceconfig system service disable-telnet yes"
+        rationale: "Disables the Telnet management service on the mgmt interface."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-02
+    title: SSH used for remote management with protocol version 2
+    framework: cis
+    baseline_field_path: management.ssh.protocol_version
+    description: >
+      SSHv1 has known cryptographic weaknesses. Only SSH protocol version 2
+      should be accepted for administrative access.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: 2
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "ip ssh version 2"
+        rationale: "Forces the SSH daemon to negotiate protocol version 2 only."
+      juniper_junos:
+        command: "set system services ssh protocol-version v2"
+        rationale: "Restricts the SSH service to protocol version 2."
+      fortinet_fortios:
+        command: "config system global\n set admin-ssh-v1 disable\nend"
+        rationale: "Disables SSHv1 fallback support."
+      palo_alto_panos:
+        command: "set deviceconfig system ssh session force-v2 yes"
+        rationale: "Forces SSHv2-only sessions on the management interface."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-03
+    title: HTTP management interface disabled
+    framework: cis
+    baseline_field_path: management.http.enabled
+    description: >
+      Unencrypted HTTP administrative access exposes credentials and session
+      tokens to network interception.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: disabled
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: false
+    remediation:
+      cisco_ios:
+        command: "no ip http server"
+        rationale: "Disables the unencrypted HTTP management listener."
+      juniper_junos:
+        command: "delete system services web-management http"
+        rationale: "Removes the HTTP web-management service."
+      fortinet_fortios:
+        command: "config system global\n set admin-http-redirect enable\nend"
+        rationale: "Forces redirection from HTTP to HTTPS; combine with disabling HTTP where supported."
+      palo_alto_panos:
+        command: "set deviceconfig system service disable-http yes"
+        rationale: "Disables the plaintext HTTP management service."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-04
+    title: HTTPS management interface enabled with hardened TLS
+    framework: cis
+    baseline_field_path: management.https.enabled
+    description: >
+      Administrative web access, where used, must occur over HTTPS rather
+      than being unavailable/misconfigured, so it can be assessed for TLS
+      strength under CIS-MGMT-16.
+    severity: medium
+    evaluation:
+      operator: equals
+      expected: enabled
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: false
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "ip http secure-server"
+        rationale: "Enables the HTTPS management listener."
+      juniper_junos:
+        command: "set system services web-management https"
+        rationale: "Enables HTTPS for the web-management service."
+      fortinet_fortios:
+        command: "config system global\n set admin-sport 443\nend"
+        rationale: "Confirms the administrative HTTPS port is active."
+      palo_alto_panos:
+        command: "set deviceconfig system service disable-https no"
+        rationale: "Ensures HTTPS management access remains enabled."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-05
+    title: SNMP not using default/well-known community strings
+    framework: cis
+    baseline_field_path: management.snmp.community_strings_default
+    description: >
+      Default community strings such as "public"/"private" are widely known
+      and allow unauthorized read/write access to device management data.
+    severity: critical
+    evaluation:
+      operator: equals
+      expected: false
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: true
+    remediation:
+      cisco_ios:
+        command: "no snmp-server community public\nno snmp-server community private"
+        rationale: "Removes default community strings; replace with a unique, access-list-restricted string or migrate to SNMPv3."
+      juniper_junos:
+        command: "delete snmp community public"
+        rationale: "Removes the default community string."
+      fortinet_fortios:
+        command: "config system snmp community\n edit 1\n set name <unique-string>\n next\nend"
+        rationale: "Replaces default community naming with an organization-specific value."
+      palo_alto_panos:
+        command: "delete network snmp community public"
+        rationale: "Removes the default SNMP community configuration."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-06
+    title: SNMPv1/v2c disabled in favor of SNMPv3
+    framework: cis
+    baseline_field_path: management.snmp.version
+    description: >
+      SNMPv1/v2c transmit community strings in cleartext and lack per-user
+      authentication. SNMPv3 with authPriv should be used where SNMP is
+      required at all.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: "3"
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "snmp-server group ADMINGROUP v3 priv\nsnmp-server user admin ADMINGROUP v3 auth sha <auth-pass> priv aes 128 <priv-pass>"
+        rationale: "Configures an SNMPv3 group/user with authentication and privacy (encryption)."
+      juniper_junos:
+        command: "set snmp v3 usm local-engine user <username> authentication-sha authentication-password <pass> privacy-aes128 privacy-password <pass>"
+        rationale: "Defines an SNMPv3 user with SHA auth and AES128 privacy."
+      fortinet_fortios:
+        command: "config system snmp user\n edit <username>\n set security-level auth-priv\n set auth-proto sha256\n set priv-proto aes128\n next\nend"
+        rationale: "Creates an SNMPv3 user requiring authentication and encryption."
+      palo_alto_panos:
+        command: "set network snmp v3 users <username> auth-password <pass> priv-password <pass>"
+        rationale: "Configures SNMPv3 credentials for the device."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-07
+    title: Administrative session idle timeout configured
+    framework: cis
+    baseline_field_path: management.ssh.idle_timeout_seconds
+    description: >
+      Idle administrative sessions left open increase the window for session
+      hijacking or unauthorized use of an unattended terminal.
+    severity: medium
+    evaluation:
+      operator: less_than_or_equal
+      expected: 600
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "line vty 0 4\n exec-timeout 10 0"
+        rationale: "Sets a 10-minute idle timeout on administrative VTY sessions."
+      juniper_junos:
+        command: "set system login idle-timeout 10"
+        rationale: "Sets a 10-minute idle timeout for CLI sessions."
+      fortinet_fortios:
+        command: "config system global\n set admintimeout 10\nend"
+        rationale: "Sets administrator session idle timeout to 10 minutes."
+      palo_alto_panos:
+        command: "set deviceconfig system idle-timeout 10"
+        rationale: "Sets management session idle timeout to 10 minutes."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-MGMT-08
+    title: Administrative management access restricted to specific hosts
+    framework: cis
+    baseline_field_path: access_control.management_access.restricted_to_specific_hosts
+    description: >
+      Management interfaces (SSH/HTTPS/SNMP) should only accept connections
+      from a defined set of administrative source addresses, not from any
+      host on any network.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: false
+    remediation:
+      cisco_ios:
+        command: "access-list 10 permit <mgmt-subnet>\nline vty 0 4\n access-class 10 in"
+        rationale: "Restricts VTY (SSH) access to an approved management subnet."
+      juniper_junos:
+        command: "set system services ssh connection-limit 5\nset firewall filter MGMT-ACCESS term allow-mgmt from source-address <mgmt-subnet>"
+        rationale: "Applies a firewall filter limiting management-plane access to approved sources."
+      fortinet_fortios:
+        command: "config system interface\n edit <mgmt-intf>\n set trusthost1 <mgmt-subnet>\n next\nend"
+        rationale: "Restricts administrative access to a trusted host/subnet."
+      palo_alto_panos:
+        command: "set deviceconfig system permitted-ip <mgmt-subnet>"
+        rationale: "Restricts management interface access to a permitted IP range."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  # ============================================================
+  # AUTHENTICATION / ACCESS CONTROL (4)
+  # ============================================================
+
+  - id: CIS-AUTH-01
+    title: Password encryption enabled for locally stored credentials
+    framework: cis
+    baseline_field_path: authentication.password_policy.encryption_enabled
+    description: >
+      Locally stored passwords/secrets must be encrypted in the running/
+      startup configuration rather than stored or displayed in plaintext.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: false
+    remediation:
+      cisco_ios:
+        command: "service password-encryption"
+        rationale: "Applies reversible (type 7) encryption to plaintext passwords in the config; use 'secret'/type-8-9 hashes for privileged passwords where possible."
+      juniper_junos:
+        command: "set system login user <user> authentication encrypted-password <hash>"
+        rationale: "Junos stores authentication as hashed values by design when configured via encrypted-password."
+      fortinet_fortios:
+        command: "config system admin\n edit <user>\n set password <encrypted-by-default>\n next\nend"
+        rationale: "FortiOS stores admin passwords hashed by default; verify no plaintext override is present."
+      palo_alto_panos:
+        command: "set mgt-config password-complexity enabled yes"
+        rationale: "Enables password complexity/storage hardening for local accounts."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-AUTH-02
+    title: Minimum password length enforced
+    framework: cis
+    baseline_field_path: authentication.password_policy.min_length
+    description: >
+      A minimum password length reduces susceptibility to brute-force and
+      dictionary attacks against local administrative accounts.
+    severity: medium
+    evaluation:
+      operator: greater_than_or_equal
+      expected: 14
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "security passwords min-length 14"
+        rationale: "Enforces a 14-character minimum for locally configured passwords."
+      juniper_junos:
+        command: "set system login password minimum-length 14"
+        rationale: "Sets minimum password length policy for local users."
+      fortinet_fortios:
+        command: "config system password-policy\n set minimum-length 14\nend"
+        rationale: "Applies a global minimum password length policy."
+      palo_alto_panos:
+        command: "set mgt-config password-complexity minimum-length 14"
+        rationale: "Sets minimum password length for administrative accounts."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-AUTH-03
+    title: Account lockout enabled after repeated failed login attempts
+    framework: cis
+    baseline_field_path: authentication.account_lockout.enabled
+    description: >
+      Locking accounts after repeated failed authentication attempts
+      mitigates online brute-force attacks against administrative logins.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "login block-for 900 attempts 5 within 600"
+        rationale: "Blocks login attempts for 15 minutes after 5 failures within a 10-minute window."
+      juniper_junos:
+        command: "set system login retry-options tries-before-disconnect 5 lockout-period 15"
+        rationale: "Locks the account for 15 minutes after 5 failed attempts."
+      fortinet_fortios:
+        command: "config system global\n set admin-lockout-threshold 5\n set admin-lockout-duration 900\nend"
+        rationale: "Locks administrative accounts for 15 minutes after 5 failed attempts."
+      palo_alto_panos:
+        command: "set mgt-config password-complexity block-username-inclusion yes\nset mgt-config password-complexity lockout-time 15"
+        rationale: "Applies account lockout duration policy for administrative accounts."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-AUTH-04
+    title: Distinct administrative privilege levels defined
+    framework: cis
+    baseline_field_path: authentication.privilege_levels_defined
+    description: >
+      Administrative accounts should map to distinct, least-privilege roles
+      rather than all users sharing a single top-level privileged account.
+    severity: medium
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "privilege exec level 5 show running-config\nusername opuser privilege 5 secret <pass>"
+        rationale: "Defines a reduced-privilege role instead of granting level-15 access broadly."
+      juniper_junos:
+        command: "set system login class operator permissions [view configure-basic]"
+        rationale: "Creates a scoped login class rather than granting full super-user permissions."
+      fortinet_fortios:
+        command: "config system accprofile\n edit \"readonly-admin\"\n set sysgrp read\n next\nend"
+        rationale: "Creates a limited access profile distinct from the default super_admin profile."
+      palo_alto_panos:
+        command: "set mgt-config users <user> permissions role-based custom-role <role>"
+        rationale: "Assigns a custom, scoped administrative role rather than superuser access."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  # ============================================================
+  # LOGGING / AUDITING (3)
+  # ============================================================
+
+  - id: CIS-LOG-01
+    title: Remote syslog logging enabled and configured
+    framework: cis
+    baseline_field_path: logging.syslog.enabled
+    description: >
+      Security events must be logged to a remote syslog server so records
+      survive local device compromise or reboot.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults:
+      cisco_ios: false
+    remediation:
+      cisco_ios:
+        command: "logging host <syslog-server-ip>\nlogging trap informational"
+        rationale: "Forwards informational-and-above log events to a remote syslog collector."
+      juniper_junos:
+        command: "set system syslog host <syslog-server-ip> any notice"
+        rationale: "Sends notice-and-above severity events to a remote syslog host."
+      fortinet_fortios:
+        command: "config log syslogd setting\n set status enable\n set server <syslog-server-ip>\nend"
+        rationale: "Enables remote syslog forwarding."
+      palo_alto_panos:
+        command: "set shared log-settings syslog <profile-name> server <server-name> server <syslog-server-ip>"
+        rationale: "Configures a syslog server profile for log forwarding."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-LOG-02
+    title: Local logging buffer sized adequately
+    framework: cis
+    baseline_field_path: logging.syslog.buffer_size
+    description: >
+      An undersized local log buffer causes rapid log rotation/loss, making
+      incident investigation difficult if the remote syslog path is
+      unavailable.
+    severity: low
+    evaluation:
+      operator: greater_than_or_equal
+      expected: 16384
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "logging buffered 65536"
+        rationale: "Increases the local logging buffer to 64KB to retain more events between rotations."
+      juniper_junos:
+        command: "set system syslog file messages archive size 1m"
+        rationale: "Sets local log file rotation size for archived syslog messages."
+      fortinet_fortios:
+        command: "config log memory setting\n set diskfull overwrite\nend"
+        rationale: "Ensures local log memory handling does not silently drop new events."
+      palo_alto_panos:
+        command: "set shared log-settings system size 4096"
+        rationale: "Sets local system log storage allocation."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-LOG-03
+    title: Administrative/configuration-change events logged
+    framework: cis
+    baseline_field_path: logging.administrative_events.config_change_events_logged
+    description: >
+      Configuration changes made by administrators must be individually
+      logged for accountability and forensic reconstruction.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "archive\n log config\n logging enable\n logging size 200"
+        rationale: "Enables the configuration change logger, recording who changed what and when."
+      juniper_junos:
+        command: "set system syslog file change-log change-log any"
+        rationale: "Logs configuration change events to a dedicated file."
+      fortinet_fortios:
+        command: "config log setting\n set log-user-in-upper enable\nend"
+        rationale: "Ensures administrative/config events are captured in the event log."
+      palo_alto_panos:
+        command: "set shared log-settings config"
+        rationale: "Enables configuration log forwarding for administrative change tracking."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  # ============================================================
+  # CRYPTOGRAPHIC / SECURITY SERVICE (3)
+  # ============================================================
+
+  - id: CIS-CRYPTO-01
+    title: Weak SSH ciphers disabled
+    framework: cis
+    baseline_field_path: cryptography.ssh_ciphers_hardened
+    description: >
+      Legacy ciphers (e.g. DES, 3DES, RC4) must be excluded from the SSH
+      cipher suite offered by the device.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.7
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "ip ssh server algorithm encryption aes256-ctr aes192-ctr aes128-ctr"
+        rationale: "Restricts SSH server ciphers to AES-CTR variants, excluding legacy DES/3DES/RC4."
+      juniper_junos:
+        command: "set system services ssh ciphers aes256-ctr\nset system services ssh ciphers aes128-ctr"
+        rationale: "Restricts the SSH cipher list to modern AES-CTR ciphers."
+      fortinet_fortios:
+        command: "config system global\n set ssh-enc-algo aes256-ctr aes128-ctr\nend"
+        rationale: "Limits SSH encryption algorithms to strong AES-CTR options."
+      palo_alto_panos:
+        command: "set deviceconfig system ssh-ciphers aes256-ctr"
+        rationale: "Restricts SSH cipher negotiation to strong ciphers only."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-CRYPTO-02
+    title: Minimum TLS version enforced for HTTPS management
+    framework: cis
+    baseline_field_path: cryptography.tls.min_version
+    description: >
+      TLS 1.0/1.1 have known weaknesses; the management HTTPS service should
+      only negotiate TLS 1.2 or higher.
+    severity: high
+    evaluation:
+      operator: in
+      expected: ["1.2", "1.3"]
+    evidence:
+      required: true
+      minimum_confidence: 0.7
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "ip http tls-version TLSv1.2 TLSv1.3"
+        rationale: "Restricts the HTTPS management service to TLS 1.2/1.3."
+      juniper_junos:
+        command: "set system services web-management https tls-min-version tls1.2"
+        rationale: "Sets the minimum negotiated TLS version to 1.2."
+      fortinet_fortios:
+        command: "config system global\n set admin-https-ssl-versions tlsv1-2 tlsv1-3\nend"
+        rationale: "Restricts accepted TLS versions on the admin HTTPS service."
+      palo_alto_panos:
+        command: "set deviceconfig system ssl-tls-service-profile <profile> min-version tls1-2"
+        rationale: "Applies an SSL/TLS service profile with TLS 1.2 as the floor."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-CRYPTO-03
+    title: Certificate validation enabled for management services
+    framework: cis
+    baseline_field_path: cryptography.certificate_validation_enabled
+    description: >
+      Devices that validate certificates when acting as clients (e.g. to
+      RADIUS/TACACS+, syslog-over-TLS, or update servers) resist
+      man-in-the-middle interception of management traffic.
+    severity: medium
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.7
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "crypto pki trustpoint <name>\n revocation-check crl"
+        rationale: "Enables certificate revocation checking for the configured trustpoint."
+      juniper_junos:
+        command: "set security pki ca-profile <name> revocation-check crl"
+        rationale: "Enables CRL-based revocation checking on the CA profile."
+      fortinet_fortios:
+        command: "config vpn certificate setting\n set strict-crl-check enable\nend"
+        rationale: "Enforces strict certificate revocation checking."
+      palo_alto_panos:
+        command: "set shared certificate-profile <profile> use-crl yes"
+        rationale: "Enables CRL checking within the certificate profile used by management services."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  # ============================================================
+  # ACL / NETWORK HARDENING (2)
+  # ============================================================
+
+  - id: CIS-ACL-01
+    title: No overly permissive any-any-permit ACL rules
+    framework: cis
+    baseline_field_path: "access_control.acl_rules[].is_any_any_permit"
+    description: >
+      A permit rule with unrestricted source, destination, and service
+      effectively disables the access control list's purpose and is a
+      common root cause of lateral-movement attack paths (feeds Cell 4's
+      attack-path graph directly).
+    severity: critical
+    evaluation:
+      operator: list_none_true
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.75
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "no access-list <n> permit ip any any\naccess-list <n> permit ip <specific-src> <specific-dst>"
+        rationale: "Replaces a blanket permit-any rule with scoped source/destination entries."
+      juniper_junos:
+        command: "delete firewall filter <name> term allow-all\nset firewall filter <name> term restrict from source-address <subnet>"
+        rationale: "Removes the catch-all term and replaces it with scoped filtering."
+      fortinet_fortios:
+        command: "config firewall policy\n edit <id>\n set srcaddr <specific-object>\n set dstaddr <specific-object>\n next\nend"
+        rationale: "Scopes the firewall policy to specific address objects rather than 'all'."
+      palo_alto_panos:
+        command: "set rulebase security rules <rule-name> source <specific-zone> destination <specific-zone>"
+        rationale: "Restricts a security rule from any/any to defined source and destination zones."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null
+
+  - id: CIS-ACL-02
+    title: Egress filtering enabled at the network boundary
+    framework: cis
+    baseline_field_path: security_controls.egress_filtering_enabled
+    description: >
+      Outbound traffic should be filtered to approved destinations/services
+      to limit data exfiltration and command-and-control channels from a
+      compromised internal host.
+    severity: high
+    evaluation:
+      operator: equals
+      expected: true
+    evidence:
+      required: true
+      minimum_confidence: 0.7
+      require_explicit_configuration: true
+    known_insecure_defaults: {}
+    remediation:
+      cisco_ios:
+        command: "ip access-list extended EGRESS-FILTER\n permit tcp <internal-net> any eq 443\n deny ip any any log"
+        rationale: "Defines an explicit egress policy and logs/denies unmatched outbound traffic."
+      juniper_junos:
+        command: "set firewall filter EGRESS-FILTER term allow-web from destination-port 443\nset firewall filter EGRESS-FILTER term deny-rest then discard"
+        rationale: "Applies an outbound filter permitting only approved destination ports."
+      fortinet_fortios:
+        command: "config firewall policy\n edit <id>\n set srcintf internal\n set dstintf wan1\n set action accept\n set service <approved-services>\n next\nend"
+        rationale: "Defines an explicit egress policy scoped to approved services."
+      palo_alto_panos:
+        command: "set rulebase security rules egress-policy to untrust application <approved-apps>"
+        rationale: "Restricts outbound traffic to explicitly approved applications/services."
+    references:
+      - framework_doc: "CIS Benchmark (vendor-specific) — VERIFY"
+        control_id: null

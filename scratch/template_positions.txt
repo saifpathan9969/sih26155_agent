@@ -1,0 +1,392 @@
+=== PAGE 1 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 1
+y=   5.0, x=   0.0, sz=22.0: GAACA
+y=   4.0, x=   0.0, sz= 9.0: GENERAL AUTONOMOUS AGENT COGNITIVE ARCHITECTURE
+y=  32.0, x=  23.8, sz=22.0: NETWORK SECURITY & CONFIGURATION
+y=-292.0, x=  23.8, sz=22.0: COMPLIANCE AUDIT REPORT
+y=   2.5, x=   0.0, sz= 7.0: Report ID
+y=   2.5, x=   0.0, sz= 7.0: GAACA-NET-AUDIT-XXXX
+y=   2.5, x=   0.0, sz= 7.0: Assessment Type
+y=   2.5, x=   0.0, sz= 7.0: Multi-Vendor Network Configuration Security Audit
+y=   2.5, x=   0.0, sz= 7.0: Assessment Status
+y=   2.5, x=   0.0, sz= 7.0: DRAFT / FINAL
+y=   2.5, x=   0.0, sz= 7.0: Assessment Period
+y=   2.5, x=   0.0, sz= 7.0: DD-MMM-YYYY to DD-MMM-YYYY
+y=   2.5, x=   0.0, sz= 7.0: Prepared By
+y=   2.5, x=   0.0, sz= 7.0: GAACA Autonomous Agent
+y=   2.5, x=   0.0, sz= 7.0: Review Authority
+y=   2.5, x=   0.0, sz= 7.0: Human Security Reviewer
+y=   2.5, x=   0.0, sz= 7.0: Classification
+y=   2.5, x=   0.0, sz= 7.0: CONFIDENTIAL
+y=   3.5, x=   0.0, sz=10.5: Purpose
+y=  15.6, x=   0.0, sz= 8.4: Professional audit artifact containing scope, asset inventory, control evaluation, evidence, findings, risk, remediation, authority
+y= -85.2, x=   0.0, sz= 8.4: mapping, human review and approval records.
+y=   3.5, x=   0.0, sz=10.5: Authority & Baseline
+y=  15.6, x=   0.0, sz= 8.4: Every control must identify its actual authority and document/version. This template is Government-aligned in structure; it is not itself
+y= -85.2, x=   0.0, sz= 8.4: an official Government of India form.
+=== PAGE 2 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 2
+y=   4.0, x=   0.0, sz=14.0: 1. Executive Summary
+y=   2.5, x=   0.0, sz= 7.0: Metric
+y=   2.5, x=   0.0, sz= 7.0: Result
+y=   2.5, x=   0.0, sz= 7.0: Devices in scope
+y=   2.5, x=   0.0, sz= 7.0: 2
+y=   2.5, x=   0.0, sz= 7.0: Devices assessed
+y=   2.5, x=   0.0, sz= 7.0: 2 / 2
+y=   2.5, x=   0.0, sz= 7.0: Controls evaluated
+y=   2.5, x=   0.0, sz= 7.0: 40
+y=   2.5, x=   0.0, sz= 7.0: Controls passed
+y=   2.5, x=   0.0, sz= 7.0: 39
+y=   2.5, x=   0.0, sz= 7.0: Controls failed
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   2.5, x=   0.0, sz= 7.0: Critical
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: High
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: Medium
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: Low
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   2.5, x=   0.0, sz= 7.0: Unknown / unmapped patterns
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   2.5, x=   0.0, sz= 7.0: Human review items
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   3.5, x=   0.0, sz=10.5: Management Conclusion
+y=  15.6, x=   0.0, sz= 8.4: One low-severity configuration finding is recorded in the sample assessment. One vendor-specific pattern requires human validation.
+y= -85.2, x=   0.0, sz= 8.4: No unresolved interpretation is promoted to a compliance verdict.
+y=   4.0, x=   0.0, sz=14.0: 2. Audit Scope & Context
+y=   2.5, x=   0.0, sz= 7.0: Field
+y=   2.5, x=   0.0, sz= 7.0: Value
+y=   2.5, x=   0.0, sz= 7.0: Organization
+y=   2.5, x=   0.0, sz= 7.0: [Organization Name]
+y=   2.5, x=   0.0, sz= 7.0: Business Unit
+y=   2.5, x=   0.0, sz= 7.0: [Business Unit]
+y=   2.5, x=   0.0, sz= 7.0: Environment
+y=   2.5, x=   0.0, sz= 7.0: [Production / DR / Test / Lab]
+y=   2.5, x=   0.0, sz= 7.0: Network Scope
+y=   2.5, x=   0.0, sz= 7.0: [Sites / Segments / Devices]
+y=   2.5, x=   0.0, sz= 7.0: Objective
+y=   2.5, x=   0.0, sz= 7.0: Identify security configuration deviations and compliance gaps.
+y=   2.5, x=   0.0, sz= 7.0: Method
+y=   2.5, x=   0.0, sz= 7.0: Configuration evidence + deterministic control evaluation + human review.
+y=   4.0, x=   0.0, sz=14.0: 3. Asset Inventory
+y=   2.5, x=   0.0, sz= 7.0: Asset ID
+y=   2.5, x=   0.0, sz= 7.0: Configuration
+y=   2.5, x=   0.0, sz= 7.0: Vendor / OS
+y=   2.5, x=   0.0, sz= 7.0: Type
+y=   2.5, x=   0.0, sz= 7.0: Status
+y=   2.5, x=   0.0, sz= 7.0: Evidence
+y=   2.5, x=   0.0, sz= 7.0: NET-001
+y=   2.5, x=   0.0, sz= 7.0: arista_eos_test.conf
+y=   2.5, x=   0.0, sz= 7.0: Arista EOS
+y=   2.5, x=   0.0, sz= 7.0: Switch
+y=   2.5, x=   0.0, sz= 7.0: ASSESSED
+y=   2.5, x=   0.0, sz= 7.0: Configuration file
+y=   2.5, x=   0.0, sz= 7.0: NET-002
+y=   2.5, x=   0.0, sz= 7.0: paloalto_test.conf
+y=   2.5, x=   0.0, sz= 7.0: Palo Alto PAN-OS
+y=   2.5, x=   0.0, sz= 7.0: Firewall
+y=   2.5, x=   0.0, sz= 7.0: ASSESSED
+y=   2.5, x=   0.0, sz= 7.0: Configuration file
+y=   4.0, x=   0.0, sz=14.0: 4. Assessment Methodology
+y=  15.6, x=   0.0, sz= 8.4: Discovery
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: normalization
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: applicability
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: evidence extraction
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: deterministic evaluation
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: risk context
+y=  15.6, x=   0.0, sz= 8.4: →
+y=  15.6, x=   0.0, sz= 8.4: remediation
+y= -85.2, x=   0.0, sz= 8.4: recommendation
+y= -85.2, x=   0.0, sz= 8.4: →
+y= -85.2, x=   0.0, sz= 8.4: human review where ambiguity or consequential change exists.
+y=   2.5, x=   0.0, sz= 7.0: Stage
+y=   2.5, x=   0.0, sz= 7.0: Output
+y=   2.5, x=   0.0, sz= 7.0: Discovery
+y=   2.5, x=   0.0, sz= 7.0: Inventory of configuration artifacts
+y=   2.5, x=   0.0, sz= 7.0: Normalization
+y=   2.5, x=   0.0, sz= 7.0: Vendor-neutral security baseline evidence
+=== PAGE 3 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 3
+y=   2.5, x=   0.0, sz= 7.0: Stage
+y=   2.5, x=   0.0, sz= 7.0: Output
+y=   2.5, x=   0.0, sz= 7.0: Evaluation
+y=   2.5, x=   0.0, sz= 7.0: PASS / FAIL / NEEDS HUMAN REVIEW / NOT APPLICABLE
+y=   2.5, x=   0.0, sz= 7.0: Evidence
+y=   2.5, x=   0.0, sz= 7.0: Raw configuration reference and provenance
+y=   2.5, x=   0.0, sz= 7.0: Verification
+y=   2.5, x=   0.0, sz= 7.0: Independent consistency / schema / rule verification
+y=   2.5, x=   0.0, sz= 7.0: Remediation
+y=   2.5, x=   0.0, sz= 7.0: Verified corrective action subject to authorization
+=== PAGE 4 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 4
+y=   4.0, x=   0.0, sz=14.0: 5. Findings Register
+y=   2.5, x=   0.0, sz= 7.0: Finding ID
+y=   2.5, x=   0.0, sz= 7.0: Asset
+y=   2.5, x=   0.0, sz= 7.0: Control
+y=   2.5, x=   0.0, sz= 7.0: Severity
+y=   2.5, x=   0.0, sz= 7.0: Status
+y=   2.5, x=   0.0, sz= 7.0: Evidence State
+y=   2.5, x=   0.0, sz= 7.0: F-001
+y=   2.5, x=   0.0, sz= 7.0: NET-001
+y=   2.5, x=   0.0, sz= 7.0: CIS-LOG-02 / logging.syslog.buffer_size
+y=   2.5, x=   0.0, sz= 7.0: LOW
+y=   2.5, x=   0.0, sz= 7.0: FAIL
+y=   2.5, x=   0.0, sz= 7.0: VERIFIED
+y=   2.5, x=   0.0, sz= 7.0: F-002
+y=   2.5, x=   0.0, sz= 7.0: NET-002
+y=   2.5, x=   0.0, sz= 7.0: Palo Alto security-rule logging syntax
+y=   2.5, x=   0.0, sz= 7.0: —
+y=   2.5, x=   0.0, sz= 7.0: HUMAN REVIEW
+y=   2.5, x=   0.0, sz= 7.0: UNRESOLVED
+y=   4.0, x=   0.0, sz=14.0: 6. Detailed Finding — F-001
+y=   2.5, x=   0.0, sz= 7.0: Field
+y=   2.5, x=   0.0, sz= 7.0: Detail
+y=   2.5, x=   0.0, sz= 7.0: Asset
+y=   2.5, x=   0.0, sz= 7.0: NET-001 — arista_eos_test.conf
+y=   2.5, x=   0.0, sz= 7.0: Control
+y=   2.5, x=   0.0, sz= 7.0: CIS-LOG-02
+y=   2.5, x=   0.0, sz= 7.0: Domain
+y=   2.5, x=   0.0, sz= 7.0: Logging / Monitoring
+y=   2.5, x=   0.0, sz= 7.0: Observed Configuration
+y=   2.5, x=   0.0, sz= 7.0: logging.syslog.buffer_size
+y=   2.5, x=   0.0, sz= 7.0: Expected Configuration
+y=   2.5, x=   0.0, sz= 7.0: [Exact approved baseline condition]
+y=   2.5, x=   0.0, sz= 7.0: Result
+y=   2.5, x=   0.0, sz= 7.0: FAIL
+y=   2.5, x=   0.0, sz= 7.0: Severity
+y=   2.5, x=   0.0, sz= 7.0: LOW
+y=   2.5, x=   0.0, sz= 7.0: Evidence
+y=   2.5, x=   0.0, sz= 7.0: [Exact configuration line / parsed field / location]
+y=   2.5, x=   0.0, sz= 7.0: Provenance
+y=   2.5, x=   0.0, sz= 7.0: Configuration
+y=   2.5, x=   0.0, sz= 7.0: →
+y=   2.5, x=   0.0, sz= 7.0: parser
+y=   2.5, x=   0.0, sz= 7.0: →
+y=   2.5, x=   0.0, sz= 7.0: deterministic rule evaluation
+y=   2.5, x=   0.0, sz= 7.0: Impact
+y=   2.5, x=   0.0, sz= 7.0: [Security / operational impact]
+y=   2.5, x=   0.0, sz= 7.0: Recommended Remediation
+y=   2.5, x=   0.0, sz= 7.0: [Verified vendor-specific remediation]
+y=   2.5, x=   0.0, sz= 7.0: Change Authorization
+y=   2.5, x=   0.0, sz= 7.0: Human approval required before production change
+y=   2.5, x=   0.0, sz= 7.0: Post-Remediation Verification
+y=   2.5, x=   0.0, sz= 7.0: [Validation test]
+y=   4.0, x=   0.0, sz=14.0: 7. Control Assessment Matrix
+y=   2.5, x=   0.0, sz= 7.0: Control ID
+y=   2.5, x=   0.0, sz= 7.0: Domain
+y=   2.5, x=   0.0, sz= 7.0: Requirement
+y=   2.5, x=   0.0, sz= 7.0: Applicability
+y=   2.5, x=   0.0, sz= 7.0: Result
+y=   2.5, x=   0.0, sz= 7.0: Evidence
+y=   2.5, x=   0.0, sz= 7.0: CIS-LOG-02
+y=   2.5, x=   0.0, sz= 7.0: Logging
+y=   2.5, x=   0.0, sz= 7.0: Approved syslog/buffer configuration
+y=   2.5, x=   0.0, sz= 7.0: Applicable
+y=   2.5, x=   0.0, sz= 7.0: FAIL
+y=   2.5, x=   0.0, sz= 7.0: Config evidence
+y=   2.5, x=   0.0, sz= 7.0: [ID]
+y=   2.5, x=   0.0, sz= 7.0: [Domain]
+y=   2.5, x=   0.0, sz= 7.0: [Requirement]
+y=   2.5, x=   0.0, sz= 7.0: [Y/N]
+y=   2.5, x=   0.0, sz= 7.0: [PASS/FAIL/NHR]
+y=   2.5, x=   0.0, sz= 7.0: [Reference]
+y=   4.0, x=   0.0, sz=14.0: 8. Human Review & Unknown Syntax
+y=   2.5, x=   0.0, sz= 7.0: Review ID
+y=   2.5, x=   0.0, sz= 7.0: Vendor
+y=   2.5, x=   0.0, sz= 7.0: Asset
+y=   2.5, x=   0.0, sz= 7.0: Raw Pattern
+y=   2.5, x=   0.0, sz= 7.0: Decision
+y=   2.5, x=   0.0, sz= 7.0: Next Action
+y=   2.5, x=   0.0, sz= 7.0: HR-001
+y=   2.5, x=   0.0, sz= 7.0: Palo Alto PAN-OS
+y=   2.5, x=   0.0, sz= 7.0: NET-002
+y=  12.0, x=   0.0, sz= 7.0: set rulebase security rules ADMIN-SSH
+y= -54.5, x=   0.0, sz= 7.0: log-end yes
+y=  12.0, x=   0.0, sz= 7.0: REJECTED /
+y= -54.5, x=   0.0, sz= 7.0: UNRESOLVED
+y=  21.5, x=   0.0, sz= 7.0: Validate against authoritative
+y= -45.0, x=   0.0, sz= 7.0: vendor documentation or
+y=-111.5, x=   0.0, sz= 7.0: administrator evidence.
+=== PAGE 5 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 5
+y=   4.0, x=   0.0, sz=14.0: 9. Evidence Register
+y=   2.5, x=   0.0, sz= 7.0: Evidence ID
+y=   2.5, x=   0.0, sz= 7.0: Asset
+y=   2.5, x=   0.0, sz= 7.0: Type
+y=   2.5, x=   0.0, sz= 7.0: Reference
+y=   2.5, x=   0.0, sz= 7.0: Provenance
+y=   2.5, x=   0.0, sz= 7.0: Integrity
+y=   2.5, x=   0.0, sz= 7.0: E-001
+y=   2.5, x=   0.0, sz= 7.0: NET-001
+y=   2.5, x=   0.0, sz= 7.0: Configuration
+y=   2.5, x=   0.0, sz= 7.0: arista_eos_test.conf
+y=   2.5, x=   0.0, sz= 7.0: Uploaded audit artifact
+y=   2.5, x=   0.0, sz= 7.0: [HASH]
+y=   2.5, x=   0.0, sz= 7.0: E-002
+y=   2.5, x=   0.0, sz= 7.0: NET-002
+y=   2.5, x=   0.0, sz= 7.0: Configuration
+y=   2.5, x=   0.0, sz= 7.0: paloalto_test.conf
+y=   2.5, x=   0.0, sz= 7.0: Uploaded audit artifact
+y=   2.5, x=   0.0, sz= 7.0: [HASH]
+y=   4.0, x=   0.0, sz=14.0: 10. Risk Register
+y=   2.5, x=   0.0, sz= 7.0: Risk ID
+y=   2.5, x=   0.0, sz= 7.0: Finding
+y=   2.5, x=   0.0, sz= 7.0: Likelihood
+y=   2.5, x=   0.0, sz= 7.0: Impact
+y=   2.5, x=   0.0, sz= 7.0: Severity
+y=   2.5, x=   0.0, sz= 7.0: Treatment
+y=   2.5, x=   0.0, sz= 7.0: R-001
+y=   2.5, x=   0.0, sz= 7.0: F-001
+y=   2.5, x=   0.0, sz= 7.0: [L/M/H]
+y=   2.5, x=   0.0, sz= 7.0: [L/M/H]
+y=   2.5, x=   0.0, sz= 7.0: LOW
+y=   2.5, x=   0.0, sz= 7.0: Remediate / monitor
+y=   4.0, x=   0.0, sz=14.0: 11. Remediation Plan
+y=   2.5, x=   0.0, sz= 7.0: Priority
+y=   2.5, x=   0.0, sz= 7.0: Finding
+y=   2.5, x=   0.0, sz= 7.0: Recommended Action
+y=   2.5, x=   0.0, sz= 7.0: Owner
+y=   2.5, x=   0.0, sz= 7.0: Target Date
+y=   2.5, x=   0.0, sz= 7.0: Verification
+y=   2.5, x=   0.0, sz= 7.0: P3
+y=   2.5, x=   0.0, sz= 7.0: F-001
+y=   2.5, x=   0.0, sz= 7.0: [Verified vendor-specific remediation]
+y=   2.5, x=   0.0, sz= 7.0: [Owner]
+y=   2.5, x=   0.0, sz= 7.0: [Date]
+y=   2.5, x=   0.0, sz= 7.0: [Validation test]
+y=   2.5, x=   0.0, sz= 7.0: P2
+y=   2.5, x=   0.0, sz= 7.0: HR-001
+y=   2.5, x=   0.0, sz= 7.0: Resolve syntax before knowledge promotion.
+y=   2.5, x=   0.0, sz= 7.0: [Security Admin]
+y=   2.5, x=   0.0, sz= 7.0: [Date]
+y=  12.0, x=   0.0, sz= 7.0: Human-confirmed
+y= -54.5, x=   0.0, sz= 7.0: evidence
+y=   4.0, x=   0.0, sz=14.0: 12. Compliance Authority Register
+y=   3.6, x=   0.0, sz= 8.4: Every control must identify the actual authority, document/version and control reference.
+y=   2.5, x=   0.0, sz= 7.0: Authority
+y=   2.5, x=   0.0, sz= 7.0: Document / Baseline
+y=   2.5, x=   0.0, sz= 7.0: Version / Date
+y=   2.5, x=   0.0, sz= 7.0: Control Reference
+y=   2.5, x=   0.0, sz= 7.0: Use
+y=   2.5, x=   0.0, sz= 7.0: CERT-In / MeitY
+y=   2.5, x=   0.0, sz= 7.0: [Document title]
+y=   2.5, x=   0.0, sz= 7.0: [Version/date]
+y=   2.5, x=   0.0, sz= 7.0: [Section/control]
+y=   2.5, x=   0.0, sz= 7.0: Requirement
+y=   2.5, x=   0.0, sz= 7.0: STQC
+y=   2.5, x=   0.0, sz= 7.0: [Document / audit reference]
+y=   2.5, x=   0.0, sz= 7.0: [Version/date]
+y=   2.5, x=   0.0, sz= 7.0: [Section/control]
+y=   2.5, x=   0.0, sz= 7.0: Requirement
+y=   2.5, x=   0.0, sz= 7.0: CIS
+y=   2.5, x=   0.0, sz= 7.0: [CIS Benchmark]
+y=   2.5, x=   0.0, sz= 7.0: [Version]
+y=   2.5, x=   0.0, sz= 7.0: [Control]
+y=   2.5, x=   0.0, sz= 7.0: Technical baseline
+y=   2.5, x=   0.0, sz= 7.0: Vendor
+y=   2.5, x=   0.0, sz= 7.0: [Vendor hardening guide]
+y=   2.5, x=   0.0, sz= 7.0: [Version]
+y=   2.5, x=   0.0, sz= 7.0: [Section]
+y=   2.5, x=   0.0, sz= 7.0: Vendor interpretation
+=== PAGE 6 ===
+y= 815.0, x=  45.4, sz= 7.5: GAACA
+y= 815.0, x= 390.0, sz= 7.0: Network Security & Configuration Compliance Audit
+y=  22.7, x=  45.4, sz= 7.0: CONFIDENTIAL  CONTROLLED AUDIT ARTIFACT
+y=  22.7, x= 527.7, sz= 7.0: Page 6
+y=   4.0, x=   0.0, sz=14.0: 13. Governance, Review & Approval
+y=  15.6, x=   0.0, sz= 8.4: Automated analysis may collect evidence and perform deterministic evaluation. Human authorization is required for ambiguous
+y= -85.2, x=   0.0, sz= 8.4: interpretations and consequential production changes.
+y=   2.5, x=   0.0, sz= 7.0: Role
+y=   2.5, x=   0.0, sz= 7.0: Name
+y=   2.5, x=   0.0, sz= 7.0: Organization
+y=   2.5, x=   0.0, sz= 7.0: Date
+y=   2.5, x=   0.0, sz= 7.0: Signature / Approval
+y=   2.5, x=   0.0, sz= 7.0: System / Agent
+y=   2.5, x=   0.0, sz= 7.0: GAACA
+y=   2.5, x=   0.0, sz= 7.0: [Org]
+y=   2.5, x=   0.0, sz= 7.0: [Date]
+y=   2.5, x=   0.0, sz= 7.0: Automated trace
+y=   2.5, x=   0.0, sz= 7.0: Security Analyst
+y=   2.5, x=   0.0, sz= 7.0: [Name]
+y=   2.5, x=   0.0, sz= 7.0: [Org]
+y=   2.5, x=   0.0, sz= 7.0: [Date]
+y=   2.5, x=   0.0, sz= 7.0: [Signature]
+y=   2.5, x=   0.0, sz= 7.0: Approver
+y=   2.5, x=   0.0, sz= 7.0: [Name]
+y=   2.5, x=   0.0, sz= 7.0: [Org]
+y=   2.5, x=   0.0, sz= 7.0: [Date]
+y=   2.5, x=   0.0, sz= 7.0: [Signature]
+y=   4.0, x=   0.0, sz=14.0: 14. Audit Trail Summary
+y=   2.5, x=   0.0, sz= 7.0: Timestamp
+y=   2.5, x=   0.0, sz= 7.0: Run ID
+y=   2.5, x=   0.0, sz= 7.0: Action
+y=   2.5, x=   0.0, sz= 7.0: Decision
+y=   2.5, x=   0.0, sz= 7.0: Evidence / Result
+y=   2.5, x=   0.0, sz= 7.0: [UTC/IST]
+y=   2.5, x=   0.0, sz= 7.0: [RUN-ID]
+y=   2.5, x=   0.0, sz= 7.0: Configuration discovery
+y=   2.5, x=   0.0, sz= 7.0: Allowed
+y=   2.5, x=   0.0, sz= 7.0: 2 artifacts discovered
+y=   2.5, x=   0.0, sz= 7.0: [UTC/IST]
+y=   2.5, x=   0.0, sz= 7.0: [RUN-ID]
+y=   2.5, x=   0.0, sz= 7.0: Deterministic evaluation
+y=   2.5, x=   0.0, sz= 7.0: Allowed
+y=   2.5, x=   0.0, sz= 7.0: 40 controls evaluated
+y=   2.5, x=   0.0, sz= 7.0: [UTC/IST]
+y=   2.5, x=   0.0, sz= 7.0: [RUN-ID]
+y=   2.5, x=   0.0, sz= 7.0: Unknown syntax mapping
+y=   2.5, x=   0.0, sz= 7.0: Human review
+y=   2.5, x=   0.0, sz= 7.0: 1 unresolved pattern
+y=   2.5, x=   0.0, sz= 7.0: [UTC/IST]
+y=   2.5, x=   0.0, sz= 7.0: [RUN-ID]
+y=   2.5, x=   0.0, sz= 7.0: Compliance verdict
+y=   2.5, x=   0.0, sz= 7.0: Deterministic authority
+y=   2.5, x=   0.0, sz= 7.0: No LLM verdict
+y=   4.0, x=   0.0, sz=14.0: 15. Appendix — Device-Level Summary
+y=   2.5, x=   0.0, sz= 7.0: Device
+y=   2.5, x=   0.0, sz= 7.0: Evaluated
+y=   2.5, x=   0.0, sz= 7.0: Pass
+y=   2.5, x=   0.0, sz= 7.0: Fail
+y=   2.5, x=   0.0, sz= 7.0: NHR
+y=   2.5, x=   0.0, sz= 7.0: Unknown
+y=   2.5, x=   0.0, sz= 7.0: Overall
+y=   2.5, x=   0.0, sz= 7.0: arista_eos_test.conf
+y=   2.5, x=   0.0, sz= 7.0: 20
+y=   2.5, x=   0.0, sz= 7.0: 19
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: Findings present
+y=   2.5, x=   0.0, sz= 7.0: paloalto_test.conf
+y=   2.5, x=   0.0, sz= 7.0: 20
+y=   2.5, x=   0.0, sz= 7.0: 20
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: 0
+y=   2.5, x=   0.0, sz= 7.0: 1
+y=   2.5, x=   0.0, sz= 7.0: Human review
+y=   4.0, x=   0.0, sz=14.0: 16. Report Integrity Rules
+y=  27.6, x=   0.0, sz= 8.4: 1. Preserve raw evidence and provenance. 2. Separate compliance verdict from risk interpretation. 3. Record unknown and
+y= -73.2, x=   0.0, sz= 8.4: contradictory evidence. 4. Identify the source authority for every control. 5. Keep remediation separate from authorization. 6.
+y=-174.0, x=   0.0, sz= 8.4: Preserve a replayable audit trail. 7. Never issue a compliance verdict from LLM interpretation alone.
+y=   4.0, x=   0.0, sz= 9.0: END OF REPORT

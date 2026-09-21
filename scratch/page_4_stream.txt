@@ -1,0 +1,692 @@
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.819608 .835294 .858824 RG
+n 45.35433 807.874 m 549.9213 807.874 l S
+BT /F2 7.5 Tf 9 TL ET
+.070588 .231373 .364706 rg
+BT 1 0 0 1 45.35433 814.9606 Tm (GAACA) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.419608 .447059 .501961 rg
+BT 1 0 0 1 390.0343 814.9606 Tm (Network Security & Configuration Compliance Audit) Tj T* ET
+n 45.35433 34.01575 m 549.9213 34.01575 l S
+BT 1 0 0 1 45.35433 22.67717 Tm (CONFIDENTIAL \177 CONTROLLED AUDIT ARTIFACT) Tj T* ET
+BT 1 0 0 1 527.7383 22.67717 Tm (Page 4) Tj T* ET
+Q
+q
+1 0 0 1 51.35433 766.8661 cm
+q
+.070588 .231373 .364706 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (5. Findings Register) Tj T* ET
+Q
+Q
+q
+1 0 0 1 56.69291 699.8622 cm
+q
+.070588 .231373 .364706 rg
+n 0 58.5 481.8898 -19.5 re f*
+1 1 1 rg
+BT /F2 10 Tf 12 TL ET
+q
+1 0 0 1 5 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Finding ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 64.52756 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Asset) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Control) Tj T* ET
+Q
+Q
+q
+1 0 0 1 291.2992 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Severity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 347.9921 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Status) Tj T* ET
+Q
+Q
+q
+1 0 0 1 418.8583 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Evidence State) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (F-001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 64.52756 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (NET-001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (CIS-LOG-02 / logging.syslog.buffer_size) Tj T* ET
+Q
+Q
+q
+1 0 0 1 291.2992 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (LOW) Tj T* ET
+Q
+Q
+q
+1 0 0 1 347.9921 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (FAIL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 418.8583 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (VERIFIED) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (F-002) Tj T* ET
+Q
+Q
+q
+1 0 0 1 64.52756 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (NET-002) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Palo Alto security-rule logging syntax) Tj T* ET
+Q
+Q
+q
+1 0 0 1 291.2992 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (\227) Tj T* ET
+Q
+Q
+q
+1 0 0 1 347.9921 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (HUMAN REVIEW) Tj T* ET
+Q
+Q
+q
+1 0 0 1 418.8583 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (UNRESOLVED) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 58.5 m 481.8898 58.5 l S
+n 0 0 m 481.8898 0 l S
+n 0 0 m 0 58.5 l S
+n 481.8898 0 m 481.8898 58.5 l S
+n 0 39 m 481.8898 39 l S
+n 0 19.5 m 481.8898 19.5 l S
+n 59.52756 0 m 59.52756 58.5 l S
+n 119.0551 0 m 119.0551 58.5 l S
+n 286.2992 0 m 286.2992 58.5 l S
+n 342.9921 0 m 342.9921 58.5 l S
+n 413.8583 0 m 413.8583 58.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 51.35433 667.689 cm
+q
+.070588 .231373 .364706 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (6. Detailed Finding \227 F-001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 70.86614 386.185 cm
+q
+.070588 .231373 .364706 rg
+n 0 273 453.5433 -19.5 re f*
+1 1 1 rg
+BT /F2 10 Tf 12 TL ET
+q
+1 0 0 1 5 258.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Field) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 258.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Detail) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 239 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Asset) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 239 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (NET-001 \227 arista_eos_test.conf) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 219.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Control) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 219.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (CIS-LOG-02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 200 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Domain) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 200 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Logging / Monitoring) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 180.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Observed Configuration) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 180.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (logging.syslog.buffer_size) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 161 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Expected Configuration) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 161 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Exact approved baseline condition]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 141.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Result) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 141.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (FAIL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 122 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Severity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 122 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (LOW) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 102.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 102.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Exact configuration line / parsed field / location]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Provenance) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Configuration ) Tj /F3 7 Tf 9.5 TL (\256) Tj /F1 7 Tf 9.5 TL ( parser ) Tj /F3 7 Tf 9.5 TL (\256) Tj /F1 7 Tf 9.5 TL ( deterministic rule evaluation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Impact) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Security / operational impact]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Recommended Remediation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Verified vendor-specific remediation]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Change Authorization) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Human approval required before production change) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Post-Remediation Verification) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Validation test]) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 273 m 453.5433 273 l S
+n 0 0 m 453.5433 0 l S
+n 0 0 m 0 273 l S
+n 453.5433 0 m 453.5433 273 l S
+n 0 253.5 m 453.5433 253.5 l S
+n 0 234 m 453.5433 234 l S
+n 0 214.5 m 453.5433 214.5 l S
+n 0 195 m 453.5433 195 l S
+n 0 175.5 m 453.5433 175.5 l S
+n 0 156 m 453.5433 156 l S
+n 0 136.5 m 453.5433 136.5 l S
+n 0 117 m 453.5433 117 l S
+n 0 97.5 m 453.5433 97.5 l S
+n 0 78 m 453.5433 78 l S
+n 0 58.5 m 453.5433 58.5 l S
+n 0 39 m 453.5433 39 l S
+n 0 19.5 m 453.5433 19.5 l S
+n 138.8976 0 m 138.8976 273 l S
+Q
+Q
+Q
+q
+1 0 0 1 51.35433 354.0118 cm
+q
+.070588 .231373 .364706 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (7. Control Assessment Matrix) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.02362 287.0079 cm
+q
+.070588 .231373 .364706 rg
+n 0 58.5 493.2283 -19.5 re f*
+1 1 1 rg
+BT /F2 10 Tf 12 TL ET
+q
+1 0 0 1 5 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Control ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 73.0315 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Domain) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Requirement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Applicability) Tj T* ET
+Q
+Q
+q
+1 0 0 1 350.8268 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Result) Tj T* ET
+Q
+Q
+q
+1 0 0 1 427.3622 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Evidence) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (CIS-LOG-02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 73.0315 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Logging) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Approved syslog/buffer configuration) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Applicable) Tj T* ET
+Q
+Q
+q
+1 0 0 1 350.8268 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (FAIL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 427.3622 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Config evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([ID]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 73.0315 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Domain]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Requirement]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Y/N]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 350.8268 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([PASS/FAIL/NHR]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 427.3622 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL ([Reference]) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 58.5 m 493.2283 58.5 l S
+n 0 0 m 493.2283 0 l S
+n 0 0 m 0 58.5 l S
+n 493.2283 0 m 493.2283 58.5 l S
+n 0 39 m 493.2283 39 l S
+n 0 19.5 m 493.2283 19.5 l S
+n 68.0315 0 m 68.0315 58.5 l S
+n 136.063 0 m 136.063 58.5 l S
+n 283.4646 0 m 283.4646 58.5 l S
+n 345.8268 0 m 345.8268 58.5 l S
+n 422.3622 0 m 422.3622 58.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 51.35433 254.8346 cm
+q
+BT 1 0 0 1 0 4 Tm 18 TL /F2 14 Tf .070588 .231373 .364706 rg (8. Human Review & Unknown Syntax) Tj T* ET
+Q
+Q
+q
+1 0 0 1 28.34646 188.3307 cm
+q
+.070588 .231373 .364706 rg
+n 0 58 538.5827 -19.5 re f*
+1 1 1 rg
+BT /F2 10 Tf 12 TL ET
+q
+1 0 0 1 5 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Review ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 58.85827 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Vendor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Asset) Tj T* ET
+Q
+Q
+q
+1 0 0 1 197.7559 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Raw Pattern) Tj T* ET
+Q
+Q
+q
+1 0 0 1 353.6614 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Decision) Tj T* ET
+Q
+Q
+q
+1 0 0 1 424.5276 43.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Next Action) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 24 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (HR-001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 58.85827 24 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Palo Alto PAN-OS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 24 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (NET-002) Tj T* ET
+Q
+Q
+q
+1 0 0 1 197.7559 14.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 12 Tm /F1 7 Tf 9.5 TL (set rulebase security rules ADMIN-SSH) Tj T* (log-end yes) Tj T* ET
+Q
+Q
+q
+1 0 0 1 353.6614 14.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 12 Tm /F1 7 Tf 9.5 TL (REJECTED /) Tj T* (UNRESOLVED) Tj T* ET
+Q
+Q
+q
+1 0 0 1 424.5276 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7 Tf 9.5 TL (Validate against authoritative) Tj T* (vendor documentation or) Tj T* (administrator evidence.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 58 m 538.5827 58 l S
+n 0 0 m 538.5827 0 l S
+n 0 0 m 0 58 l S
+n 538.5827 0 m 538.5827 58 l S
+n 0 38.5 m 538.5827 38.5 l S
+n 53.85827 0 m 53.85827 58 l S
+n 136.063 0 m 136.063 58 l S
+n 192.7559 0 m 192.7559 58 l S
+n 348.6614 0 m 348.6614 58 l S
+n 419.5276 0 m 419.5276 58 l S
+Q
+Q
+Q
+ 

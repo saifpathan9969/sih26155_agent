@@ -1,0 +1,196 @@
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.819608 .835294 .858824 RG
+n 45.35433 807.874 m 549.9213 807.874 l S
+BT /F2 7.5 Tf 9 TL ET
+.070588 .231373 .364706 rg
+BT 1 0 0 1 45.35433 814.9606 Tm (GAACA) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.419608 .447059 .501961 rg
+BT 1 0 0 1 390.0343 814.9606 Tm (Network Security & Configuration Compliance Audit) Tj T* ET
+n 45.35433 34.01575 m 549.9213 34.01575 l S
+BT 1 0 0 1 45.35433 22.67717 Tm (CONFIDENTIAL \177 CONTROLLED AUDIT ARTIFACT) Tj T* ET
+BT 1 0 0 1 527.7383 22.67717 Tm (Page 1) Tj T* ET
+Q
+q
+1 0 0 1 51.35433 714 cm
+Q
+q
+1 0 0 1 51.35433 687 cm
+q
+.070588 .231373 .364706 rg
+BT 1 0 0 1 0 5 Tm /F2 22 Tf 27 TL 205.9575 0 Td (GAACA) Tj T* -205.9575 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 654.1575 cm
+q
+.294118 .333333 .388235 rg
+BT 1 0 0 1 0 4 Tm /F1 9 Tf 13 TL 111.5175 0 Td (GENERAL AUTONOMOUS AGENT COGNITIVE ARCHITECTURE) Tj T* -111.5175 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 628.6457 cm
+Q
+q
+1 0 0 1 51.35433 574.6457 cm
+q
+BT 1 0 0 1 0 32 Tm 23.84146 0 Td 27 TL /F2 22 Tf .070588 .231373 .364706 rg (NETWORK SECURITY & CONFIGURATION) Tj T* 62.942 0 Td (COMPLIANCE AUDIT REPORT) Tj T* -86.78346 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 537.7953 cm
+Q
+q
+1 0 0 1 70.86614 401.2953 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 122 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Report ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 122 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (GAACA-NET-AUDIT-XXXX) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 102.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Assessment Type) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 102.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Multi-Vendor Network Configuration Security Audit) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Assessment Status) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (DRAFT / FINAL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Assessment Period) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (DD-MMM-YYYY to DD-MMM-YYYY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Prepared By) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (GAACA Autonomous Agent) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Review Authority) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Human Security Reviewer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Classification) Tj T* ET
+Q
+Q
+q
+1 0 0 1 141.063 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (CONFIDENTIAL) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 136.5 m 453.5433 136.5 l S
+n 0 0 m 453.5433 0 l S
+n 0 0 m 0 136.5 l S
+n 453.5433 0 m 453.5433 136.5 l S
+n 0 117 m 453.5433 117 l S
+n 0 97.5 m 453.5433 97.5 l S
+n 0 78 m 453.5433 78 l S
+n 0 58.5 m 453.5433 58.5 l S
+n 0 39 m 453.5433 39 l S
+n 0 19.5 m 453.5433 19.5 l S
+n 136.063 0 m 136.063 136.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 51.35433 367.2795 cm
+Q
+q
+1 0 0 1 51.35433 344.7756 cm
+q
+.121569 .305882 .47451 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (Purpose) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 314.7756 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15.6 Tm /F1 8.4 Tf 12 TL (Professional audit artifact containing scope, asset inventory, control evaluation, evidence, findings, risk, remediation, authority) Tj T* (mapping, human review and approval records.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 292.2717 cm
+q
+BT 1 0 0 1 0 3.5 Tm 14 TL /F2 10.5 Tf .121569 .305882 .47451 rg (Authority & Baseline) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 262.2717 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15.6 Tm /F1 8.4 Tf 12 TL (Every control must identify its actual authority and document/version. This template is Government-aligned in structure; it is not itself) Tj T* (an official Government of India form.) Tj T* ET
+Q
+Q
+ 

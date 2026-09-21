@@ -1,0 +1,43 @@
+TOTAL PAGES: 1
+=== PAGE 1 ===
+Compliance Audit Report
+Generated 19 September 2026, 10:05
+Mission goal: Audit all network configurations and identify critical security compliance violations.
+ 2/2
+DEVICES
+ 1
+UNKNOWN
+PATTERNS
+ 0
+CRITICAL
+ 0
+HIGH
+ 0
+MEDIUM
+ 1
+LOW
+Findings by Device
+arista_eos_test.conf — 1 failing / 20 rules evaluated
+Rule ID
+Severity
+Field
+CIS-LOG-02
+LOW
+logging.syslog.buffer_size
+paloalto_test.conf — 0 failing / 20 rules evaluated
+✓ All 20 checks passed — no findings
+Human Review Requests (Grouped)
+Vendor
+Devices Affected
+Status
+Raw Command
+palo_alto_panos
+1 — paloalto_test.conf
+REJECTED
+set rulebase security rules ADMIN-SSH log-end
+yes
+0 confirmed and applied · 1 rejected — requires manual follow-up in the training UI.
+Generated from the Security Audit Agent's Mission Report output. Findings marked PASS by the deterministic rule engine are omitted from this
+report for brevity; see the raw JSON/markdown export for the complete per-rule result set.
+
+

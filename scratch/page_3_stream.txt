@@ -1,0 +1,114 @@
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.819608 .835294 .858824 RG
+n 45.35433 807.874 m 549.9213 807.874 l S
+BT /F2 7.5 Tf 9 TL ET
+.070588 .231373 .364706 rg
+BT 1 0 0 1 45.35433 814.9606 Tm (GAACA) Tj T* ET
+BT /F1 7 Tf 8.4 TL ET
+.419608 .447059 .501961 rg
+BT 1 0 0 1 390.0343 814.9606 Tm (Network Security & Configuration Compliance Audit) Tj T* ET
+n 45.35433 34.01575 m 549.9213 34.01575 l S
+BT 1 0 0 1 45.35433 22.67717 Tm (CONFIDENTIAL \177 CONTROLLED AUDIT ARTIFACT) Tj T* ET
+BT 1 0 0 1 527.7383 22.67717 Tm (Page 3) Tj T* ET
+Q
+q
+1 0 0 1 70.86614 687.3661 cm
+q
+.070588 .231373 .364706 rg
+n 0 97.5 453.5433 -19.5 re f*
+1 1 1 rg
+BT /F2 10 Tf 12 TL ET
+q
+1 0 0 1 5 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Stage) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 83 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Output) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Evaluation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 63.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (PASS / FAIL / NEEDS HUMAN REVIEW / NOT APPLICABLE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Evidence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 44 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Raw configuration reference and provenance) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Verification) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 24.5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Independent consistency / schema / rule verification) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Remediation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 5 cm
+q
+.215686 .254902 .317647 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7 Tf 9.5 TL (Verified corrective action subject to authorization) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.796078 .835294 .882353 RG
+.35 w
+n 0 97.5 m 453.5433 97.5 l S
+n 0 78 m 0 97.5 l S
+n 0 0 m 0 78 l S
+n 453.5433 78 m 453.5433 97.5 l S
+n 453.5433 0 m 453.5433 78 l S
+n 0 0 m 453.5433 0 l S
+n 0 78 m 453.5433 78 l S
+n 127.5591 78 m 127.5591 97.5 l S
+n 0 58.5 m 453.5433 58.5 l S
+n 0 39 m 453.5433 39 l S
+n 0 19.5 m 453.5433 19.5 l S
+n 127.5591 0 m 127.5591 78 l S
+Q
+Q
+Q
+ 

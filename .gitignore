@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Environments & Secrets
+.env
+.env.local
+*.env
+serviceAccountKey*.json
+*firebase-adminsdk*.json
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude sessions (large, not needed in repo)
+.claude/
+
+# Uploads directory (user data)
+sih26155_agent/web_ui/uploads/
+
+# Node
+node_modules/
