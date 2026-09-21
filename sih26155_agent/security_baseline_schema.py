@@ -89,6 +89,8 @@ class VendorFamily(str, Enum):
     GCP_FIREWALL = "gcp_firewall"
     HUAWEI_VRP = "huawei_vrp"
     MIKROTIK_ROUTEROS = "mikrotik_routeros"
+    ARUBA_AOSCX = "aruba_aoscx"
+    VYOS = "vyos"
     UNKNOWN = "unknown"  # triggers the training loop
 
 

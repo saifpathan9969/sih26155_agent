@@ -1,0 +1,100 @@
+{
+  "title": "Network Device Configuration Documentation Record",
+  "description": "Schema for normalized network configuration documentation across multiple vendors",
+  "type": "object",
+  "required_fields": ["vendor", "os_name", "os_version", "topic", "last_verified_date"],
+  "fields": {
+    "vendor": {
+      "type": "string",
+      "description": "Vendor name (e.g., Cisco, Juniper, Fortinet, etc.)",
+      "examples": ["Cisco", "Juniper Networks", "Fortinet", "Palo Alto Networks", "Arista Networks", "Huawei", "HPE/Aruba", "Nokia", "MikroTik", "Extreme Networks"]
+    },
+    "os_name": {
+      "type": "string",
+      "description": "Operating system name",
+      "examples": ["IOS-XE", "IOS-XR", "Junos", "FortiOS", "PAN-OS", "EOS", "VRP", "AOS-CX", "SR OS", "RouterOS", "EXOS"]
+    },
+    "os_version": {
+      "type": "string",
+      "description": "Specific version or version range (e.g., 17.15.x, 7.4.x, 23.x)",
+      "examples": ["17.15.x", "7.10.x", "23.2R1", "7.4.x", "11.1.x", "4.32.x", "VRP8", "10.10.x", "23.10.R1", "7.x", "31.6"]
+    },
+    "topic": {
+      "type": "string",
+      "description": "Configuration domain/topic area",
+      "allowed_values": [
+        "initial_setup",
+        "interfaces",
+        "vlans_l2",
+        "routing_static",
+        "routing_ospf",
+        "routing_bgp",
+        "routing_eigrp_isis_other",
+        "vrrp_hsrp_ha",
+        "acls_firewall_policy",
+        "nat",
+        "vpn_ipsec",
+        "qos",
+        "aaa_authentication",
+        "snmp_logging_monitoring",
+        "vxlan_evpn",
+        "mpls",
+        "high_availability_clustering",
+        "system_management"
+      ]
+    },
+    "concept_summary": {
+      "type": "string",
+      "description": "2-4 sentence plain-language explanation of the feature (paraphrased)"
+    },
+    "cli_mode_context": {
+      "type": "string",
+      "description": "How to enter configuration mode for this feature"
+    },
+    "example_commands": {
+      "type": "string",
+      "description": "Multi-line CLI block showing realistic, generic configuration example"
+    },
+    "key_parameters": {
+      "type": "array",
+      "description": "Important flags/arguments and their meanings",
+      "items": {
+        "parameter": "string",
+        "description": "string"
+      }
+    },
+    "verification_commands": {
+      "type": "array",
+      "description": "Commands used to verify the configuration",
+      "items": "string"
+    },
+    "source_url": {
+      "type": "string",
+      "description": "Exact documentation page(s) used as source"
+    },
+    "not_available": {
+      "type": "boolean",
+      "description": "True if topic documentation is not accessible for this vendor/version",
+      "default": false
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason why topic is not available (required when not_available=true)"
+    },
+    "deprecated": {
+      "type": "boolean",
+      "description": "True if the commands/feature are deprecated or EoL",
+      "default": false
+    },
+    "unverified": {
+      "type": "boolean",
+      "description": "True if command syntax could not be fully verified from source",
+      "default": false
+    },
+    "last_verified_date": {
+      "type": "string",
+      "format": "YYYY-MM-DD",
+      "description": "Date when this entry was extracted/verified"
+    }
+  }
+}

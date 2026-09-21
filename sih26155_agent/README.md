@@ -1,81 +1,85 @@
-# SIH26155 — Autonomous Security & General Cognitive Agent
+# SIH26155 — Security Audit Agent (Reference Implementation)
 
-This repository contains two complete architectural implementations:
-1. **`agent_v2/` — GAACA v2.0 (General Autonomous Agent Cognitive Architecture)**: A full, standalone, true autonomous agent cognitive architecture where capabilities, multi-tiered memory, scientific hypothesis testing, deterministic rule engine governance, and self-correction are native internal systems rather than a simple ReAct tool framework.
-2. **`agent/` — v1 Reference Implementation**: The baseline deterministic compliance orchestrator with reflection clustering for network device CIS benchmarks.
+This is a working reference implementation of the agent architecture: an
+orchestration layer that sequences the already-proven deterministic
+components (schema, rule engine, training flow) rather than replacing them.
 
----
-
-## GAACA v2.0 — True Autonomous Cognitive Agent
-
-### 1. Architectural Philosophy
-The agent **is the system**. Tools, memory, reasoning, planning, execution, verification, learning, and environment interaction are internal capabilities of that system:
-
-```text
-Goal -> Perception -> World Model -> Reasoning -> Planning -> Decision
-     -> Action -> Observation -> Verification -> Reflection -> Learning -> Replanning
-```
-
-### 2. Core Subsystems in `agent_v2/`
-
-- **`agent_v2/core/`**:
-  - `agent.py`: `AutonomousAgent` top-level orchestrator.
-  - `executive.py`: `AgentExecutive` 10-step cognitive cycle loop.
-  - `state.py`: Rich persistent state (`AgentState`, `Goal`, `ActionRecord`, `FailureRecord`, `CycleRecord`, `TerminalState`).
-  - `runtime.py`: Safe execution runtime with state snapshotting and trace export.
-- **`agent_v2/mind/`**:
-  - `goal_engine.py`: Intent extraction and recursive decomposition.
-  - `planning.py`: Hierarchical planning with `expected_observation` prediction before action.
-  - `decision.py`: Utility-driven decision engine with strict failed-strategy exclusion (bare retries permanently banned).
-  - `hypothesis.py`: Scientific problem solving (`ActionSketch`, Bayesian prior/posterior tracking, status progression).
-  - `correction.py`: Diagnosis-first self-correction (identifies root cause across 7 failure classes).
-  - `reasoning.py`: Deductive, abductive, and causal inference chains with belief revision.
-  - `learning.py`: `KnowledgePattern` extraction with validation methods and contradiction-based retirement.
-  - `world_model.py` & `beliefs.py`: Epistemic belief store (`KNOWN`, `INFERRED`, `VERIFIED`, `CONTRADICTED`, `HUMAN_CONFIRMED`).
-  - `verification.py`: Mechanical verification and contradiction precedence (deterministic rule engine has absolute authority).
-- **`agent_v2/capabilities/`**:
-  - `registry.py`: Hard safety-checked capability registry.
-  - `filesystem.py`, `coding.py`, `shell.py`, `git.py`, `documents.py`, `data.py`, `web.py`, `communication.py`.
-  - `security.py`: Domain capability wrapping deterministic CIS compliance auditing, vendor parsing, and remediation lookup.
-- **`agent_v2/memory/`**:
-  - `working.py`: Scratchpad with attention focus and cycle counters.
-  - `episodic.py`: Chronological trace with unpredicted outcome / surprise detection.
-  - `semantic.py`: Long-term fact base and preloaded vendor ontology.
-  - `procedural.py`: Indexed knowledge patterns with citable filtering.
-  - `store.py`: Durable SQLite persistence across runs.
-- **`agent_v2/safety/`**:
-  - `policy.py`: Inviolable `AUTONOMY_TABLE` (`AUTONOMOUS`, `AUTONOMOUS_ABOVE_THRESHOLD`, `REQUIRES_HUMAN`, `NEVER_AUTONOMOUS`, `OUT_OF_SCOPE`).
-  - `budgets.py`: `ResourceLedger` (cycles, network, risk caps).
-  - `sandbox.py`: Scratch directory boundary isolation and path containment.
-  - `approval.py`: `ApprovalManager` for human-in-the-loop gates.
-
----
-
-## Running the Verification Test Suites
-
-All test suites verify cognitive layers, safety gates, and capabilities deterministically:
+## Run it
 
 ```bash
-# Run all Phase verification suites
-python -m agent_v2.tests.test_phase0               # Foundational runtime & epistemic authority
-python -m agent_v2.tests.test_phase1               # Dynamic planning & expected_observation
-python -m agent_v2.tests.test_phase2               # Hypotheses, self-correction, & pattern retirement
-python -m agent_v2.tests.test_phase3_capabilities  # Coding, shell safety, git, docs, data, comms
-python -m agent_v2.tests.test_phase4_security      # CIS rule engine integration & verdict invariance
-python -m agent_v2.tests.test_phase5_memory        # Working, episodic, semantic, procedural, SQLite
-python -m agent_v2.tests.test_safety               # Safety trap suite (adversarial policy checks)
-python -m agent_v2.tests.test_mission_indep        # Mission independence (general goals)
+pip install pydantic pyyaml scikit-learn --break-system-packages
+cd agent
+python3 demo_mission.py
 ```
 
----
+This runs a full mission against 6 synthetic devices and prints:
+1. The BEFORE state (3 Juniper devices stuck on `NEEDS_HUMAN_REVIEW`)
+2. The live Mission Mode trace (discovery → fingerprint → parse → cluster →
+   human gate → compliance → report)
+3. The AFTER state — all 3 devices flip to `PASS` from ONE human
+   confirmation, because reflection grouped them into a single review
+4. The final mission report
 
-## Running the GAACA v2.0 Demo
+## Layout
 
-```bash
-python -m agent_v2.demo
+```
+security_baseline_schema.py   # Universal Security Baseline (unchanged)
+rule_engine.py                 # Deterministic 20-rule compliance engine (unchanged)
+training_flow.py               # Single-device training loop (unchanged)
+cis_rules.yaml                  # The 20 CIS-subset rules (unchanged)
+
+agent/
+├── agent.py           # SecurityAuditAgent — the orchestration loop
+├── planner.py          # Goal → plan. Deterministic v1; LLM swap-point marked
+├── state.py             # PlanStep / GroupedReview / MissionState dataclasses
+├── reflection.py        # Clusters repeated unknown syntax across devices
+├── fixtures.py           # 6 synthetic devices designed to exercise every path
+├── demo_mission.py       # Runnable end-to-end demo
+│
+├── tools/
+│   ├── discovery.py       # Tool 1 — file discovery
+│   ├── fingerprint.py      # Tool 2 — vendor ID (v1: rule-based signatures)
+│   ├── parsing.py           # Tool 3 — mini Cisco IOS / Juniper Junos parsers
+│   ├── compliance.py        # Tool 7 — wraps rule_engine.evaluate_baseline
+│   ├── remediation.py       # Tool 8 — verified-command lookup, never generated
+│   └── reporting.py         # Tool 9 — assembles the mission report
+│
+├── memory/
+│   ├── working.py            # This mission's live counters
+│   ├── knowledge_base.py      # Re-exports training_flow.VendorKnowledgeBase
+│   └── episodic.py             # History of past corrections/sessions
+│
+└── policies/
+    └── autonomy.py             # The enforced autonomy boundary table
 ```
 
-Runs a 2-scenario cognitive demonstration:
-1. **Scenario 1**: General Autonomous Investigation & Scientific Reasoning (hypotheses, Bayesian evidence updates, self-correction).
-2. **Scenario 2**: Specialized Security Domain Audit & Markdown Report Generation (deterministic CIS compliance evaluation, remediation selection, artifact creation).
-3. **Memory & Introspection**: Inspects working memory, episodic recall, semantic ontology, and learned procedural patterns.
+## What's real vs. what's a stand-in
+
+**Real, tested, and running:**
+- The 6-device mission end to end
+- Cross-device clustering (3 Juniper devices → 1 review request)
+- Applying one human confirmation across an entire cluster at once
+- Graceful degradation for an unsupported vendor (FortiOS here) — no
+  parser exists, so every relevant line correctly surfaces as needing
+  review rather than being silently guessed at
+- The autonomy policy is enforced in code (`policies/autonomy.py`), not
+  just described in a document
+
+**Deliberate stand-ins, clearly marked in the code:**
+- `planner.py` — a deterministic keyword-based planner, not a live LLM call
+  (marked as the swap-point; a demo should not depend on reaching an
+  external API on stage)
+- `agent._infer_demo_mapping()` — stands in for the real Interactive
+  Training UI from `training_flow.py`; it maps the ONE pattern this fixture
+  set intentionally introduces, rather than taking live human input
+- Retrieval/clustering similarity uses local TF-IDF, not a hosted
+  embedding model — same reasoning as `training_flow.py`
+
+## What is NOT built here
+
+- The Mission Mode dashboard UI (console trace only)
+- A real LLM-based planner
+- Live device write-back (out of scope by design, not an oversight)
+- The v2 ML components (trained fingerprint classifier, fine-tuned
+  retrieval embeddings, calibrated confidence model) — see the ML
+  training plan document for when these become worthwhile

@@ -1,18 +1,21 @@
-# Python
+# Dependencies
+node_modules/
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
-*.egg-info/
-dist/
-build/
 
-# Environments & Secrets
+# Environments & Secret Credentials
 .env
 .env.local
 *.env
 serviceAccountKey*.json
 *firebase-adminsdk*.json
+
+# Build outputs
+frontend/dist/
+frontend/dist-ssr/
+*.local
 
 # IDE & OS
 .vscode/
@@ -20,11 +23,8 @@ serviceAccountKey*.json
 .DS_Store
 Thumbs.db
 
-# Claude sessions (large, not needed in repo)
+# Claude sessions
 .claude/
 
 # Uploads directory (user data)
 sih26155_agent/web_ui/uploads/
-
-# Node
-node_modules/

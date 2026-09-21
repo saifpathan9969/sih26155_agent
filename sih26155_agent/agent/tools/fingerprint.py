@@ -17,8 +17,12 @@ SIGNATURES = [
     (VendorFamily.CISCO_IOS, ("building configuration", "ip ssh version", "line vty")),
     (VendorFamily.JUNIPER_JUNOS, ("set system", "set security", "set firewall filter")),
     (VendorFamily.FORTINET_FORTIOS, ("config system global", "config firewall", "end")),
-    (VendorFamily.PALO_ALTO_PANOS, ("set deviceconfig", "set rulebase")),
-    (VendorFamily.ARISTA_EOS, ("! device: arista", "management api")),
+    (VendorFamily.PALO_ALTO_PANOS, ("set deviceconfig", "set rulebase", "pan-os")),
+    (VendorFamily.ARISTA_EOS, ("! device: arista", "management api", "arista eos", "management api http-commands")),
+    (VendorFamily.ARUBA_AOSCX, ("aoscx", "aruba aoscx", "ssh server vrf")),
+    (VendorFamily.HUAWEI_VRP, ("sysname", "stelnet server", "huawei vrp", "local-user")),
+    (VendorFamily.MIKROTIK_ROUTEROS, ("/system identity", "/ip service", "/ip firewall", "routeros")),
+    (VendorFamily.VYOS, ("set service ssh", "vyos", "set system host-name")),
 ]
 
 

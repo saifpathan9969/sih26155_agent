@@ -1,0 +1,13 @@
+# Nixpacks configuration for Railway multi-language deployment (Python + Node.js)
+[phases.setup]
+nixPkgs = ["python311", "nodejs_20"]
+
+[phases.install]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install -r sih26155_agent/requirements.txt",
+  "cd frontend && npm install && npm run build"
+]
+
+[start]
+cmd = "cd sih26155_agent && uvicorn main:app --host 0.0.0.0 --port $PORT"

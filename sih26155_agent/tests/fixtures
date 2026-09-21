@@ -1,0 +1,37 @@
+# Synthetic VyOS lab fixture for parser/understanding tests
+# Not an official vendor hardening template.
+
+set system host-name vyos-lab-01
+set system login user admin authentication plaintext-password 'LabAdminPassword'
+
+set service ssh port '22'
+set service ssh listen-address '192.168.50.1'
+set service ssh disable-password-authentication 'false'
+
+set interfaces ethernet eth0 description 'WAN'
+set interfaces ethernet eth0 address '203.0.113.18/30'
+set interfaces ethernet eth1 description 'LAN'
+set interfaces ethernet eth1 address '192.168.50.1/24'
+
+set protocols static route 0.0.0.0/0 next-hop '203.0.113.17'
+
+set system name-server '1.1.1.1'
+set system name-server '8.8.8.8'
+
+set service ntp server '192.168.50.50'
+
+set firewall ipv4 name LAN-TO-WAN default-action 'accept'
+set firewall ipv4 name LAN-TO-WAN rule 10 action 'accept'
+set firewall ipv4 name LAN-TO-WAN rule 10 source address '192.168.50.0/24'
+set firewall ipv4 name LAN-TO-WAN rule 10 outbound-interface name 'eth0'
+
+set firewall ipv4 name WAN-IN default-action 'drop'
+set firewall ipv4 name WAN-IN rule 10 action 'accept'
+set firewall ipv4 name WAN-IN rule 10 state established 'enable'
+set firewall ipv4 name WAN-IN rule 20 action 'accept'
+set firewall ipv4 name WAN-IN rule 20 protocol 'tcp'
+set firewall ipv4 name WAN-IN rule 20 destination port '22'
+set firewall ipv4 name WAN-IN rule 20 source address '0.0.0.0/0'
+
+# Deliberately ambiguous/unsupported test command
+set service experimental-policy audit-mode 'legacy'

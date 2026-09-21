@@ -59,17 +59,27 @@ class SecurityAuditAgent:
     def _auto_approve(review: GroupedReview) -> bool:
         return True
 
-    def run_mission(self, goal: str, source, trace: bool = True) -> MissionState:
+    def run_mission(self, goal: str, source, trace: bool = True,
+                    on_log: Optional[Callable[[str], None]] = None) -> MissionState:
         mission = MissionState(goal=goal, plan=plan_from_goal(goal))
         wm = WorkingMemory()
 
-        def log(msg):
+        def log(msg: str):
             wm.note(msg)
+            if on_log:
+                try:
+                    on_log(msg)
+                except Exception:
+                    pass
             if trace:
-                print(msg)
+                try:
+                    print(msg)
+                except UnicodeEncodeError:
+                    print(msg.encode("ascii", "replace").decode("ascii"))
 
         log(f"MISSION GOAL: {goal}")
         log("=" * 70)
+
 
         # --- discover ---------------------------------------------------
         log("[1] Discovering configurations ...")
@@ -105,6 +115,12 @@ class SecurityAuditAgent:
                     f"{g.device_ids} -> \"{g.representative_raw}\"")
             else:
                 log(f"    single occurrence: {g.device_ids} -> \"{g.representative_raw}\"")
+
+        # Snapshot initial compliance state BEFORE human intervention
+        initial_findings = {
+            dev_id: {f.rule_id: f.status.value for f in evaluate_baseline(bl)}
+            for dev_id, bl in baselines.items()
+        }
 
         # --- human gate ---------------------------------------------------
         log("[4] Human gate — mapping unknown syntax (never autonomous) ...")
@@ -153,7 +169,7 @@ class SecurityAuditAgent:
             ))
             self.episodic.record(g.vendor, g.representative_raw, "confirmed",
                                   mapped_field=field_path, device_ids=g.device_ids)
-            log(f"    ✓ CONFIRMED once -> applied to {len(g.device_ids)} device(s): {field_path} = {value}")
+            log(f"    [OK] CONFIRMED once -> applied to {len(g.device_ids)} device(s): {field_path} = {value}")
 
         # --- compliance ----------------------------------------------------
         log("[5] Evaluating 20 compliance rules per device ...")
@@ -174,6 +190,21 @@ class SecurityAuditAgent:
             wm.per_device_summary[device_id] = summary
         mission.findings_by_device = findings_by_device
 
+        # Compute status flips
+        flips = []
+        for dev_id, findings in findings_by_device.items():
+            for f in findings:
+                prev_status = initial_findings.get(dev_id, {}).get(f.rule_id)
+                if prev_status and prev_status != f.status.value:
+                    flips.append({
+                        "device_id": dev_id,
+                        "rule_id": f.rule_id,
+                        "before_status": prev_status,
+                        "after_status": f.status.value,
+                    })
+        mission.flips = flips
+        mission.trace = list(wm.log)
+
         # --- prioritize ------------------------------------------------
         log("[6] Prioritizing findings ...")
         log(f"    {wm.as_status_block()}")
@@ -183,6 +214,7 @@ class SecurityAuditAgent:
         report = generate_report(goal, wm, findings_by_device, grouped_reviews, get_remediation)
         mission.final_report = report
 
+
         log("=" * 70)
         log("MISSION COMPLETE")
 
@@ -191,9 +223,16 @@ class SecurityAuditAgent:
 
     @staticmethod
     def _infer_demo_mapping(raw_command: str):
-        """Stand-in for the real Interactive Training UI (training_flow.py
-        Stage 3). Maps the ONE unknown pattern this fixture set intentionally
-        introduces. A real system replaces this with actual human input."""
+        """Uses the network_config_db multi-vendor dataset to automatically
+        resolve vendor configuration commands without calling for human review."""
+        try:
+            from vendor_config_kb import vendor_kb
+            match = vendor_kb.match_command(raw_command)
+            if match:
+                return match
+        except Exception:
+            pass
+
         if "retry-options" in raw_command and "tries-before-disconnect" in raw_command:
             return ("authentication.account_lockout.enabled", True, "Authentication")
         return None

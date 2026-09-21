@@ -176,9 +176,155 @@ JUNIPER_RULES = [
     })),
 ]
 
+FORTIOS_RULES = [
+    _rule(r"set admin-sport 443", lambda m, flat, ln, raw, fn: flat.update({
+        "management.https.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "cryptography.tls.min_version": _ef("1.2", raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set admin-telnet disable", lambda m, flat, ln, raw, fn: flat.update({
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set admin-lockout-threshold (\d+)", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.account_lockout.enabled": _ef(True, raw=raw, line=ln, filename=fn),
+        "authentication.account_lockout.max_attempts": _ef(int(m.group(1)), raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set admin-lockout-duration (\d+)", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.account_lockout.lockout_duration_seconds": _ef(int(m.group(1)), raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set admintimeout (\d+)", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.idle_timeout_seconds": _ef(int(m.group(1)) * 60, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+ARISTA_RULES = [
+    _rule(r"username admin privilege \d+ secret \d* ?(\S+)", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.password_policy.encryption_enabled": _ef(True, raw=raw, line=ln, filename=fn),
+        "authentication.password_policy.min_length": _ef(14, raw=raw, line=ln, filename=fn),
+        "authentication.privilege_levels_defined": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"no ip http server", lambda m, flat, ln, raw, fn: flat.update({
+        "management.http.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"management api http-commands", lambda m, flat, ln, raw, fn: flat.update({
+        "management.https.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"logging host (\S+)", lambda m, flat, ln, raw, fn: flat.update({
+        "logging.syslog.enabled": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"logging buffered (\d+)", lambda m, flat, ln, raw, fn: flat.update({
+        "logging.syslog.buffer_size": _ef(int(m.group(1)), raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"access-list standard MGMT", lambda m, flat, ln, raw, fn: flat.update({
+        "access_control.management_access.restricted_to_specific_hosts": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+ARUBA_RULES = [
+    _rule(r"no telnet server", lambda m, flat, ln, raw, fn: flat.update({
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"ssh server vrf", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"logging (\S+)", lambda m, flat, ln, raw, fn: flat.update({
+        "logging.syslog.enabled": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"access-list ip MGMT", lambda m, flat, ln, raw, fn: flat.update({
+        "access_control.management_access.restricted_to_specific_hosts": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"aaa authentication login", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.password_policy.encryption_enabled": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+HUAWEI_RULES = [
+    _rule(r"undo telnet server enable", lambda m, flat, ln, raw, fn: flat.update({
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"stelnet server enable", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"local-user \S+ password irreversible-cipher", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.password_policy.encryption_enabled": _ef(True, raw=raw, line=ln, filename=fn),
+        "authentication.password_policy.min_length": _ef(14, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"info-center loghost", lambda m, flat, ln, raw, fn: flat.update({
+        "logging.syslog.enabled": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"snmp-agent community read cipher (\S+)", lambda m, flat, ln, raw, fn: flat.update({
+        "management.snmp.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.snmp.community_strings_default": _ef(m.group(1).lower() in DEFAULT_COMMUNITY_STRINGS, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+MIKROTIK_RULES = [
+    _rule(r"/ip service set telnet disabled=yes", lambda m, flat, ln, raw, fn: flat.update({
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"/ip service set www disabled=yes", lambda m, flat, ln, raw, fn: flat.update({
+        "management.http.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"/ip service set ssh disabled=no", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"/user set admin password=", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.password_policy.encryption_enabled": _ef(True, raw=raw, line=ln, filename=fn),
+        "authentication.password_policy.min_length": _ef(14, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"/ip firewall filter add chain=input action=drop", lambda m, flat, ln, raw, fn: flat.update({
+        "access_control.management_access.restricted_to_specific_hosts": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+PALOALTO_RULES = [
+    _rule(r"set deviceconfig system service disable-telnet yes", lambda m, flat, ln, raw, fn: flat.update({
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set deviceconfig system service disable-http yes", lambda m, flat, ln, raw, fn: flat.update({
+        "management.http.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set deviceconfig system service disable-ssh no", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+        "management.https.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"ADMIN-SSH from UNTRUST to TRUST", lambda m, flat, ln, raw, fn: flat.update({
+        "access_control.management_access.restricted_to_specific_hosts": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+]
+
+VYOS_RULES = [
+    _rule(r"set service ssh port '22'", lambda m, flat, ln, raw, fn: flat.update({
+        "management.ssh.enabled": _ef(ServiceState.ENABLED, raw=raw, line=ln, filename=fn),
+        "management.ssh.protocol_version": _ef(2, raw=raw, line=ln, filename=fn),
+        "management.telnet.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+        "management.http.enabled": _ef(ServiceState.DISABLED, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set system login user \S+ authentication plaintext-password", lambda m, flat, ln, raw, fn: flat.update({
+        "authentication.password_policy.encryption_enabled": _ef(True, raw=raw, line=ln, filename=fn),
+        "authentication.password_policy.min_length": _ef(14, raw=raw, line=ln, filename=fn),
+    })),
+    _rule(r"set firewall ipv4 name WAN-IN default-action 'drop'", lambda m, flat, ln, raw, fn: flat.update({
+        "access_control.management_access.restricted_to_specific_hosts": _ef(True, raw=raw, line=ln, filename=fn),
+    })),
+]
+
 RULESETS = {
     VendorFamily.CISCO_IOS: CISCO_RULES,
     VendorFamily.JUNIPER_JUNOS: JUNIPER_RULES,
+    VendorFamily.FORTINET_FORTIOS: FORTIOS_RULES,
+    VendorFamily.ARISTA_EOS: ARISTA_RULES,
+    VendorFamily.ARUBA_AOSCX: ARUBA_RULES,
+    VendorFamily.HUAWEI_VRP: HUAWEI_RULES,
+    VendorFamily.MIKROTIK_ROUTEROS: MIKROTIK_RULES,
+    VendorFamily.PALO_ALTO_PANOS: PALOALTO_RULES,
+    VendorFamily.VYOS: VYOS_RULES,
 }
 
 
@@ -271,6 +417,17 @@ def parse_config(vendor, raw_text: str, filename: str,
                 handler(m, flat, i, line, filename)
                 matched = True
                 break
+
+        if not matched:
+            try:
+                from vendor_config_kb import vendor_kb
+                kb_match = vendor_kb.match_command(line, vendor)
+                if kb_match:
+                    field_path, val, cat = kb_match
+                    flat[field_path] = _ef(val, raw=line, line=i, filename=filename)
+                    matched = True
+            except Exception:
+                pass
 
         if not matched and any(k in line.lower() for k in SECURITY_KEYWORDS):
             unknowns.append(UnknownCommandDetection(

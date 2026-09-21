@@ -32,4 +32,7 @@ class MissionState:
     device_ids: List[str] = field(default_factory=list)
     findings_by_device: Dict[str, list] = field(default_factory=dict)
     grouped_reviews: List[GroupedReview] = field(default_factory=list)
+    flips: List[Dict] = field(default_factory=list)
+    trace: List[str] = field(default_factory=list)
     final_report: Optional[str] = None
+
