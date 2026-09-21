@@ -826,15 +826,29 @@ def upload_configuration(req: ConfigUploadRequest):
 
 
 @app.delete("/api/configurations/{filename}")
-def delete_configuration(filename: str):
+def delete_configuration(filename: str, username: Optional[str] = None):
     if filename in DEVICE_CONFIGS:
         raise HTTPException(status_code=400, detail="Default fixture configurations cannot be removed.")
-    if filename not in _all_configs:
+
+    # Check both global and per-user stores so the file is always found
+    found = filename in _all_configs
+    for uname_configs in _user_configs.values():
+        if filename in uname_configs:
+            found = True
+            break
+    if not found:
         raise HTTPException(status_code=404, detail="Configuration not found.")
-    del _all_configs[filename]
+
+    # Remove from global stores
+    _all_configs.pop(filename, None)
     _custom_metadata.pop(filename, None)
     _parsed_baselines.pop(filename, None)
 
+    # Remove from every user's per-user config dict
+    for uname, uconfigs in list(_user_configs.items()):
+        uconfigs.pop(filename, None)
+
+    # Remove from Firebase for all users
     if firebase_service.is_active():
         for u in list(_users.keys()):
             firebase_service.delete_config(u, filename)
