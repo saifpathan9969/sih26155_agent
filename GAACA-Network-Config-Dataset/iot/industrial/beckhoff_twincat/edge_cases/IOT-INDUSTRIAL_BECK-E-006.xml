@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — EDGE CASE — Sample 6 -->
+<TcConfig>
+  <Name>REMOTE-CX5130/CX9020EMBEDDEDPC-DAL-93</Name>
+</TcConfig>

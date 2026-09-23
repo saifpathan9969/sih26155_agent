@@ -1,0 +1,10 @@
+{
+    "deviceName": "DIST-INSIGHTWAX630-PAR-74",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

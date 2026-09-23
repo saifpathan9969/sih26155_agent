@@ -1,0 +1,11 @@
+{
+    "deviceName": "DIST-INSIGHTWAX630-SIN-19",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "Ch@ng3M3_N0w_2026!",
+            "clientIsolation": true
+        }
+    ]
+}

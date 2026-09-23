@@ -1,0 +1,10 @@
+{
+    "device": "DMZ-APX320/740-NYC-20",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

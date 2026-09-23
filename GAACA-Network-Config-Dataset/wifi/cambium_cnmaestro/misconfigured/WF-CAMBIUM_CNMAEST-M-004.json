@@ -1,0 +1,8 @@
+{
+    "device": "HQ-CNPILOTXV2-2/CNMAESTRO-SEA-55",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

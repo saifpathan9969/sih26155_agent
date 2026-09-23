@@ -1,0 +1,41 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "WAN-SONICENTERPRISEROUTER-MUM-44",
+            "hwsku": "Dell-EMC-Z9332f-O32",
+            "type": "ToRRouter",
+            "mac": "52:54:00:12:34:56",
+            "docker_routing_config_mode": "unified"
+        }
+    },
+    "MGMT_INTERFACE": {
+        "eth0|192.0.2.80/24": {
+            "gwaddr": "203.0.113.195"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|192.0.2.81/30": {}
+    },
+    "BGP_NEIGHBOR": {
+        "192.0.2.3": {
+            "asn": "65232",
+            "name": "CORE-ROUTER-01",
+            "holdtime": "180",
+            "keepalive": "60"
+        }
+    },
+    "NTP_SERVER": {
+        "192.0.2.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "203.0.113.50": {
+            "port": "514"
+        }
+    },
+    "AAA": {
+        "authentication": {
+            "login": "local",
+            "failthrough": "True"
+        }
+    }
+}

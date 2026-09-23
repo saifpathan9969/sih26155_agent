@@ -1,0 +1,8 @@
+{
+    "device": "CAMPUS-CLOUDECW230-TKY-50",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "name": "DC-OMADAEAP660HD/EAP670-DAL-24",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

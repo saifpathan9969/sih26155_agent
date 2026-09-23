@@ -1,0 +1,13 @@
+{
+    "name": "EDGE-MISTAP43/AP45-TKY-72",
+    "wlans": [
+        {
+            "ssid": "Mist-Insecure",
+            "enabled": true,
+            "auth": {
+                "type": "open"
+            },
+            "isolation": false
+        }
+    ]
+}

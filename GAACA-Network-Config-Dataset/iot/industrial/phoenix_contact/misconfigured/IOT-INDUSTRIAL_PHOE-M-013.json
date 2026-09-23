@@ -1,0 +1,9 @@
+{
+    "plc": "ACCESS-AXCF2152/3152-SFO-36",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

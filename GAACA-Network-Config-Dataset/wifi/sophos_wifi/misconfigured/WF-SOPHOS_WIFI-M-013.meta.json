@@ -1,0 +1,51 @@
+{
+  "sample_id": "WF-SOPHOS_WIFI-M-013",
+  "vendor": "Sophos",
+  "product": "APX 320 / 740",
+  "device_type": "wifi_access_point",
+  "os": "Sophos Central Wireless",
+  "version": "v2",
+  "category": "wifi",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "json",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "wifi_access_point",
+  "device_class": "wireless_ap",
+  "network_role": "wireless_access",
+  "platform": "Sophos XG (SFOS)",
+  "model": null,
+  "capabilities": [
+    "WIRELESS_SSID"
+  ],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "sophos_xg",
+  "detected_vendor_display": "Sophos XG",
+  "device_class_basis": "defining construct: radio-layer configuration",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

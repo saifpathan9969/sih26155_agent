@@ -1,0 +1,6 @@
+{
+    "hostname": "REMOTE-NEBULANWA110AX-BER-52",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

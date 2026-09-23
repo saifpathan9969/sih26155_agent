@@ -1,0 +1,9 @@
+{
+    "device": "DC-CNPILOTXV2-2/CNMAESTRO-LON-40",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

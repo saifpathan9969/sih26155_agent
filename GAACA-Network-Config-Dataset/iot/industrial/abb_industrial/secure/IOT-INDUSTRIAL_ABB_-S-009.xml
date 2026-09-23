@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — ABB AC500 — SECURE — Sample 9 -->
+<ABBConfiguration target="BR-AC500/RTU500-SYD-41">
+  <SecurityLevel>IEC62351_Compliant</SecurityLevel>
+  <IEC60870_5_104 TLS="true" port="19999" auth="Ch@ng3M3_N0w_2026!"/>
+  <WebAccess httpsOnly="true" sessionTimeout="300"/>
+  <Firewall policy="drop-all">
+    <Rule allowIP="192.0.2.207" port="19999"/>
+  </Firewall>
+</ABBConfiguration>

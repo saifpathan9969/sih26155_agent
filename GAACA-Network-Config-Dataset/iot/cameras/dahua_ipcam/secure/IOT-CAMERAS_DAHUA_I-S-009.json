@@ -1,0 +1,21 @@
+{
+    "device": "BR-IPC-HFW/IPC-HDW-SYD-41",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "192.0.2.207"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "Ch@ng3M3_N0w_2026!"
+    }
+}

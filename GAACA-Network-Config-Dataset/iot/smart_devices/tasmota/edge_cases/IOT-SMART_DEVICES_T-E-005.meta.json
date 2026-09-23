@@ -1,0 +1,42 @@
+{
+  "sample_id": "IOT-SMART_DEVICES_T-E-005",
+  "vendor": "Tasmota Open Source",
+  "product": "Sonoff / Shelly with Tasmota",
+  "device_type": "iot_sensor",
+  "os": "Tasmota Firmware",
+  "version": "13.x",
+  "category": "iot",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "json",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "iot_sensor",
+  "device_class": "iot_endpoint",
+  "network_role": "iot_edge",
+  "platform": "Tasmota",
+  "model": "Tasmota Device",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "tasmota",
+  "detected_vendor_display": "Tasmota",
+  "device_class_basis": "model registry (Tasmota Device)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

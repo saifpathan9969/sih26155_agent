@@ -1,0 +1,8 @@
+{
+    "device": "EDGE-CNPILOTXV2-2/CNMAESTRO-TKY-72",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

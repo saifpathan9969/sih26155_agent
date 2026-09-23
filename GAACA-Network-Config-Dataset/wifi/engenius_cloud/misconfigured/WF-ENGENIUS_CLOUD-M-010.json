@@ -1,0 +1,8 @@
+{
+    "device": "REMOTE-CLOUDECW230-MUM-15",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — SECURE — Sample 5 -->
+<TcConfig>
+  <TargetNetId>198.51.100.198.1.1</TargetNetId>
+  <Name>WAN-CX5130/CX9020EMBEDDEDPC-MUM-44</Name>
+  <AdsSecurity>
+    <SecureAds enabled="true" requireAuth="true" certificateThumbprint="S3cur3_D3m0_P@ss!"/>
+    <IpWhitelist>
+      <Address>192.0.2.80</Address>
+    </IpWhitelist>
+  </AdsSecurity>
+</TcConfig>

@@ -1,0 +1,8 @@
+{
+    "device": "BR-CNPILOTXV2-2/CNMAESTRO-FRA-69",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "device": "REMOTE-CNPILOTXV2-2/CNMAESTRO-MUM-15",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

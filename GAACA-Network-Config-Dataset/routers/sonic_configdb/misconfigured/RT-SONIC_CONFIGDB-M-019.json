@@ -1,0 +1,20 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "BR-SONICENTERPRISEROUTER-DXB-50",
+            "hwsku": "Generic-Switch",
+            "type": "LeafRouter"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|203.0.113.196/24": {}
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

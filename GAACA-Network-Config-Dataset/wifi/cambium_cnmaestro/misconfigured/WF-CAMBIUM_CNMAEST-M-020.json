@@ -1,0 +1,8 @@
+{
+    "device": "LAB-CNPILOTXV2-2/CNMAESTRO-CHI-98",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

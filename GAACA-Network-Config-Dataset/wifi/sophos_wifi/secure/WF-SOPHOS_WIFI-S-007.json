@@ -1,0 +1,11 @@
+{
+    "device": "BR-APX320/740-SEA-53",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "S3cur3_D3m0_P@ss!",
+            "client_isolation": true
+        }
+    ]
+}

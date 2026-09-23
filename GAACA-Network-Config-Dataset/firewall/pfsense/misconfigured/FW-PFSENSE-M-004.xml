@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- GAACA Dataset — pfSense — MISCONFIGURED — Sample 4 -->
+<pfsense>
+  <system>
+    <hostname>HQ-PFSENSE-SEA-55</hostname>
+    <webgui><protocol>http</protocol><port>80</port></webgui>
+    <ssh><enable>enabled</enable><sshdkeyonly>0</sshdkeyonly></ssh>
+  </system>
+  <interfaces>
+    <wan><if>igb0</if><ipaddr>198.51.100.39</ipaddr><subnet>30</subnet></wan>
+    <lan><if>igb1</if><ipaddr>192.0.2.19</ipaddr><subnet>24</subnet></lan>
+  </interfaces>
+  <syslog><enable>0</enable></syslog>
+  <filter>
+    <rule><type>pass</type><interface>wan</interface><protocol>any</protocol><descr>Allow All</descr></rule>
+  </filter>
+</pfsense>

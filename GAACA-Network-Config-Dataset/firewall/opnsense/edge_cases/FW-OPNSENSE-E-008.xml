@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- GAACA Dataset — OPNsense — EDGE CASE — Sample 8 -->
+<!-- Partial config — system section only -->
+<opnsense>
+  <system>
+    <hostname>CORE-OPNSENSE-AMS-98</hostname>
+    <domain>example.lab</domain>
+  </system>
+  <!-- No interfaces, no filter rules -->
+</opnsense>

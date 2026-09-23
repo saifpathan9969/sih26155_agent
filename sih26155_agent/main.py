@@ -12,6 +12,7 @@ Provides the unified REST API for:
 
 import copy
 import os
+import re
 import time
 import random
 import secrets
@@ -22,7 +23,7 @@ from datetime import datetime, timezone
 import hashlib
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -56,6 +57,8 @@ from rule_manager import RuleManager
 from security_baseline_schema import EvidenceField, Interpretation, InterpretationMethod, VendorFamily
 
 import firebase_service
+from device_classifier import classify_device, summarize_asset_mix, summarize_profiles
+from tools.fingerprint import vendor_display_name
 
 app = FastAPI(
     title="SIH26155 Compliance Auditor API",
@@ -85,6 +88,12 @@ _blockchain = BlockchainLedger()
 _all_configs: Dict[str, str] = {}
 _user_configs: Dict[str, Dict[str, str]] = {}  # username -> {filename: content}
 _custom_metadata: Dict[str, dict] = {}
+
+# Durable ledger of operator PASS/FAIL verdicts, keyed by
+# username -> "<filename>::<normalised command>" -> verdict record.
+# Without this the AI Retrieval queue re-derives unknown commands from the raw
+# config on every poll and a just-resolved directive immediately reappears.
+_resolved_commands: Dict[str, Dict[str, dict]] = {}
 
 # In-memory authenticated users store
 # All accounts start with zero static configurations (configs must be uploaded manually)
@@ -702,8 +711,6 @@ def auth_verify_otp(req: VerifyOtpRequest):
 # Dynamic Configuration Management Endpoints
 # ---------------------------------------------------------------------------
 
-HOME_CONFIG_NAMES = ["mikrotik_routeros_test.rsc", "dev01_cisco.conf", "dev06_fortinet.conf"]
-
 def _get_target_configs_for_user(username: Optional[str] = None, audience: Optional[str] = None) -> Dict[str, str]:
     """
     Returns only configurations that have been explicitly uploaded by the user.
@@ -724,47 +731,60 @@ def _get_target_configs_for_user(username: Optional[str] = None, audience: Optio
 
 
 
+def _describe_config(fname: str, raw_text: str) -> dict:
+    """
+    Single source of truth for a configuration's derived attributes: vendor
+    fingerprint, device-type classification and line count. Used by every
+    endpoint that lists configs so the Devices page, Mission Control counters
+    and Config Manager can never disagree about what an asset is.
+    """
+    vendor, conf = fingerprint_vendor(raw_text)
+    lines = [
+        line for line in raw_text.strip().split("\n")
+        if line.strip() and not line.strip().startswith(("!", "#"))
+    ]
+    classification = classify_device(raw_text, filename=fname, vendor=vendor.value)
+    return {
+        "filename": fname,
+        "vendor": vendor.value,
+        "vendor_display": vendor_display_name(vendor),
+        "confidence": conf,
+        "line_count": len(lines),
+        "raw": raw_text.strip(),
+        # Every configuration is operator-supplied real data, hence always
+        # removable. Retained in the payload because the UI keys its delete
+        # affordance off it.
+        "is_custom": True,
+        **classification,
+    }
+
+
 @app.get("/api/fixtures")
 def get_fixtures(audience: Optional[str] = None, username: Optional[str] = None):
-    devices = []
     target_configs = _get_target_configs_for_user(username=username, audience=audience)
-
-    for fname, raw_text in target_configs.items():
-        vendor, conf = fingerprint_vendor(raw_text)
-        lines = [line for line in raw_text.strip().split("\n") if line.strip() and not line.strip().startswith("!")]
-        devices.append({
-            "filename": fname,
-            "vendor": vendor.value,
-            "vendor_display": vendor.value.replace("_", " ").title(),
-            "confidence": conf,
-            "line_count": len(lines),
-            "raw": raw_text.strip(),
-            "is_custom": fname not in DEVICE_CONFIGS,
-        })
-    return {"count": len(devices), "devices": devices}
+    devices = [_describe_config(fname, raw) for fname, raw in target_configs.items()]
+    return {
+        "count": len(devices),
+        "devices": devices,
+        # Pre-aggregated asset mix so Mission Control renders one counter card
+        # per detected device type instead of three hardcoded vendor cards.
+        "asset_mix": summarize_asset_mix(devices),
+        # Layered rollup: hardware class, deployment role and capability spread
+        # reported separately, because "router vs switch" was never one question.
+        "profile_summary": summarize_profiles(devices),
+    }
 
 
 @app.get("/api/configurations")
 def get_configurations(audience: Optional[str] = None, username: Optional[str] = None):
-    configs_list = []
     target_configs = _get_target_configs_for_user(username=username, audience=audience)
-
+    configs_list = []
     for fname, raw_text in target_configs.items():
-        vendor, conf = fingerprint_vendor(raw_text)
-        lines = [line for line in raw_text.strip().split("\n") if line.strip() and not line.strip().startswith("!")]
-        is_custom = fname not in DEVICE_CONFIGS
+        entry = _describe_config(fname, raw_text)
         meta = _custom_metadata.get(fname, {})
-        configs_list.append({
-            "filename": fname,
-            "vendor": vendor.value,
-            "vendor_display": vendor.value.replace("_", " ").title(),
-            "confidence": conf,
-            "line_count": len(lines),
-            "raw": raw_text.strip(),
-            "is_custom": is_custom,
-            "uploaded_at": meta.get("uploaded_at"),
-            "uploaded_by": meta.get("uploaded_by", "System Default"),
-        })
+        entry["uploaded_at"] = meta.get("uploaded_at")
+        entry["uploaded_by"] = meta.get("uploaded_by", "System Default")
+        configs_list.append(entry)
     return {"count": len(configs_list), "configurations": configs_list}
 
 
@@ -814,22 +834,26 @@ def upload_configuration(req: ConfigUploadRequest):
     if firebase_service.is_active():
         firebase_service.save_config(uname, fname, req.content.strip(), _custom_metadata[fname])
 
+    classification = classify_device(req.content, filename=fname, vendor=vendor.value)
     return {
         "success": True,
         "filename": fname,
         "vendor": vendor.value,
-        "vendor_display": vendor.value.replace("_", " ").title(),
+        "vendor_display": vendor_display_name(vendor),
         "confidence": conf,
         "line_count": len(req.content.splitlines()),
         "unmapped_lines": len(unknowns),
+        **classification,
     }
 
 
 @app.delete("/api/configurations/{filename}")
 def delete_configuration(filename: str, username: Optional[str] = None):
-    if filename in DEVICE_CONFIGS:
-        raise HTTPException(status_code=400, detail="Default fixture configurations cannot be removed.")
-
+    """
+    Delete a configuration. Every config in the system is operator-supplied, so
+    there is nothing undeletable: the previous guard rejected names matching the
+    bundled synthetic fixtures, which no longer ship.
+    """
     # Check both global and per-user stores so the file is always found
     found = filename in _all_configs
     for uname_configs in _user_configs.values():
@@ -847,6 +871,9 @@ def delete_configuration(filename: str, username: Optional[str] = None):
     # Remove from every user's per-user config dict
     for uname, uconfigs in list(_user_configs.items()):
         uconfigs.pop(filename, None)
+
+    # Drop recorded verdicts for this config so a re-upload starts clean
+    _clear_resolutions_for_config(filename)
 
     # Remove from Firebase for all users
     if firebase_service.is_active():
@@ -1492,63 +1519,496 @@ def training_reset():
 # Config-File-Wise Human Review & Federated Learning Endpoints
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Human Resolution Ledger — makes operator verdicts durable
+# ---------------------------------------------------------------------------
+
+def _user_key(username: Optional[str]) -> str:
+    return (username or "global").strip().lower()
+
+
+def _resolution_key(filename: str, command_raw: str) -> str:
+    """Whitespace- and case-normalised key so trivial formatting differences
+    do not create duplicate entries for the same directive."""
+    normalized = " ".join((command_raw or "").split()).lower()
+    return f"{filename}::{normalized}"
+
+
+def _record_resolution(username: Optional[str], filename: str,
+                       command_raw: str, record: dict) -> None:
+    uk = _user_key(username)
+    _resolved_commands.setdefault(uk, {})[_resolution_key(filename, command_raw)] = record
+    firebase_service.save_resolution(uk, filename, command_raw, record)
+
+
+def _lookup_resolution(username: Optional[str], filename: str,
+                       command_raw: str) -> Optional[dict]:
+    return _resolved_commands.get(_user_key(username), {}).get(
+        _resolution_key(filename, command_raw)
+    )
+
+
+def _hydrate_resolutions(username: Optional[str]) -> None:
+    """Load stored verdicts for a user once per process, so a redeploy does not
+    resurrect directives the operator already signed off."""
+    uk = _user_key(username)
+    if uk in _resolved_commands:
+        return
+    _resolved_commands[uk] = {}
+    for row in firebase_service.get_resolutions(uk):
+        fname = row.get("filename")
+        cmd = row.get("command_raw")
+        if fname and cmd:
+            _resolved_commands[uk][_resolution_key(fname, cmd)] = row
+
+
+def _clear_resolutions_for_config(filename: str) -> None:
+    """Drop verdicts for a deleted configuration so re-uploading the same
+    filename starts from a clean review queue."""
+    for uk, entries in list(_resolved_commands.items()):
+        for key in [k for k in entries if k.startswith(f"{filename}::")]:
+            entries.pop(key, None)
+        firebase_service.delete_resolutions_for_config(uk, filename)
+
+
+# ---------------------------------------------------------------------------
+# CIS Benchmark index & per-command trust scoring
+# ---------------------------------------------------------------------------
+
+_RULES_BY_ID: Dict[str, dict] = {}
+_RULES_BY_FIELD: Dict[str, dict] = {}
+
+# Structural scaffolding that carries no security semantics. Presenting these
+# to an operator as "directives needing classification" is noise — nobody can
+# meaningfully rule on "</sshguard>" or a bare "config firewall policy" block
+# opener, and doing so buried the genuine findings.
+_DIRECTIVE_NOISE = re.compile(
+    r"""^(?:
+          </?[A-Za-z0-9_:-]+/?>            # bare XML/markup open or close tag
+        | (?:end|next|exit|return|commit|quit|abort|save\s+config|top|root)
+        | (?:config|edit|config\s+\w[\w\s-]*)    # block openers with no setting
+        | [{}\[\]()!#;,.\-*=/\\|'"\s]+          # punctuation-only lines
+        | \w+\(config[^)]*\)\#?                  # captured CLI prompts
+    )$""",
+    re.I | re.X,
+)
+
+# ``<sshport>22</sshport>`` carries real meaning; flatten markup to "key value"
+# so XML-shaped configs (pfSense) match the same keyword table as CLI configs.
+_XML_PAIR = re.compile(r"<([A-Za-z0-9_:-]+)>([^<]*)</\1>")
+
+
+def _normalize_directive(command_raw: str) -> str:
+    """Flatten markup into CLI-ish ``key value`` text for keyword matching."""
+    text = (command_raw or "").strip()
+    text = _XML_PAIR.sub(lambda m: f"{m.group(1)} {m.group(2)}", text)
+    return " ".join(text.split())
+
+
+def _is_reviewable_directive(command_raw: str) -> bool:
+    """True when a line is a real configuration directive worth a human verdict."""
+    text = (command_raw or "").strip()
+    if len(text) < 3:
+        return False
+    if _DIRECTIVE_NOISE.match(text):
+        return False
+    # Require at least one letter and a value/keyword pair worth ruling on.
+    return any(ch.isalnum() for ch in text)
+
+
+# Keyword -> rule id fallback used when neither an explicit rule_id nor a KB
+# field-path match is available. Ordered most-specific first; first match wins.
+_BENCHMARK_KEYWORDS: List[Tuple[tuple, str]] = [
+    (("telnet",), "CIS-MGMT-01"),
+    (("ssh version", "protocol-version", "ssh server v2", "sshd", "stelnet",
+      "ssh server", "ssh-port", "sshport", "protocol inbound ssh", "ssh user",
+      "ssh port", "disable-ssh", "ssh.enable", "admin-ssh", "transport input",
+      "ssh maximum-auth", "ssh login-attempts", "dropbear"), "CIS-MGMT-02"),
+    # HTTPS must be tested before HTTP: first match wins, and "protocol http"
+    # substring-matches "protocol https", which previously filed every HTTPS
+    # directive under the "HTTP disabled" control.
+    (("https", "secure-server", "ssl-port", "web-management https",
+      "ssl-certref", "uhttpd", "redirect_https"), "CIS-MGMT-04"),
+    (("http server", "http.enable", "disable-http", "web http", "http-port",
+      "protocol http", "httpd", "http_disable"), "CIS-MGMT-03"),
+    (("snmp-server community", "rocommunity", "snmp.community",
+      "snmp-community", "community"), "CIS-MGMT-05"),
+    (("snmp v3", "snmpv3", "usm", "agent-version", "version v3", "snmp-agent",
+      "snmp.status", "snmp sysinfo", "snmp-server user", "snmp-server group",
+      "snmp-server host", "snmp-server enable", "snmp-server vrf",
+      "snmp.enable"), "CIS-MGMT-06"),
+    (("idle-timeout", "exec-timeout", "session_timeout", "session-idle",
+      "idletimeout", "time-out", "timeout"), "CIS-MGMT-07"),
+    (("access-class", "trusthost", "allowed-client", "permitted-ip",
+      "access-list", "acl ", "source-address", "listen-address",
+      "src-address", "allowed_masters", "option interface"), "CIS-MGMT-08"),
+    (("password-encryption", "irreversible-cipher", "password-hash",
+      "encrypted-password", "sha512", "sha256", "$6$", "$9$", "$5$", "$2y$",
+      "password enc", "ciphertext", "plaintext-password", "secret",
+      "password=", "password ", "passwd", "password_file", "password-hash",
+      "authkey", "network_key", "app_key", "pre-shared"), "CIS-AUTH-01"),
+    (("min-length", "minimum-length", "min_length", "password-policy",
+      "complexity", "password_complexity"), "CIS-AUTH-02"),
+    (("lockout", "retry-options", "block-for", "failed-logins", "tries",
+      "login_security", "deny-on-failed", "max-failed", "sshguard",
+      "attempts", "fail-times", "limit-login"), "CIS-AUTH-03"),
+    (("privilege", "accprofile", "login class", "group administrators",
+      "authentication-mode", "authorization", "tacacs", "radius",
+      "rba role", "role ", "level 'admin'", "service-type", "aaa",
+      "local-user", "username", "user "), "CIS-AUTH-04"),
+    (("logging host", "syslog", "loghost", "logging server", "log-remote",
+      "log_ip", "logging synchronous", "logging trap", "log.remote",
+      "logging enable", "logging 10.", "log-settings", "info-center",
+      "log target", "logging.remote", "logging.local", "syslog.remote",
+      "log.remote.enable", "remoteserver"), "CIS-LOG-01"),
+    (("buffered", "buffer-size", "log memory", "logging buffer"), "CIS-LOG-02"),
+    (("log config", "change-log", "auditlog", "interactive-commands",
+      "tamper", "archive", "log_type"), "CIS-LOG-03"),
+    (("cipher", "aes256", "hmac", "strong-crypto", "key-exchange", "macs ",
+      "encryption algorithm", "ssh_enc"), "CIS-CRYPTO-01"),
+    (("tls", "ssl-min", "ssl-version", "tls_version"), "CIS-CRYPTO-02"),
+    (("crl", "ocsp", "certificate", "pki", "signature_verification",
+      "cert", "secure_element"), "CIS-CRYPTO-03"),
+    (("any any", "permit ip any", "default-action 'accept'", "allow_anonymous",
+      "auth=none", "srcaddr \"all\"", "service \"all\"", "action 'accept'",
+      "encryption none", "0.0.0.0/0"), "CIS-ACL-01"),
+    (("egress", "outbound", "masquerade", "srcnat", "forward", "nat"), "CIS-ACL-02"),
+]
+
+
+def _build_rule_index() -> None:
+    try:
+        for rule in load_rules():
+            _RULES_BY_ID[rule["id"]] = rule
+            field_path = rule.get("baseline_field_path")
+            if field_path and field_path not in _RULES_BY_FIELD:
+                _RULES_BY_FIELD[field_path] = rule
+    except Exception as ex:
+        print(f"[Startup] Could not build CIS rule index: {ex}")
+
+
+_build_rule_index()
+
+
+def _describe_benchmark(command_raw: str, kb_field: Optional[str],
+                        rule_id_hint: Optional[str], vendor: str) -> dict:
+    """
+    Resolve which CIS control an unmapped directive relates to, and return the
+    control's title, intent, severity and vendor-specific remediation so the
+    operator can judge it without leaving the page.
+    """
+    rule: Optional[dict] = None
+
+    if rule_id_hint and rule_id_hint in _RULES_BY_ID:
+        rule = _RULES_BY_ID[rule_id_hint]
+    if rule is None and kb_field and kb_field in _RULES_BY_FIELD:
+        rule = _RULES_BY_FIELD[kb_field]
+    if rule is None:
+        haystack = f"{_normalize_directive(command_raw)} {kb_field or ''}".lower()
+        for keywords, rid in _BENCHMARK_KEYWORDS:
+            if any(k in haystack for k in keywords) and rid in _RULES_BY_ID:
+                rule = _RULES_BY_ID[rid]
+                break
+
+    if rule is None:
+        return {
+            "benchmark_id": "UNMAPPED",
+            "benchmark_title": "No benchmark control mapped yet",
+            "benchmark_description": (
+                "This directive does not yet map to a control in the active rule set. "
+                "Classifying it teaches the agent which control it belongs to."
+            ),
+            "benchmark_severity": "info",
+            "benchmark_framework": "cis",
+            "benchmark_expected": None,
+            "benchmark_field_path": kb_field,
+            "benchmark_remediation": None,
+        }
+
+    evaluation = rule.get("evaluation") or {}
+    remediation = (rule.get("remediation") or {}).get(vendor) or {}
+    return {
+        "benchmark_id": rule["id"],
+        "benchmark_title": rule.get("title", ""),
+        "benchmark_description": (rule.get("description") or "").strip(),
+        "benchmark_severity": rule.get("severity", "info"),
+        "benchmark_framework": rule.get("framework", "cis"),
+        "benchmark_expected": evaluation.get("expected"),
+        "benchmark_operator": evaluation.get("operator"),
+        "benchmark_field_path": rule.get("baseline_field_path") or kb_field,
+        "benchmark_remediation": {
+            "command": remediation.get("command"),
+            "rationale": remediation.get("rationale"),
+        } if remediation else None,
+    }
+
+
+_STOPWORD_TOKENS = {"set", "the", "and", "for", "config", "configure", "edit"}
+_dataset_token_cache: Optional[List[set]] = None
+
+
+def _tokenize_directive(text: str) -> set:
+    cleaned = _normalize_directive(text).lower()
+    return {
+        t.strip("\"'<>=,;()[]{}")
+        for t in re.split(r"[\s=]+", cleaned)
+        if len(t) > 2
+    } - _STOPWORD_TOKENS
+
+
+def _dataset_similarity(command_raw: str) -> Tuple[float, int]:
+    """
+    Vendor-agnostic "have we seen anything like this?" signal: best Jaccard token
+    overlap against every documented example command in the vendor dataset.
+
+    The training KB's own ``retrieve`` is vendor-scoped, so it returns 0.0 for
+    every vendor that has no seeded entries yet — which is precisely the case
+    for newly onboarded vendors. This fallback keeps the signal informative
+    instead of silently dead.
+    """
+    global _dataset_token_cache
+    if _dataset_token_cache is None:
+        _dataset_token_cache = []
+        try:
+            from vendor_config_kb import vendor_kb
+            for rec in vendor_kb.dataset_records:
+                for line in (rec.get("example_commands") or "").splitlines():
+                    toks = _tokenize_directive(line)
+                    if toks:
+                        _dataset_token_cache.append(toks)
+        except Exception as ex:
+            print(f"[Trust] Could not build dataset token cache: {ex}")
+
+    target = _tokenize_directive(command_raw)
+    if not target or not _dataset_token_cache:
+        return 0.0, len(_dataset_token_cache or [])
+
+    best = 0.0
+    for toks in _dataset_token_cache:
+        union = target | toks
+        if not union:
+            continue
+        score = len(target & toks) / len(union)
+        if score > best:
+            best = score
+            if best >= 0.95:
+                break
+    return round(best, 3), len(_dataset_token_cache)
+
+
+def _compute_command_trust(command_raw: str, vendor: VendorFamily,
+                           vendor_confidence: float, kb_match,
+                           benchmark: Optional[dict] = None) -> dict:
+    """
+    Composite, explainable trust score for how well the agent understands one
+    directive. A weighted blend of five independent signals rather than a single
+    opaque model output, so every component can be shown to the operator:
+
+      0.30  a benchmark control was resolved for this directive
+      0.25  deterministic knowledge-base pattern match
+      0.20  federated-learning token weights learned from prior verdicts
+      0.15  corpus retrieval similarity against documented vendor examples
+      0.10  vendor fingerprint confidence for the parent config
+
+    Weights deliberately favour signals that carry information for *unmapped*
+    directives, which is the only population this queue contains.
+    """
+    from federated_learning import federated_engine
+
+    kb_term = 1.0 if kb_match else 0.0
+
+    mapped = bool(benchmark and benchmark.get("benchmark_id") not in (None, "UNMAPPED"))
+    benchmark_term = 1.0 if mapped else 0.0
+
+    # Vendor-scoped KB first (most precise), corpus-wide fallback second.
+    try:
+        similarity = float(_training_kb.retrieve(command_raw, vendor).similarity or 0.0)
+    except Exception:
+        similarity = 0.0
+    corpus_similarity, corpus_size = _dataset_similarity(command_raw)
+    if similarity <= 0.0:
+        similarity = corpus_similarity
+
+    tokens = [t.lower().strip('"\'') for t in (command_raw or "").split() if len(t) > 2]
+    learned = [
+        federated_engine.global_parameters.weights[t]
+        for t in tokens
+        if t in federated_engine.global_parameters.weights
+    ]
+    fed_term = sum(learned) / len(learned) if learned else 0.0
+    coverage = (len(learned) / len(tokens)) if tokens else 0.0
+
+    score = (
+        0.30 * benchmark_term
+        + 0.25 * kb_term
+        + 0.20 * fed_term
+        + 0.15 * similarity
+        + 0.10 * float(vendor_confidence or 0.0)
+    )
+    score = round(min(1.0, max(0.0, score)), 3)
+
+    if score >= 0.70:
+        band, band_label = "high", "High confidence"
+    elif score >= 0.45:
+        band, band_label = "medium", "Needs confirmation"
+    else:
+        band, band_label = "low", "Low confidence"
+
+    return {
+        "trust_score": score,
+        "trust_percent": round(score * 100),
+        "trust_band": band,
+        "trust_band_label": band_label,
+        "trust_factors": [
+            {
+                "label": "Benchmark mapping",
+                "value": round(benchmark_term, 3),
+                "weight": 0.30,
+                "detail": f"Mapped to {benchmark.get('benchmark_id')}" if mapped
+                          else "No benchmark control resolved yet",
+            },
+            {
+                "label": "Knowledge-base match",
+                "value": round(kb_term, 3),
+                "weight": 0.25,
+                "detail": "Matched a documented vendor pattern" if kb_match
+                          else "No deterministic pattern matched",
+            },
+            {
+                "label": "Federated learning",
+                "value": round(fed_term, 3),
+                "weight": 0.20,
+                "detail": f"{len(learned)}/{len(tokens)} tokens seen in prior rounds "
+                          f"({round(coverage * 100)}% coverage)",
+            },
+            {
+                "label": "Corpus similarity",
+                "value": round(similarity, 3),
+                "weight": 0.15,
+                "detail": f"Best token overlap against {corpus_size} documented examples",
+            },
+            {
+                "label": "Vendor fingerprint",
+                "value": round(float(vendor_confidence or 0.0), 3),
+                "weight": 0.10,
+                "detail": f"Parent config identified as {vendor_display_name(vendor)}",
+            },
+        ],
+    }
+
+
 @app.get("/api/training/human-needed-by-config")
-def get_human_needed_by_config(username: Optional[str] = None):
+def get_human_needed_by_config(username: Optional[str] = None,
+                               include_resolved: bool = True):
     """
-    Returns unknown / human-needed commands grouped by configuration file.
-    Only checks configs belonging to the user.
+    Unknown / human-needed directives grouped by configuration file, enriched
+    with the CIS control each one relates to and an explainable trust score.
+
+    Previously resolved directives are returned with ``resolved: true`` and
+    their recorded verdict rather than being silently re-queued, so the operator
+    can see their own decision history instead of the same command reappearing.
     """
+    _hydrate_resolutions(username)
     user_configs = _get_target_configs_for_user(username=username)
     files_result = []
+    totals = {"pending": 0, "resolved": 0}
 
     for fname, raw_text in user_configs.items():
         vendor, conf = fingerprint_vendor(raw_text)
         _, unknowns = parse_config(vendor, raw_text, fname)
-        needed_cmds = []
+        from vendor_config_kb import vendor_kb
+
+        needed_cmds: List[dict] = []
         seen = set()
-        for unk in unknowns:
-            cmd_str = unk.raw.strip()
-            if cmd_str not in seen:
-                seen.add(cmd_str)
-                from vendor_config_kb import vendor_kb
-                kb_match = vendor_kb.match_command(cmd_str, vendor)
-                needed_cmds.append({
-                    "command_raw": cmd_str,
-                    "line": unk.line,
-                    "has_prior_info": kb_match is not None,
-                    "suggested_category": kb_match[2] if kb_match else "Management",
-                    "suggested_field": kb_match[0] if kb_match else None,
-                    "rule_id": "CIS-AUTH-03" if "lockout" in cmd_str.lower() or "retry" in cmd_str.lower() else "CIS-GENERIC-REVIEW",
+
+        def _add_command(cmd_str: str, line, rule_hint: Optional[str],
+                         field_hint: Optional[str] = None) -> None:
+            key = " ".join(cmd_str.split()).lower()
+            if not key or key in seen:
+                return
+            # Keep structural scaffolding out of the operator's queue
+            if not _is_reviewable_directive(cmd_str):
+                return
+            seen.add(key)
+
+            kb_match = (vendor_kb.match_command(cmd_str, vendor)
+                        or vendor_kb.match_command(_normalize_directive(cmd_str), vendor))
+            kb_field = kb_match[0] if kb_match else field_hint
+            kb_category = kb_match[2] if kb_match else None
+
+            entry = {
+                "command_raw": cmd_str,
+                "line": line,
+                "has_prior_info": kb_match is not None,
+                "suggested_category": kb_category or "Management",
+                "suggested_field": kb_field,
+                "suggested_value": str(kb_match[1]) if kb_match else None,
+            }
+            benchmark = _describe_benchmark(cmd_str, kb_field, rule_hint, vendor.value)
+            entry.update(benchmark)
+            entry["rule_id"] = benchmark["benchmark_id"]
+            entry.update(
+                _compute_command_trust(cmd_str, vendor, conf, kb_match, benchmark)
+            )
+
+            prior = _lookup_resolution(username, fname, cmd_str)
+            if prior:
+                entry.update({
+                    "resolved": True,
+                    "verdict": prior.get("verdict"),
+                    "resolved_by": prior.get("reviewer"),
+                    "resolved_at": prior.get("resolved_at"),
+                    "resolved_category": prior.get("category"),
+                    "resolution_notes": prior.get("documentation"),
                 })
+                totals["resolved"] += 1
+            else:
+                entry["resolved"] = False
+                entry["verdict"] = None
+                totals["pending"] += 1
 
-        # Also check if mission findings flagged this file with needs_human_review
+            needed_cmds.append(entry)
+
+        for unk in unknowns:
+            cmd_str = (unk.raw or "").strip()
+            if cmd_str:
+                _add_command(cmd_str, unk.line, None)
+
+        # Fold in directives the mission run explicitly gated for human review.
         if _cached_mission_result and "findings_by_device" in _cached_mission_result:
-            dev_findings = _cached_mission_result["findings_by_device"].get(fname, [])
-            for f in dev_findings:
-                if f.get("status") == "needs_human_review":
-                    ev = f.get("evidence_field") or {}
-                    src = ev.get("source") or {}
-                    raw_c = src.get("raw") or f.get("rule_id", "Unknown directive")
-                    if raw_c not in seen:
-                        seen.add(raw_c)
-                        needed_cmds.append({
-                            "command_raw": raw_c,
-                            "line": src.get("line"),
-                            "has_prior_info": False,
-                            "suggested_category": "Authentication" if "auth" in str(raw_c).lower() else "Management",
-                            "suggested_field": f.get("baseline_field_path"),
-                            "rule_id": f.get("rule_id"),
-                        })
+            for finding in _cached_mission_result["findings_by_device"].get(fname, []):
+                if finding.get("status") != "needs_human_review":
+                    continue
+                src = (finding.get("evidence_field") or {}).get("source") or {}
+                raw_c = (src.get("raw") or finding.get("rule_id") or "").strip()
+                if raw_c:
+                    _add_command(raw_c, src.get("line"), finding.get("rule_id"),
+                                 finding.get("baseline_field_path"))
 
+        if not include_resolved:
+            needed_cmds = [c for c in needed_cmds if not c["resolved"]]
+
+        pending = [c for c in needed_cmds if not c["resolved"]]
         files_result.append({
             "filename": fname,
             "vendor": vendor.value,
-            "vendor_display": vendor.value.replace("_", " ").title(),
+            "vendor_display": vendor_display_name(vendor),
+            "confidence": conf,
             "commands": needed_cmds,
-            "total_commands_needing_review": len(needed_cmds),
+            "total_commands_needing_review": len(pending),
+            "total_commands_resolved": len(needed_cmds) - len(pending),
         })
 
-    return {"files": files_result}
+    # Surface files with outstanding work first.
+    files_result.sort(key=lambda f: (-f["total_commands_needing_review"], f["filename"]))
+    return {
+        "files": files_result,
+        "summary": {
+            "files": len(files_result),
+            "pending_commands": totals["pending"],
+            "resolved_commands": totals["resolved"],
+        },
+    }
 
 
 @app.post("/api/training/resolve-command")
@@ -1606,12 +2066,48 @@ def resolve_command_in_training(req: TrainingResolveCommandRequest):
         uploaded_info=req.documentation or "",
     )
 
+    # 4. Teach the knowledge base so sibling devices stop asking the same
+    #    question. /api/human-review/resolve already did this; this endpoint
+    #    previously only trained federated weights, which is why a resolved
+    #    directive stayed "unknown" on the next parse.
+    try:
+        kb_entry = KnowledgeBaseEntry(
+            vendor=VendorFamily(vendor_str) if vendor_str in VendorFamily._value2member_map_
+            else VendorFamily.UNKNOWN,
+            raw_pattern=req.command_raw,
+            security_category=req.category or "Management",
+            baseline_field_path=_RULES_BY_ID.get(
+                req.rule_id or "", {}
+            ).get("baseline_field_path") or "system.security_policy",
+            value_type_hint="bool",
+            added_by=f"training_resolution_{req.reviewer or 'operator'}",
+        )
+        _training_kb.add(kb_entry)
+        _kb.add(kb_entry)
+    except Exception as ex:
+        print(f"[Training] KB record error: {ex}")
+
+    # 5. Persist the verdict so it survives polling and process restarts.
+    resolved_at = datetime.now(timezone.utc).isoformat()
+    _record_resolution(req.username, req.filename, req.command_raw, {
+        "verdict": req.verdict.upper(),
+        "category": req.category,
+        "documentation": req.documentation or "",
+        "reviewer": req.reviewer or "Lead Security Auditor",
+        "rule_id": req.rule_id or "CIS-GENERIC-REVIEW",
+        "resolved_at": resolved_at,
+        "federated_round": round_res.round_id,
+        "blockchain_block_index": block.index,
+    })
+
     return {
         "success": True,
         "verdict": req.verdict.upper(),
         "flips": flips,
         "blockchain_block_index": block.index,
         "federated_round": round_res.__dict__,
+        "resolved_at": resolved_at,
+        "persisted": True,
         "message": f"Directive successfully recorded as {req.verdict.upper()} and integrated into Federated Learning round #{round_res.round_id}.",
     }
 

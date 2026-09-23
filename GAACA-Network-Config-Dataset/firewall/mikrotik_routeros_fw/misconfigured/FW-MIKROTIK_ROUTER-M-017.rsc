@@ -1,0 +1,35 @@
+# GAACA Dataset — MikroTik RouterOS Firewall — MISCONFIGURED — Sample 17
+/system identity set name="WAN-ROUTEROS-DAL-66"
+
+/ip address
+add address=198.51.100.237/30 interface=ether1
+add address=203.0.113.192/24 interface=ether2
+
+/ip service
+set telnet disabled=no
+set ftp disabled=no
+set www disabled=no
+set ssh disabled=no
+set api disabled=no
+set winbox disabled=no
+
+/ip ssh set strong-crypto=no
+
+/user set [find name=admin] password=""
+
+/system logging action
+# No remote logging configured
+
+/system ntp client set enabled=no
+
+/snmp set enabled=yes
+/snmp community set [find name=public] read-access=yes write-access=yes
+
+/ip firewall filter
+add chain=input action=accept
+add chain=forward action=accept
+
+/tool bandwidth-server set enabled=yes
+/ip proxy set enabled=yes
+/ip socks set enabled=yes
+/ip upnp set enabled=yes

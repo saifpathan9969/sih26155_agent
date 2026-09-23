@@ -1,0 +1,13 @@
+{
+    "name": "WAN-MISTAP43/AP45-DXB-09",
+    "wlans": [
+        {
+            "ssid": "Mist-Insecure",
+            "enabled": true,
+            "auth": {
+                "type": "open"
+            },
+            "isolation": false
+        }
+    ]
+}

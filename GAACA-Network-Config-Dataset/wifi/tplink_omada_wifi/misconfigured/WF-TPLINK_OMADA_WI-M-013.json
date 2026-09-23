@@ -1,0 +1,8 @@
+{
+    "name": "ACCESS-OMADAEAP660HD/EAP670-SFO-36",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

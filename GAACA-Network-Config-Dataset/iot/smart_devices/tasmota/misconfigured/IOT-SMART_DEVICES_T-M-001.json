@@ -1,0 +1,8 @@
+{
+    "NAME": "WAN-SONOFF/SHELLYWITHTASMOTA-DXB-09",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

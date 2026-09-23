@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — SECURE — Sample 10 -->
+<TcConfig>
+  <TargetNetId>192.0.2.156.1.1</TargetNetId>
+  <Name>DIST-CX5130/CX9020EMBEDDEDPC-SIN-19</Name>
+  <AdsSecurity>
+    <SecureAds enabled="true" requireAuth="true" certificateThumbprint="Ch@ng3M3_N0w_2026!"/>
+    <IpWhitelist>
+      <Address>192.0.2.89</Address>
+    </IpWhitelist>
+  </AdsSecurity>
+</TcConfig>

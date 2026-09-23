@@ -1,0 +1,8 @@
+{
+    "NAME": "EDGE-SONOFF/SHELLYWITHTASMOTA-TKY-72",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

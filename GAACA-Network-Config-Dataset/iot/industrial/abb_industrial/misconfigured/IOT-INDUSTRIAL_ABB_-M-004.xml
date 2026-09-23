@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — ABB AC500 — MISCONFIGURED — Sample 4 -->
+<ABBConfiguration target="HQ-AC500/RTU500-SEA-55">
+  <SecurityLevel>None</SecurityLevel>
+  <IEC60870_5_104 TLS="false" port="2404"/>
+  <WebAccess httpsOnly="false"/>
+</ABBConfiguration>

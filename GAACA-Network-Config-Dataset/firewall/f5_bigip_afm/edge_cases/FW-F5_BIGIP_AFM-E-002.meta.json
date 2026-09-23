@@ -1,0 +1,43 @@
+{
+  "sample_id": "FW-F5_BIGIP_AFM-E-002",
+  "vendor": "F5",
+  "product": "BIG-IP AFM",
+  "device_type": "firewall",
+  "os": "TMOS",
+  "version": "17.x",
+  "category": "firewall",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "f5_tmsh",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "firewall",
+  "device_class": "load_balancer",
+  "network_role": "distribution",
+  "platform": "F5 TMOS",
+  "model": "F5 BIG-IP",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "f5_tmos",
+  "detected_vendor_display": "F5 BIG-IP TMOS",
+  "device_class_basis": "model registry (F5 BIG-IP)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'firewall' but the configuration identifies as 'load_balancer' via model registry (F5 BIG-IP). Network role 'distribution' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": false
+}

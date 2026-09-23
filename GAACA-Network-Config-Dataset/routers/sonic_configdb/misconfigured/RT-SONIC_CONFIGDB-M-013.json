@@ -1,0 +1,20 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "ACCESS-SONICENTERPRISEROUTER-SFO-36",
+            "hwsku": "Generic-Switch",
+            "type": "LeafRouter"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|198.51.100.187/24": {}
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

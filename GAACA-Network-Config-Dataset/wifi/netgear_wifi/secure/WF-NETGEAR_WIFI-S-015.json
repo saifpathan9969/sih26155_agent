@@ -1,0 +1,11 @@
+{
+    "deviceName": "DC-INSIGHTWAX630-LON-40",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "S3cur3_D3m0_P@ss!",
+            "clientIsolation": true
+        }
+    ]
+}

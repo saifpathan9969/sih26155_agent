@@ -1,0 +1,10 @@
+{
+    "id": "WAN-SHELLYPLUS1/PRO4PM-DXB-09",
+    "auth": {
+        "enable": false
+    },
+    "mqtt": {
+        "enable": true,
+        "server": "198.51.100.210:1883"
+    }
+}

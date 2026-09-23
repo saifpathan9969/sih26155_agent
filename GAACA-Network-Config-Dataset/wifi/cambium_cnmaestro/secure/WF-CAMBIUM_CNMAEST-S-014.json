@@ -1,0 +1,9 @@
+{
+    "device": "BR-CNPILOTXV2-2/CNMAESTRO-DAL-71",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

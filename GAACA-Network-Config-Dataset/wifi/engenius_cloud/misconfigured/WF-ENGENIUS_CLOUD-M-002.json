@@ -1,0 +1,8 @@
+{
+    "device": "WAN-CLOUDECW230-DXB-02",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

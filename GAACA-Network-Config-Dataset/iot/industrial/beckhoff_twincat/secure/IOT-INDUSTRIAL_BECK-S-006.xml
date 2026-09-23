@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — SECURE — Sample 6 -->
+<TcConfig>
+  <TargetNetId>192.0.2.76.1.1</TargetNetId>
+  <Name>EDGE-CX5130/CX9020EMBEDDEDPC-PAR-05</Name>
+  <AdsSecurity>
+    <SecureAds enabled="true" requireAuth="true" certificateThumbprint="S3cur3_D3m0_P@ss!"/>
+    <IpWhitelist>
+      <Address>203.0.113.205</Address>
+    </IpWhitelist>
+  </AdsSecurity>
+</TcConfig>

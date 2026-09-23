@@ -1,0 +1,41 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "DMZ-SONICENTERPRISEROUTER-SFO-41",
+            "hwsku": "Dell-EMC-Z9332f-O32",
+            "type": "ToRRouter",
+            "mac": "52:54:00:12:34:56",
+            "docker_routing_config_mode": "unified"
+        }
+    },
+    "MGMT_INTERFACE": {
+        "eth0|198.51.100.213/24": {
+            "gwaddr": "192.0.2.148"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|192.0.2.138/30": {}
+    },
+    "BGP_NEIGHBOR": {
+        "198.51.100.112": {
+            "asn": "65513",
+            "name": "CORE-ROUTER-01",
+            "holdtime": "180",
+            "keepalive": "60"
+        }
+    },
+    "NTP_SERVER": {
+        "203.0.113.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "203.0.113.50": {
+            "port": "514"
+        }
+    },
+    "AAA": {
+        "authentication": {
+            "login": "local",
+            "failthrough": "True"
+        }
+    }
+}

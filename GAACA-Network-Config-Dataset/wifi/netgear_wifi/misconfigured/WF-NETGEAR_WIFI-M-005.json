@@ -1,0 +1,10 @@
+{
+    "deviceName": "EDGE-INSIGHTWAX630-TKY-72",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

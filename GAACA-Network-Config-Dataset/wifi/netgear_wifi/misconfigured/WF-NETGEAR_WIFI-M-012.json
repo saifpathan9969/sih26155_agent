@@ -1,0 +1,10 @@
+{
+    "deviceName": "DMZ-INSIGHTWAX630-NYC-20",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

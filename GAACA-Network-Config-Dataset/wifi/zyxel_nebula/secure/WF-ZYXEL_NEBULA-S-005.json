@@ -1,0 +1,7 @@
+{
+    "hostname": "WAN-NEBULANWA110AX-MUM-44",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "S3cur3_D3m0_P@ss!",
+    "intra_bss_traffic_blocking": true
+}

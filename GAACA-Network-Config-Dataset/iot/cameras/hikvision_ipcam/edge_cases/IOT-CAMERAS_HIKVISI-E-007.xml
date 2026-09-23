@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — EDGE CASE — Sample 7 -->
+<SecurityConfig version="2.0">
+  <DeviceName>CORE-DS-2CDSERIES-AMS-29</DeviceName>
+</SecurityConfig>

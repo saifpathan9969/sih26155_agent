@@ -1,0 +1,52 @@
+{
+  "sample_id": "SW-ARISTA_EOS_SW-M-019",
+  "vendor": "Arista Networks",
+  "product": "7050SX / 7280 Switch",
+  "device_type": "switch",
+  "os": "EOS",
+  "version": "4.30",
+  "category": "switch",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "arista_eos_cli",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "switch",
+  "device_class": "network_switch",
+  "network_role": "branch",
+  "platform": "Arista EOS",
+  "model": null,
+  "capabilities": [
+    "L2_SWITCHING",
+    "STP"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "arista_eos",
+  "detected_vendor_display": "Arista EOS",
+  "device_class_basis": "defining construct: layer-2 forwarding constructs present",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

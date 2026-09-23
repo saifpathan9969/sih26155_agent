@@ -1,0 +1,8 @@
+{
+    "device": "DIST-CLOUDECW230-AMS-63",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

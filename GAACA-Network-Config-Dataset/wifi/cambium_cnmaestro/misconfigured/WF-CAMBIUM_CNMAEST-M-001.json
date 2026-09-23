@@ -1,0 +1,8 @@
+{
+    "device": "WAN-CNPILOTXV2-2/CNMAESTRO-DXB-09",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

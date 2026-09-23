@@ -1,0 +1,11 @@
+{
+    "name": "DMZ-OMADAEAP660HD/EAP670-SFO-41",
+    "wireless": {
+        "ssid": "Omada-Secure",
+        "security": "WPA3-Personal",
+        "password": "T3st_P@ssw0rd_Lab!",
+        "pmf": "required",
+        "guest_network": true,
+        "isolate": true
+    }
+}

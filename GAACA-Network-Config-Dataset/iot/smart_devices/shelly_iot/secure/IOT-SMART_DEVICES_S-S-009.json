@@ -1,0 +1,16 @@
+{
+    "id": "BR-SHELLYPLUS1/PRO4PM-SYD-41",
+    "auth": {
+        "enable": true,
+        "user": "admin",
+        "pass": "Ch@ng3M3_N0w_2026!"
+    },
+    "mqtt": {
+        "enable": true,
+        "ssl_ca": "ca.pem",
+        "server": "198.51.100.210:8883"
+    },
+    "cloud": {
+        "enable": false
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "HQ-SONICLEAF/SPINESWITCH-SEA-79",
+            "hwsku": "Accton-AS7726-32X",
+            "type": "LeafSwitch"
+        }
+    },
+    "VLAN": {
+        "Vlan3660": {
+            "vlanid": "3660"
+        }
+    },
+    "VLAN_MEMBER": {
+        "Vlan3660|Ethernet0": {
+            "tagging_mode": "untagged"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "enabled",
+            "mode": "rapid_pvst",
+            "bpdu_guard": "enabled"
+        }
+    },
+    "NTP_SERVER": {
+        "192.0.2.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "203.0.113.50": {
+            "port": "514"
+        }
+    }
+}

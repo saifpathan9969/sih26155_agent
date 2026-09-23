@@ -1,0 +1,11 @@
+{
+    "deviceName": "BR-INSIGHTWAX630-DAL-71",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "REDACTED_ADMIN_PASS",
+            "clientIsolation": true
+        }
+    ]
+}

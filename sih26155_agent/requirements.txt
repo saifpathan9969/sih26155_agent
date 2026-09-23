@@ -1,9 +1,16 @@
-fastapi>=0.110.0
-uvicorn[standard]>=0.28.0
-pydantic>=2.6.0
-pyyaml>=6.0.1
-scikit-learn>=1.4.0
-firebase-admin>=6.5.0
-python-multipart>=0.0.9
-requests>=2.31.0
-reportlab>=4.0.0
+# Upper bounds are deliberate. FastAPI pins a narrow compatible Starlette
+# range, but with `fastapi>=0.110.0` alone a fresh resolve can pair a new
+# FastAPI with a Starlette major that removed APIs FastAPI still calls
+# (observed locally: starlette 1.6.0 broke app startup with
+# "Router.__init__() got an unexpected keyword argument 'on_startup'").
+# Pinning both sides keeps container builds reproducible.
+fastapi>=0.110.0,<0.116.0
+starlette>=0.40.0,<0.46.0
+uvicorn[standard]>=0.28.0,<0.35.0
+pydantic>=2.6.0,<3.0.0
+pyyaml>=6.0.1,<7.0.0
+scikit-learn>=1.4.0,<2.0.0
+firebase-admin>=6.5.0,<7.0.0
+python-multipart>=0.0.9,<0.1.0
+requests>=2.31.0,<3.0.0
+reportlab>=4.0.0,<5.0.0

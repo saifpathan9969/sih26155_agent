@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — MISCONFIGURED — Sample 15 -->
+<TcConfig>
+  <TargetNetId>198.51.100.24.1.1</TargetNetId>
+  <Name>BR-CX5130/CX9020EMBEDDEDPC-FRA-69</Name>
+  <AdsSecurity>
+    <SecureAds enabled="false" requireAuth="false"/>
+  </AdsSecurity>
+</TcConfig>

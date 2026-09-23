@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Emerson DeltaV — SECURE — Sample 9 -->
+<DeltaVSecurity node="BR-DELTAVDCS/OVATION-SYD-41">
+  <NodeLockdown enabled="true"/>
+  <SmartFirewall incomingBlocked="true" auditTrail="true"/>
+  <WhitelistedControllers>
+    <Controller ip="192.0.2.207" key="Ch@ng3M3_N0w_2026!"/>
+  </WhitelistedControllers>
+</DeltaVSecurity>

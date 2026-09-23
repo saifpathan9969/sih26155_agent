@@ -1,0 +1,11 @@
+{
+    "name": "ACCESS-OMADAEAP660HD/EAP670-LON-62",
+    "wireless": {
+        "ssid": "Omada-Secure",
+        "security": "WPA3-Personal",
+        "password": "P@ssw0rd_PLACEHOLDER",
+        "pmf": "required",
+        "guest_network": true,
+        "isolate": true
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "NAME": "PROD-SONOFF/SHELLYWITHTASMOTA-BER-64",
+    "WebPassword": "REDACTED_ADMIN_PASS",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 8883,
+    "MqttUser": "tasmota_sec",
+    "MqttPassword": "REDACTED_ADMIN_PASS",
+    "SetOption13": 1,
+    "SetOption103": 1
+}

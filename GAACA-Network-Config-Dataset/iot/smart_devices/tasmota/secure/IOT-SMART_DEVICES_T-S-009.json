@@ -1,0 +1,10 @@
+{
+    "NAME": "BR-SONOFF/SHELLYWITHTASMOTA-SYD-41",
+    "WebPassword": "Ch@ng3M3_N0w_2026!",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 8883,
+    "MqttUser": "tasmota_sec",
+    "MqttPassword": "Ch@ng3M3_N0w_2026!",
+    "SetOption13": 1,
+    "SetOption103": 1
+}

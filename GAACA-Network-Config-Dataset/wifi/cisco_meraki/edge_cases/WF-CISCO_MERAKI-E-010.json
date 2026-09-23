@@ -1,0 +1,10 @@
+{
+    "name": "HQ-MERAKIMR56/MR46-AMS-46",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}

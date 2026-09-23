@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Mitsubishi MELSEC — MISCONFIGURED — Sample 12 -->
+<MelsecConfig cpu="DMZ-MELSECIQ-R/IQ-F-NYC-20">
+  <IpFilter enabled="false"/>
+  <SlmpSecurity authenticationRequired="false"/>
+</MelsecConfig>

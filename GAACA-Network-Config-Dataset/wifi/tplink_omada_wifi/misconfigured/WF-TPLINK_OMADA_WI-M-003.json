@@ -1,0 +1,8 @@
+{
+    "name": "HQ-OMADAEAP660HD/EAP670-DAL-15",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

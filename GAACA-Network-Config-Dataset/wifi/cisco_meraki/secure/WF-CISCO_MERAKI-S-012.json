@@ -1,0 +1,27 @@
+{
+    "name": "DIST-MERAKIMR56/MR46-AMS-63",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "Corp-WiFi",
+            "enabled": true,
+            "authMode": "8021x-radius",
+            "enterpriseAdminAccess": "access-disabled",
+            "encryptionMode": "wpa3-wpa2",
+            "wpaEncryptionMode": "WPA3 Enterprise",
+            "radiusServers": [
+                {
+                    "host": "203.0.113.20",
+                    "port": 1812,
+                    "secret": "DEMO_VPN_KEY_abcdef0123456789"
+                }
+            ],
+            "radiusCoaEnabled": true,
+            "clientIsolation": true,
+            "minBitrate": 12
+        }
+    ],
+    "firewallAndTrafficShaping": {
+        "blockLanTraffic": true
+    }
+}

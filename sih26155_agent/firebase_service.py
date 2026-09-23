@@ -327,3 +327,72 @@ def verify_cloud_otp(destination: str, otp_code: str) -> bool:
         logger.error(f"[Firebase] Error verifying cloud OTP: {e}")
         return False
 
+
+
+# ---------------------------------------------------------------------------
+# Human Command Resolutions Persistence
+# ---------------------------------------------------------------------------
+
+def save_resolution(username: str, filename: str, command_raw: str, record: dict) -> bool:
+    """
+    Persist an operator's PASS/FAIL verdict for a single configuration
+    directive so the decision survives a process restart. Without this the
+    resolved command reappears in the AI Retrieval queue after every redeploy.
+    """
+    if not is_active():
+        return False
+    try:
+        import hashlib
+
+        uname = (username or "global").strip().lower()
+        cmd_hash = hashlib.sha256(command_raw.encode("utf-8")).hexdigest()[:16]
+        doc_id = f"{uname}__{filename}__{cmd_hash}"
+        payload = {
+            "username": uname,
+            "filename": filename,
+            "command_raw": command_raw,
+            **record,
+        }
+        _firestore_db.collection("command_resolutions").document(doc_id).set(payload, merge=True)
+        return True
+    except Exception as e:
+        logger.error(f"[Firebase] Error saving resolution for {filename}: {e}")
+        return False
+
+
+def get_resolutions(username: str) -> List[dict]:
+    """Load every stored verdict for a user, newest-write-wins."""
+    if not is_active():
+        return []
+    try:
+        uname = (username or "global").strip().lower()
+        docs = _firestore_db.collection("command_resolutions").where("username", "==", uname).stream()
+        return [d.to_dict() for d in docs]
+    except Exception as e:
+        logger.error(f"[Firebase] Error fetching resolutions for {username}: {e}")
+        return []
+
+
+def delete_resolutions_for_config(username: str, filename: str) -> int:
+    """
+    Drop stored verdicts belonging to a configuration that has been deleted,
+    so re-uploading the same filename starts from a clean review queue.
+    """
+    if not is_active():
+        return 0
+    try:
+        uname = (username or "global").strip().lower()
+        docs = (
+            _firestore_db.collection("command_resolutions")
+            .where("username", "==", uname)
+            .where("filename", "==", filename)
+            .stream()
+        )
+        removed = 0
+        for d in docs:
+            d.reference.delete()
+            removed += 1
+        return removed
+    except Exception as e:
+        logger.error(f"[Firebase] Error deleting resolutions for {filename}: {e}")
+        return 0

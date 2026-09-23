@@ -1,0 +1,7 @@
+{
+    "hostname": "HQ-NEBULANWA110AX-SEA-79",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "T3st_P@ssw0rd_Lab!",
+    "intra_bss_traffic_blocking": true
+}

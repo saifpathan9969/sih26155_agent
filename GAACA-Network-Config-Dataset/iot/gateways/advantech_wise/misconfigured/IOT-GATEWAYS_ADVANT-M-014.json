@@ -1,0 +1,9 @@
+{
+    "device": "DIST-WISE-710/ADAM-6700-BER-26",
+    "mqtt": {
+        "broker": "tcp://198.51.100.200:1883",
+        "auth": {
+            "anonymous": true
+        }
+    }
+}

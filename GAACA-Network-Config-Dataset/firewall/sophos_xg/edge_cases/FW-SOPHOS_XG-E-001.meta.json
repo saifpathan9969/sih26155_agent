@@ -1,0 +1,42 @@
+{
+  "sample_id": "FW-SOPHOS_XG-E-001",
+  "vendor": "Sophos",
+  "product": "Sophos Firewall",
+  "device_type": "firewall",
+  "os": "SFOS",
+  "version": "20.x",
+  "category": "firewall",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "sophos_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "firewall",
+  "device_class": "firewall",
+  "network_role": "segmentation",
+  "platform": "Sophos XG (SFOS)",
+  "model": "Open-source / Sophos FW",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "sophos_xg",
+  "detected_vendor_display": "Sophos XG",
+  "device_class_basis": "model registry (Open-source / Sophos FW)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

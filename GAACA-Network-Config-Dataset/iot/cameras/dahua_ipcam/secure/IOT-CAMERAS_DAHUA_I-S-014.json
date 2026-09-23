@@ -1,0 +1,21 @@
+{
+    "device": "BR-IPC-HFW/IPC-HDW-DAL-71",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "198.51.100.61"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "REDACTED_ADMIN_PASS"
+    }
+}

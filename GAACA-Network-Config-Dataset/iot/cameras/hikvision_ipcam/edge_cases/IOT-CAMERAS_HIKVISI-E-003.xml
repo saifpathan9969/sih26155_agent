@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — EDGE CASE — Sample 3 -->
+<SecurityConfig version="2.0">
+  <DeviceName>EDGE-DS-2CDSERIES-CHI-44</DeviceName>
+</SecurityConfig>

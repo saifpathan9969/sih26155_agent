@@ -1,0 +1,11 @@
+{
+    "device": "DMZ-APX320/740-SFO-41",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "T3st_P@ssw0rd_Lab!",
+            "client_isolation": true
+        }
+    ]
+}

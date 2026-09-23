@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — EDGE CASE — Sample 6 -->
+<SecurityConfig version="2.0">
+  <DeviceName>REMOTE-DS-2CDSERIES-DAL-93</DeviceName>
+</SecurityConfig>

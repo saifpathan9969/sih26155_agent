@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "WAN-ESP32-S3/ESPHOME-DXB-02"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

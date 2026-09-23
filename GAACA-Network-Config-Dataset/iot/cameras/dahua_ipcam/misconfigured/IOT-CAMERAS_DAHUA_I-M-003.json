@@ -1,0 +1,15 @@
+{
+    "device": "HQ-IPC-HFW/IPC-HDW-DAL-15",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

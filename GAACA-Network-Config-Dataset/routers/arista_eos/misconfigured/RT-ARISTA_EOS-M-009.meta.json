@@ -1,0 +1,52 @@
+{
+  "sample_id": "RT-ARISTA_EOS-M-009",
+  "vendor": "Arista Networks",
+  "product": "7280R / 7500R Router",
+  "device_type": "router",
+  "os": "EOS",
+  "version": "4.30",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "arista_eos_cli",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "router",
+  "device_class": "network_switch",
+  "network_role": "distribution",
+  "platform": "Arista EOS",
+  "model": null,
+  "capabilities": [
+    "L2_SWITCHING"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "arista_eos",
+  "detected_vendor_display": "Arista EOS",
+  "device_class_basis": "defining construct: layer-2 forwarding constructs present",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'router' but the configuration identifies as 'network_switch' via defining construct: layer-2 forwarding constructs present. Network role 'distribution' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": false
+}

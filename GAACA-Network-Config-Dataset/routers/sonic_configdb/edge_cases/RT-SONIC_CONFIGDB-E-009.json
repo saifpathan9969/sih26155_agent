@@ -1,0 +1,13 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "PROD-SONICENTERPRISEROUTER-FRA-20"
+        }
+    },
+    "ACL_TABLE": {
+        "EMPTY_FILTER": {
+            "type": "L3",
+            "ports": []
+        }
+    }
+}

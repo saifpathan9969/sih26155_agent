@@ -1,0 +1,7 @@
+{
+    "hostname": "BR-NEBULANWA110AX-SYD-41",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "Ch@ng3M3_N0w_2026!",
+    "intra_bss_traffic_blocking": true
+}

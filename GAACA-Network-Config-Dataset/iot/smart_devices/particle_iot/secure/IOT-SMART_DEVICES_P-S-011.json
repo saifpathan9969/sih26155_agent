@@ -1,0 +1,8 @@
+{
+    "deviceId": "ACCESS-BORON/PHOTON2-LON-62",
+    "security": {
+        "serverPublicKey": "P@ssw0rd_PLACEHOLDER",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

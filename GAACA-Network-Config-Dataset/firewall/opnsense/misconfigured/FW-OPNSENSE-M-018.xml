@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- GAACA Dataset — OPNsense — MISCONFIGURED — Sample 18 -->
+<opnsense>
+  <system>
+    <hostname>STAGING-OPNSENSE-BER-62</hostname>
+    <ssh>
+      <enabled>enabled</enabled>
+      <permitrootlogin>1</permitrootlogin>
+      <passwordauth>1</passwordauth>
+    </ssh>
+    <webgui>
+      <protocol>http</protocol>
+      <port>80</port>
+    </webgui>
+    <user>
+      <name>admin</name>
+      <password>admin</password>
+    </user>
+  </system>
+  <interfaces>
+    <wan><if>igb0</if><ipaddr>192.0.2.62</ipaddr><subnet>30</subnet><enable>1</enable></wan>
+    <lan><if>igb1</if><ipaddr>198.51.100.200</ipaddr><subnet>24</subnet><enable>1</enable></lan>
+  </interfaces>
+  <syslog><enable>0</enable></syslog>
+  <ntpd><enable>0</enable></ntpd>
+  <snmpd><enable>1</enable><community>public</community></snmpd>
+  <filter>
+    <rule><type>pass</type><interface>wan</interface><protocol>any</protocol><descr>Allow-All</descr><log>0</log></rule>
+  </filter>
+</opnsense>

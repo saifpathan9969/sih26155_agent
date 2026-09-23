@@ -1,0 +1,11 @@
+{
+    "deviceName": "PROD-INSIGHTWAX630-BER-64",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "REDACTED_ADMIN_PASS",
+            "clientIsolation": true
+        }
+    ]
+}

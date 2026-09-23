@@ -1,0 +1,13 @@
+{
+    "name": "DMZ-MISTAP43/AP45-NYC-20",
+    "wlans": [
+        {
+            "ssid": "Mist-Insecure",
+            "enabled": true,
+            "auth": {
+                "type": "open"
+            },
+            "isolation": false
+        }
+    ]
+}

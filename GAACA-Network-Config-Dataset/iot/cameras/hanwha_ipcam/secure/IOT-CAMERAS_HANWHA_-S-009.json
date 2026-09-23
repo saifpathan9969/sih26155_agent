@@ -1,0 +1,10 @@
+{
+    "camera": "BR-WISENETX-SERIES-SYD-41",
+    "security": {
+        "tpm_2_0_active": true,
+        "secure_boot": true,
+        "https_mandatory": true,
+        "digest_auth_rtsp": true,
+        "admin_pass": "Ch@ng3M3_N0w_2026!"
+    }
+}

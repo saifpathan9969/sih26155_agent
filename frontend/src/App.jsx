@@ -494,7 +494,11 @@ export default function App() {
             )}
 
             {activeTab === 'devices' && (
-              <DeviceViewer fixtures={fixtures} />
+              <DeviceViewer
+                fixtures={fixtures}
+                currentUser={currentUser}
+                onDeviceRemoved={() => loadInitialData(audienceMode, currentUser)}
+              />
             )}
 
             {activeTab === 'soho' && (
@@ -508,7 +512,7 @@ export default function App() {
               <AutonomyTable
                 fixtures={fixtures}
                 findingsByDevice={missionResult?.findings_by_device || {}}
-                onOpenHumanReview={handleOpenHumanReview}
+                onNavigateTab={(tab) => setActiveTab(tab)}
               />
             )}
 

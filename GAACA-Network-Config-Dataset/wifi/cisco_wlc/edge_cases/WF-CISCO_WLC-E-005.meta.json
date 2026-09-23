@@ -1,0 +1,45 @@
+{
+  "sample_id": "WF-CISCO_WLC-E-005",
+  "vendor": "Cisco",
+  "product": "Catalyst 9800 WLC",
+  "device_type": "wifi_controller",
+  "os": "Cisco IOS-XE Wireless",
+  "version": "17.9",
+  "category": "wifi",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "cisco_iosxe_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "wifi_controller",
+  "device_class": "wireless_controller",
+  "network_role": "wireless_access",
+  "platform": "Cisco IOS-XE Wireless",
+  "model": "Cisco WLC",
+  "capabilities": [
+    "PORT_SECURITY",
+    "WIRELESS_SSID"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "unknown",
+  "detected_vendor_display": "Unknown Vendor",
+  "device_class_basis": "model registry (Cisco WLC)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

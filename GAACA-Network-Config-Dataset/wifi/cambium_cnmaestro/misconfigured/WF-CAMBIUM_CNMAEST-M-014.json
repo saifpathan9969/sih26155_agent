@@ -1,0 +1,8 @@
+{
+    "device": "DIST-CNPILOTXV2-2/CNMAESTRO-BER-26",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — SECURE — Sample 1 -->
+<SecurityConfig version="2.0">
+  <DeviceName>HQ-DS-2CDSERIES-SEA-79</DeviceName>
+  <IllegalLoginLock enabled="true" maxAttempts="3" lockTimeMinutes="30"/>
+  <HTTPSPort enabled="true" port="443"/>
+  <HTTPPort enabled="false"/>
+  <ONVIFSecurity authType="digest" digestAlgorithm="SHA256"/>
+  <SecurityAuditLog enabled="true"/>
+  <AdminPassword encrypted="true">T3st_P@ssw0rd_Lab!</AdminPassword>
+</SecurityConfig>

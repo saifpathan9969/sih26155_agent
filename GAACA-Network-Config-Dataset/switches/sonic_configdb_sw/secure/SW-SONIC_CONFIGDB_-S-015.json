@@ -1,0 +1,34 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "DC-SONICLEAF/SPINESWITCH-LON-40",
+            "hwsku": "Accton-AS7726-32X",
+            "type": "LeafSwitch"
+        }
+    },
+    "VLAN": {
+        "Vlan1912": {
+            "vlanid": "1912"
+        }
+    },
+    "VLAN_MEMBER": {
+        "Vlan1912|Ethernet0": {
+            "tagging_mode": "untagged"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "enabled",
+            "mode": "rapid_pvst",
+            "bpdu_guard": "enabled"
+        }
+    },
+    "NTP_SERVER": {
+        "198.51.100.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.10": {
+            "port": "514"
+        }
+    }
+}

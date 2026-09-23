@@ -1,0 +1,11 @@
+{
+    "name": "LAB-OMADAEAP660HD/EAP670-BER-46",
+    "wireless": {
+        "ssid": "Omada-Secure",
+        "security": "WPA3-Personal",
+        "password": "S3cur3_D3m0_P@ss!",
+        "pmf": "required",
+        "guest_network": true,
+        "isolate": true
+    }
+}

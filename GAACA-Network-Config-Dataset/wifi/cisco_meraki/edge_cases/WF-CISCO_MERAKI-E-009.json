@@ -1,0 +1,10 @@
+{
+    "name": "PROD-MERAKIMR56/MR46-FRA-20",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}

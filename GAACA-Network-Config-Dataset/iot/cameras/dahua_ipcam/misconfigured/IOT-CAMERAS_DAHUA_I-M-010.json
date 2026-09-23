@@ -1,0 +1,15 @@
+{
+    "device": "REMOTE-IPC-HFW/IPC-HDW-MUM-15",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

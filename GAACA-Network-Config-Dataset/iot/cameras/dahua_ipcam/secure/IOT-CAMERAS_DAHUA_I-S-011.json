@@ -1,0 +1,21 @@
+{
+    "device": "ACCESS-IPC-HFW/IPC-HDW-LON-62",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "203.0.113.139"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "P@ssw0rd_PLACEHOLDER"
+    }
+}

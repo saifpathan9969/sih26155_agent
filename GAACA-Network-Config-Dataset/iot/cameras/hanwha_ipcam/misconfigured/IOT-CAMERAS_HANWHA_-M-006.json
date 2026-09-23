@@ -1,0 +1,8 @@
+{
+    "camera": "DC-WISENETX-SERIES-FRA-11",
+    "security": {
+        "tpm_2_0_active": false,
+        "https_mandatory": false,
+        "admin_pass": "4321"
+    }
+}

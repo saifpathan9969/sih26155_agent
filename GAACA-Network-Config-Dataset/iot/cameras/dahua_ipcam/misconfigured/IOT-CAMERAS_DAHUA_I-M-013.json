@@ -1,0 +1,15 @@
+{
+    "device": "ACCESS-IPC-HFW/IPC-HDW-SFO-36",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

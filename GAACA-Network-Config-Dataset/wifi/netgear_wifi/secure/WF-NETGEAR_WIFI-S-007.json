@@ -1,0 +1,11 @@
+{
+    "deviceName": "BR-INSIGHTWAX630-SEA-53",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "S3cur3_D3m0_P@ss!",
+            "clientIsolation": true
+        }
+    ]
+}

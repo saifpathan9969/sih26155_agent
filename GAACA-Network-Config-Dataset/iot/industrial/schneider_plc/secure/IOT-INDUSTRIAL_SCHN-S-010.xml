@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Schneider Modicon — SECURE — Sample 10 -->
+<PLCConfiguration name="DIST-MODICONM580/M241-SIN-19" target="M580">
+  <CyberSecurityProfile>
+    <Level>HighSecurity</Level>
+    <UserAuthentication required="true" method="EncryptedToken" secret="Ch@ng3M3_N0w_2026!"/>
+    <ModbusPortFiltering enabled="true">
+      <AllowedIP>192.0.2.156</AllowedIP>
+    </ModbusPortFiltering>
+    <EthernetIPSecurity secureEncap="true"/>
+    <DisableUnusedProtocols ftp="true" http="true" snmpv1v2="true"/>
+  </CyberSecurityProfile>
+</PLCConfiguration>

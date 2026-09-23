@@ -1,0 +1,9 @@
+{
+    "device": "REMOTE-WISE-710/ADAM-6700-MUM-15",
+    "mqtt": {
+        "broker": "tcp://198.51.100.200:1883",
+        "auth": {
+            "anonymous": true
+        }
+    }
+}

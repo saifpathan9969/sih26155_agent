@@ -1,0 +1,10 @@
+{
+    "deviceName": "DC-INSIGHTWAX630-DAL-24",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

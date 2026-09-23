@@ -1,0 +1,21 @@
+{
+    "device": "DIST-IPC-HFW/IPC-HDW-AMS-63",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "198.51.100.209"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "REDACTED_ADMIN_PASS"
+    }
+}

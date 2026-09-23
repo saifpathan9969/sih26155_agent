@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "DMZ-ESP32-S3/ESPHOME-NYC-20"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

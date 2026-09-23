@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!-- GAACA Dataset — pfSense — SECURE — Sample 7 -->
+<pfsense>
+  <version>24.03</version>
+  <system>
+    <hostname>BR-PFSENSE-SEA-53</hostname>
+    <domain>example.lab</domain>
+    <timezone>America/New_York</timezone>
+    <ssh>
+      <enable>enabled</enable>
+      <port>22</port>
+      <sshdkeyonly>enabled</sshdkeyonly>
+    </ssh>
+    <webgui>
+      <protocol>https</protocol>
+      <port>4443</port>
+      <loginautocomplete>0</loginautocomplete>
+      <noantilockout>0</noantilockout>
+    </webgui>
+  </system>
+  <interfaces>
+    <wan>
+      <if>igb0</if>
+      <ipaddr>198.51.100.124</ipaddr>
+      <subnet>30</subnet>
+      <descr>WAN</descr>
+      <enable></enable>
+    </wan>
+    <lan>
+      <if>igb1</if>
+      <ipaddr>203.0.113.108</ipaddr>
+      <subnet>24</subnet>
+      <descr>LAN</descr>
+      <enable></enable>
+    </lan>
+  </interfaces>
+  <syslog>
+    <enable>1</enable>
+    <remoteserver>198.51.100.10</remoteserver>
+    <logall>1</logall>
+  </syslog>
+  <ntpd>
+    <enable>1</enable>
+    <timeservers>192.0.2.123</timeservers>
+  </ntpd>
+  <filter>
+    <rule>
+      <type>pass</type>
+      <interface>lan</interface>
+      <protocol>tcp</protocol>
+      <destination><port>443</port></destination>
+      <descr>LAN HTTPS Out</descr>
+      <log></log>
+    </rule>
+    <rule>
+      <type>block</type>
+      <interface>wan</interface>
+      <protocol>any</protocol>
+      <descr>Default Deny WAN</descr>
+      <log></log>
+    </rule>
+  </filter>
+</pfsense>

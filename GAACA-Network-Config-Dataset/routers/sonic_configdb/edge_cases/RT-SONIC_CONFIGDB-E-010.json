@@ -1,0 +1,13 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "HQ-SONICENTERPRISEROUTER-AMS-46"
+        }
+    },
+    "ACL_TABLE": {
+        "EMPTY_FILTER": {
+            "type": "L3",
+            "ports": []
+        }
+    }
+}

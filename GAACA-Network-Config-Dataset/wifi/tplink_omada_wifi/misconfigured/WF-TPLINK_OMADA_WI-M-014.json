@@ -1,0 +1,8 @@
+{
+    "name": "DIST-OMADAEAP660HD/EAP670-BER-26",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

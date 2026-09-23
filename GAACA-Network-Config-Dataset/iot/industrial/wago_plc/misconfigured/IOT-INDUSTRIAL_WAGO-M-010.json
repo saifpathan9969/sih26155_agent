@@ -1,0 +1,15 @@
+{
+    "controller": "REMOTE-PFC200CONTROLLER-MUM-15",
+    "security": {
+        "telnet": {
+            "enabled": true
+        },
+        "http_only": true,
+        "ssh": {
+            "permit_root_login": true
+        },
+        "modbus_tcp_firewall": {
+            "enabled": false
+        }
+    }
+}

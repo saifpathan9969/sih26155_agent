@@ -1,0 +1,13 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "BR-SONICENTERPRISEROUTER-TKY-94"
+        }
+    },
+    "ACL_TABLE": {
+        "EMPTY_FILTER": {
+            "type": "L3",
+            "ports": []
+        }
+    }
+}

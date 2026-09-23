@@ -1,0 +1,15 @@
+{
+    "device": "BR-IPC-HFW/IPC-HDW-CHI-47",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

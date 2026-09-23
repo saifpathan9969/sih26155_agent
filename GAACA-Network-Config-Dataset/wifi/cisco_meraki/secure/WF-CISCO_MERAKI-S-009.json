@@ -1,0 +1,27 @@
+{
+    "name": "BR-MERAKIMR56/MR46-SYD-41",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "Corp-WiFi",
+            "enabled": true,
+            "authMode": "8021x-radius",
+            "enterpriseAdminAccess": "access-disabled",
+            "encryptionMode": "wpa3-wpa2",
+            "wpaEncryptionMode": "WPA3 Enterprise",
+            "radiusServers": [
+                {
+                    "host": "203.0.113.20",
+                    "port": 1812,
+                    "secret": "REDACTED_PSK_0123456789abcdef"
+                }
+            ],
+            "radiusCoaEnabled": true,
+            "clientIsolation": true,
+            "minBitrate": 12
+        }
+    ],
+    "firewallAndTrafficShaping": {
+        "blockLanTraffic": true
+    }
+}

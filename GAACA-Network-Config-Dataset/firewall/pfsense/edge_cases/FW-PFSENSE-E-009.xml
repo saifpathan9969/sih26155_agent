@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- GAACA Dataset — pfSense — EDGE CASE — Sample 9 -->
+<pfsense>
+  <version>2.4.5</version>
+  <system><hostname>PROD-PFSENSE-FRA-20</hostname></system>
+  <!-- Legacy 2.4.x config format — some tags differ from 2.7.x -->
+</pfsense>

@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "ACCESS-ESP32-S3/ESPHOME-SFO-36"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

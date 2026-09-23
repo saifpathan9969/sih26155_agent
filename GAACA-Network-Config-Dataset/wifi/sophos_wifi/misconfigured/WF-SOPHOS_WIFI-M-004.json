@@ -1,0 +1,10 @@
+{
+    "device": "HQ-APX320/740-SEA-55",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

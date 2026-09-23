@@ -1,0 +1,42 @@
+{
+  "sample_id": "IOT-GATEWAYS_MOXA_I-E-002",
+  "vendor": "Moxa",
+  "product": "OnCell G3150A / EDS-G512E",
+  "device_type": "iot_gateway",
+  "os": "Moxa OS",
+  "version": "v3",
+  "category": "iot",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "ini",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "iot_gateway",
+  "device_class": "iot_gateway",
+  "network_role": "iot_edge",
+  "platform": "Moxa firmware",
+  "model": "Moxa",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "moxa",
+  "detected_vendor_display": "Moxa",
+  "device_class_basis": "model registry (Moxa)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

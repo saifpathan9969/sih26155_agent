@@ -1,0 +1,6 @@
+{
+    "hostname": "DC-NEBULANWA110AX-FRA-11",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

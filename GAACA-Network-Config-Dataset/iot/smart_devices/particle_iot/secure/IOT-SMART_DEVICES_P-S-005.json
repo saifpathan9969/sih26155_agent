@@ -1,0 +1,8 @@
+{
+    "deviceId": "WAN-BORON/PHOTON2-MUM-44",
+    "security": {
+        "serverPublicKey": "S3cur3_D3m0_P@ss!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

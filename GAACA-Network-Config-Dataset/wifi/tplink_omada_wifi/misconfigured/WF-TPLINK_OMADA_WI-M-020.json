@@ -1,0 +1,8 @@
+{
+    "name": "LAB-OMADAEAP660HD/EAP670-CHI-98",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

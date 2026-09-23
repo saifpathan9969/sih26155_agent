@@ -1,0 +1,13 @@
+{
+    "name": "REMOTE-MERAKIMR56/MR46-BER-52",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "OpenPublic",
+            "enabled": true,
+            "authMode": "open",
+            "encryptionMode": "wep",
+            "clientIsolation": false
+        }
+    ]
+}

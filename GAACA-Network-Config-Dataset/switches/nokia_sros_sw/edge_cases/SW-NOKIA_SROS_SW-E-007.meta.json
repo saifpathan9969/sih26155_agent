@@ -1,0 +1,42 @@
+{
+  "sample_id": "SW-NOKIA_SROS_SW-E-007",
+  "vendor": "Nokia",
+  "product": "7210 SAS Ethernet Switch",
+  "device_type": "switch",
+  "os": "SR OS",
+  "version": "22.x",
+  "category": "switch",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "nokia_sros_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "switch",
+  "device_class": "network_switch",
+  "network_role": "unknown",
+  "platform": "Nokia SR OS",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "nokia_sros",
+  "detected_vendor_display": "Nokia SR OS",
+  "device_class_basis": "filename convention (SW-NOKIA_SROS_SW-E-007.conf)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

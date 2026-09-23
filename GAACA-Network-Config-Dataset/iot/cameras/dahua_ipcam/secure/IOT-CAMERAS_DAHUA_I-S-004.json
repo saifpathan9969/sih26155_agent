@@ -1,0 +1,21 @@
+{
+    "device": "CORE-IPC-HFW/IPC-HDW-DAL-18",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "192.0.2.244"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "P@ssw0rd_PLACEHOLDER"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "device": "WAN-CNPILOTXV2-2/CNMAESTRO-MUM-44",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

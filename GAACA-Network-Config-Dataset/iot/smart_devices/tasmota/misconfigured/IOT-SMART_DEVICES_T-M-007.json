@@ -1,0 +1,8 @@
+{
+    "NAME": "REMOTE-SONOFF/SHELLYWITHTASMOTA-SFO-60",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

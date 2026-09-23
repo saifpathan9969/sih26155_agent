@@ -1,0 +1,16 @@
+{
+    "device": "ACCESS-WISE-710/ADAM-6700-LON-62",
+    "mqtt": {
+        "broker": "tls://198.51.100.200:8883",
+        "tls_cert_validation": true,
+        "client_id": "ACCESS-WISE-710/ADAM-6700-LON-62",
+        "auth": {
+            "user": "iot-agent",
+            "pass": "P@ssw0rd_PLACEHOLDER"
+        }
+    },
+    "security": {
+        "firewall": "strict",
+        "ssh_key_only": true
+    }
+}

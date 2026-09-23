@@ -1,0 +1,10 @@
+{
+    "device": "REMOTE-APX320/740-MUM-15",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "hostname": "CAMPUS-NEBULANWA110AX-AMS-11",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "P@ssw0rd_PLACEHOLDER",
+    "intra_bss_traffic_blocking": true
+}

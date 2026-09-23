@@ -1,0 +1,53 @@
+{
+  "sample_id": "RT-CISCO_IOS-M-016",
+  "vendor": "Cisco",
+  "product": "IOS Router",
+  "device_type": "router",
+  "os": "Cisco IOS",
+  "version": "15.x",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "cisco_ios_cli",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "router",
+  "device_class": "router",
+  "network_role": "edge",
+  "platform": "Cisco IOS / IOS-XE",
+  "model": null,
+  "capabilities": [
+    "BGP"
+  ],
+  "routing_protocols": [
+    "BGP"
+  ],
+  "l2_capable": false,
+  "detected_vendor": "cisco_ios",
+  "detected_vendor_display": "Cisco IOS / IOS-XE",
+  "device_class_basis": "defining construct: routed interfaces with no layer-2 bridging",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": true
+}

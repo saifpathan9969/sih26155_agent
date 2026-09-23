@@ -1,0 +1,8 @@
+{
+    "deviceId": "BR-BORON/PHOTON2-SEA-53",
+    "security": {
+        "serverPublicKey": "S3cur3_D3m0_P@ss!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

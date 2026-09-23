@@ -100,9 +100,16 @@ export const api = {
     client.get('/api/configurations', { params: { ...(audience ? { audience } : {}), ...(username ? { username } : {}) } }).then(r => r.data),
   uploadConfiguration: (filename, content, vendor = 'auto', username = null) =>
     client.post('/api/configurations/upload', { filename, content, vendor, username }).then(r => r.data),
-  deleteConfiguration: (filename) =>
-    client.delete(`/api/configurations/${filename}`).then(r => r.data),
-  getDeviceBaseline: (deviceId) => client.get(`/api/devices/${deviceId}/baseline`).then(r => r.data),
+  // encodeURIComponent matters: filenames legitimately contain dots and may
+  // contain spaces, which would otherwise corrupt the path segment.
+  deleteConfiguration: (filename, username = null) =>
+    client.delete(`/api/configurations/${encodeURIComponent(filename)}`, {
+      params: { ...(username ? { username } : {}) },
+    }).then(r => r.data),
+  getDeviceBaseline: (deviceId) =>
+    client.get(`/api/devices/${encodeURIComponent(deviceId)}/baseline`).then(r => r.data),
+
+
 
   // Rules & Autonomy
   getRules: () => client.get('/api/rules').then(r => r.data),
@@ -145,8 +152,13 @@ export const api = {
   trainingRetrieve: (query) => client.post('/api/training/retrieve', { query }).then(r => r.data),
   trainingValidate: (data) => client.post('/api/training/validate', data).then(r => r.data),
   trainingConfirm: (data) => client.post('/api/training/confirm', data).then(r => r.data),
-  getHumanNeededByConfig: (username = null) =>
-    client.get('/api/training/human-needed-by-config', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
+  getHumanNeededByConfig: (username = null, includeResolved = true) =>
+    client.get('/api/training/human-needed-by-config', {
+      params: {
+        ...(username ? { username } : {}),
+        include_resolved: includeResolved,
+      },
+    }).then(r => r.data),
   resolveCommandInTraining: (payload) =>
     client.post('/api/training/resolve-command', payload).then(r => r.data),
   submitVendorSolution: (payload) =>

@@ -1,0 +1,9 @@
+{
+    "device": "CORE-CNPILOTXV2-2/CNMAESTRO-DXB-68",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

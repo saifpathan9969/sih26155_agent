@@ -1,0 +1,10 @@
+{
+    "deviceName": "LAB-INSIGHTWAX630-CHI-98",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

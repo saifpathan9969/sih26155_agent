@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — ABB AC500 — EDGE CASE — Sample 2 -->
+<ABBConfiguration target="REMOTE-AC500/RTU500-AMS-05">
+  <Firewall policy="drop-all"/>
+</ABBConfiguration>

@@ -1,0 +1,15 @@
+{
+    "device": "WAN-IPC-HFW/IPC-HDW-DXB-02",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "id": "DIST-SHELLYPLUS1/PRO4PM-PAR-74",
+    "auth": {
+        "enable": false
+    },
+    "mqtt": {
+        "enable": true,
+        "server": "198.51.100.210:1883"
+    }
+}

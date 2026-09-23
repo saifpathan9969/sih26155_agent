@@ -1,0 +1,10 @@
+{
+    "device": "HQ-APX320/740-DAL-15",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

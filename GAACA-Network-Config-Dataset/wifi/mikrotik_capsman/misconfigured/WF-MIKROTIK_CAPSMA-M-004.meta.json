@@ -1,0 +1,53 @@
+{
+  "sample_id": "WF-MIKROTIK_CAPSMA-M-004",
+  "vendor": "MikroTik",
+  "product": "RouterOS CAPsMAN AP",
+  "device_type": "wifi_controller",
+  "os": "RouterOS",
+  "version": "v7.x",
+  "category": "wifi",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "mikrotik_rsc",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "wifi_controller",
+  "device_class": "wireless_ap",
+  "network_role": "wireless_access",
+  "platform": "MikroTik RouterOS",
+  "model": "MikroTik Wireless",
+  "capabilities": [
+    "WIRELESS_RADIO",
+    "WIRELESS_SSID"
+  ],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "mikrotik_routeros",
+  "detected_vendor_display": "MikroTik RouterOS",
+  "device_class_basis": "model registry (MikroTik Wireless)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'wifi_controller' but the configuration identifies as 'wireless_ap' via model registry (MikroTik Wireless). Network role 'wireless_access' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": false
+}

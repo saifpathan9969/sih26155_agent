@@ -1,0 +1,13 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "WAN-SONICENTERPRISEROUTER-LON-65"
+        }
+    },
+    "ACL_TABLE": {
+        "EMPTY_FILTER": {
+            "type": "L3",
+            "ports": []
+        }
+    }
+}

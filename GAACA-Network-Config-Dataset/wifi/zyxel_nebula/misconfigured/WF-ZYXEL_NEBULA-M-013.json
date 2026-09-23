@@ -1,0 +1,6 @@
+{
+    "hostname": "ACCESS-NEBULANWA110AX-SFO-36",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

@@ -1,0 +1,11 @@
+{
+    "name": "CORE-OMADAEAP660HD/EAP670-DXB-68",
+    "wireless": {
+        "ssid": "Omada-Secure",
+        "security": "WPA3-Personal",
+        "password": "Ch@ng3M3_N0w_2026!",
+        "pmf": "required",
+        "guest_network": true,
+        "isolate": true
+    }
+}

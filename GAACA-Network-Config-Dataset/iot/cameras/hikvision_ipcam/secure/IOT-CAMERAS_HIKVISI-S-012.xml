@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — SECURE — Sample 12 -->
+<SecurityConfig version="2.0">
+  <DeviceName>DIST-DS-2CDSERIES-AMS-63</DeviceName>
+  <IllegalLoginLock enabled="true" maxAttempts="3" lockTimeMinutes="30"/>
+  <HTTPSPort enabled="true" port="443"/>
+  <HTTPPort enabled="false"/>
+  <ONVIFSecurity authType="digest" digestAlgorithm="SHA256"/>
+  <SecurityAuditLog enabled="true"/>
+  <AdminPassword encrypted="true">REDACTED_ADMIN_PASS</AdminPassword>
+</SecurityConfig>

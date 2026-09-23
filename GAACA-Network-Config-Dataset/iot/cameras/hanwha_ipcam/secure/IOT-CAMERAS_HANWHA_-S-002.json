@@ -1,0 +1,10 @@
+{
+    "camera": "PROD-WISENETX-SERIES-BER-64",
+    "security": {
+        "tpm_2_0_active": true,
+        "secure_boot": true,
+        "https_mandatory": true,
+        "digest_auth_rtsp": true,
+        "admin_pass": "REDACTED_ADMIN_PASS"
+    }
+}

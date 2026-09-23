@@ -1,0 +1,21 @@
+{
+    "esphome": {
+        "name": "BR-ESP32-S3/ESPHOME-DAL-71"
+    },
+    "wifi": {
+        "ssid": "Secure-IoT",
+        "password": "REDACTED_ADMIN_PASS",
+        "eap": {
+            "identity": "esp32",
+            "ca_cert": "CERT_DATA"
+        }
+    },
+    "ota": {
+        "password": "REDACTED_ADMIN_PASS"
+    },
+    "api": {
+        "encryption": {
+            "key": "REDACTED_ADMIN_PASS"
+        }
+    }
+}

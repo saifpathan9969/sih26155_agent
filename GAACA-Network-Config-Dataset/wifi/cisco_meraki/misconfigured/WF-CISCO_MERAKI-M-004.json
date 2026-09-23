@@ -1,0 +1,13 @@
+{
+    "name": "HQ-MERAKIMR56/MR46-SEA-55",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "OpenPublic",
+            "enabled": true,
+            "authMode": "open",
+            "encryptionMode": "wep",
+            "clientIsolation": false
+        }
+    ]
+}

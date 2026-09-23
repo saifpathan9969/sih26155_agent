@@ -1,0 +1,6 @@
+{
+    "hostname": "STAGING-NEBULANWA110AX-BER-62",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

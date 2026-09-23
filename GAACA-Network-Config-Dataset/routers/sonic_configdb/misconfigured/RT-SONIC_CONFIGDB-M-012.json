@@ -1,0 +1,20 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "DMZ-SONICENTERPRISEROUTER-NYC-20",
+            "hwsku": "Generic-Switch",
+            "type": "LeafRouter"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|198.51.100.236/24": {}
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

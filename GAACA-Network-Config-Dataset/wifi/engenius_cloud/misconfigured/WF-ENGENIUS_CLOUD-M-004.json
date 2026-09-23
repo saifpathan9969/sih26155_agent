@@ -1,0 +1,8 @@
+{
+    "device": "HQ-CLOUDECW230-SEA-55",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

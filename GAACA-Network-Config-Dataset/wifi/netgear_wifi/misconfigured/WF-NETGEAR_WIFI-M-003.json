@@ -1,0 +1,10 @@
+{
+    "deviceName": "HQ-INSIGHTWAX630-DAL-15",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

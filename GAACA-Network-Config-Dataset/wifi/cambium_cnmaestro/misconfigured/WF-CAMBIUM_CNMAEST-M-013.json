@@ -1,0 +1,8 @@
+{
+    "device": "ACCESS-CNPILOTXV2-2/CNMAESTRO-SFO-36",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play, Server, ShieldAlert, Cpu, Sparkles, CheckCircle2,
@@ -44,15 +44,50 @@ export default function MissionControl({
     setSelectedDevices(fixtures.map(f => f.filename));
   };
 
-  // Dynamic Vendor summary counts from real uploaded fixtures
-  const ciscoDevices = fixtures.filter(f => f.vendor?.includes('cisco'));
-  const juniperDevices = fixtures.filter(f => f.vendor?.includes('juniper'));
-  const fortinetDevices = fixtures.filter(f => f.vendor?.includes('fortinet'));
-  const otherDevices = fixtures.filter(f => !f.vendor?.includes('cisco') && !f.vendor?.includes('juniper') && !f.vendor?.includes('fortinet'));
+  /**
+   * Asset-mix and vendor counters are derived from whatever was actually
+   * detected, not from a fixed Cisco/Juniper/Fortinet triplet.
+   *
+   * The old hardcoded cards collapsed nine fingerprinted vendor families into
+   * three buckets, so an inventory of Arista + MikroTik + VyOS rendered as
+   * "0 Cisco, 0 Juniper, 3 Fortinet/Other" — actively misleading.
+   */
+  const assetMix = useMemo(() => {
+    const buckets = new Map();
+    for (const f of fixtures) {
+      const key = f.device_type || 'unknown';
+      if (!buckets.has(key)) {
+        buckets.set(key, {
+          key,
+          label: f.device_type_display || 'Unclassified',
+          icon: f.device_type_icon || '\u2753',
+          deviceClass: f.device_class || 'unknown',
+          devices: [],
+        });
+      }
+      buckets.get(key).devices.push(f);
+    }
+    return [...buckets.values()].sort((a, b) => b.devices.length - a.devices.length);
+  }, [fixtures]);
 
-  const ciscoCount = ciscoDevices.length;
-  const juniperCount = juniperDevices.length;
-  const fortinetCount = fortinetDevices.length;
+  const vendorMix = useMemo(() => {
+    const buckets = new Map();
+    for (const f of fixtures) {
+      const key = f.vendor || 'unknown';
+      if (!buckets.has(key)) {
+        buckets.set(key, { key, label: f.vendor_display || key, devices: [] });
+      }
+      buckets.get(key).devices.push(f);
+    }
+    return [...buckets.values()].sort((a, b) => b.devices.length - a.devices.length);
+  }, [fixtures]);
+
+  const CLASS_ACCENT = {
+    network: { dot: 'bg-brand-400', text: 'text-brand-300' },
+    firewall: { dot: 'bg-rose-400', text: 'text-rose-300' },
+    iot: { dot: 'bg-purple-400', text: 'text-purple-300' },
+    unknown: { dot: 'bg-slate-500', text: 'text-slate-400' },
+  };
 
   const flips = missionResult?.flips || [];
   const reviews = missionResult?.grouped_reviews || [];
@@ -190,45 +225,95 @@ export default function MissionControl({
           <div className="text-[11px] text-slate-500 mt-0.5">Multi-Vendor Inventory</div>
         </div>
 
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">CISCO IOS</span>
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse-subtle" />
-          </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">
-            <AnimatedCounter target={ciscoCount} duration={1200} />
-          </div>
-          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={ciscoDevices.map(d => d.filename).join(', ')}>
-            {ciscoCount > 0 ? ciscoDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
-          </div>
-        </div>
+        {assetMix.slice(0, 3).map((bucket, i) => {
+          const accent = CLASS_ACCENT[bucket.deviceClass] || CLASS_ACCENT.unknown;
+          const names = bucket.devices.map(d => d.filename).join(', ');
+          return (
+            <div
+              key={bucket.key}
+              className={`glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-${i + 2}`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-mono truncate" title={bucket.label}>
+                  <span aria-hidden="true">{bucket.icon}</span> {bucket.label.toUpperCase()}
+                </span>
+                <span className={`w-2 h-2 rounded-full ${accent.dot} animate-pulse-subtle shrink-0`} />
+              </div>
+              <div className="text-2xl font-bold font-mono text-white mt-1">
+                <AnimatedCounter target={bucket.devices.length} duration={1200} />
+              </div>
+              <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={names}>
+                {names}
+              </div>
+            </div>
+          );
+        })}
 
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">JUNIPER JUNOS</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-subtle" />
+        {/* Keep the grid filled when fewer than three asset types are present */}
+        {assetMix.length === 0 && (
+          <div className="glass-panel p-4 rounded-xl border border-dashed border-slate-800 sm:col-span-3 text-center">
+            <div className="text-xs text-slate-500 font-mono py-3">
+              No configurations loaded yet — upload configs to see the asset mix.
+            </div>
           </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">
-            <AnimatedCounter target={juniperCount} duration={1200} />
-          </div>
-          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={juniperDevices.map(d => d.filename).join(', ')}>
-            {juniperCount > 0 ? juniperDevices.map(d => d.filename).join(', ') : '0 configs uploaded'}
-          </div>
-        </div>
-
-        <div className="glass-panel p-4 rounded-xl border border-slate-800 interactive-hover-card animate-fade-in-up stagger-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-mono">FORTINET / OTHER</span>
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse-subtle" />
-          </div>
-          <div className="text-2xl font-bold font-mono text-white mt-1">
-            <AnimatedCounter target={fortinetCount + otherDevices.length} duration={1200} />
-          </div>
-          <div className="text-[11px] text-slate-500 mt-0.5 truncate" title={[...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ')}>
-            {(fortinetCount + otherDevices.length) > 0 ? [...fortinetDevices, ...otherDevices].map(d => d.filename).join(', ') : '0 configs uploaded'}
-          </div>
-        </div>
+        )}
       </div>
+
+      {/* Full asset-type and vendor breakdown */}
+      {fixtures.length > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="glass-panel p-4 rounded-xl border border-slate-800 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider">
+                Asset Type Breakdown
+              </span>
+              <span className="text-[10px] font-mono text-slate-500">
+                {assetMix.length} type{assetMix.length === 1 ? '' : 's'}
+              </span>
+            </div>
+            {assetMix.map(bucket => {
+              const accent = CLASS_ACCENT[bucket.deviceClass] || CLASS_ACCENT.unknown;
+              const pct = Math.round((bucket.devices.length / fixtures.length) * 100);
+              return (
+                <div key={bucket.key} className="space-y-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="text-slate-300 truncate">
+                      <span aria-hidden="true">{bucket.icon}</span> {bucket.label}
+                    </span>
+                    <span className={accent.text}>{bucket.devices.length} · {pct}%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div className={`h-full ${accent.dot}`} style={{ width: `${pct}%` }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="glass-panel p-4 rounded-xl border border-slate-800 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider">
+                Detected Vendors
+              </span>
+              <span className="text-[10px] font-mono text-slate-500">
+                {vendorMix.length} vendor{vendorMix.length === 1 ? '' : 's'}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto">
+              {vendorMix.map(v => (
+                <span
+                  key={v.key}
+                  title={v.devices.map(d => d.filename).join(', ')}
+                  className="text-[10px] font-mono px-2 py-1 rounded-lg bg-[#050811] border border-slate-800 text-slate-300"
+                >
+                  {v.label}
+                  <span className="ml-1.5 text-brand-300 font-bold">{v.devices.length}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Informative Human-in-the-Loop Review Banner (Resolution handled at AI Retrieval page) */}
       {reviews.length > 0 && (

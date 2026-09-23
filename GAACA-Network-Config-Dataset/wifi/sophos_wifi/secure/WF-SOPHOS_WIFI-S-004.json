@@ -1,0 +1,11 @@
+{
+    "device": "CORE-APX320/740-DAL-18",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "P@ssw0rd_PLACEHOLDER",
+            "client_isolation": true
+        }
+    ]
+}

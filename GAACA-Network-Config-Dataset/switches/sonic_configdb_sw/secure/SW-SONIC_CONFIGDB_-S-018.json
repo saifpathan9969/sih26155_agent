@@ -1,0 +1,34 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "CAMPUS-SONICLEAF/SPINESWITCH-TKY-50",
+            "hwsku": "Accton-AS7726-32X",
+            "type": "LeafSwitch"
+        }
+    },
+    "VLAN": {
+        "Vlan2894": {
+            "vlanid": "2894"
+        }
+    },
+    "VLAN_MEMBER": {
+        "Vlan2894|Ethernet0": {
+            "tagging_mode": "untagged"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "enabled",
+            "mode": "rapid_pvst",
+            "bpdu_guard": "enabled"
+        }
+    },
+    "NTP_SERVER": {
+        "198.51.100.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.10": {
+            "port": "514"
+        }
+    }
+}

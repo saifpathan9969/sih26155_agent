@@ -1,0 +1,8 @@
+{
+    "deviceId": "DIST-BORON/PHOTON2-SYD-80",
+    "security": {
+        "serverPublicKey": "T3st_P@ssw0rd_Lab!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

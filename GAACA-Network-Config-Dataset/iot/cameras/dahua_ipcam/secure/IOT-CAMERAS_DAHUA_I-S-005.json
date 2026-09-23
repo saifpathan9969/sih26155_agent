@@ -1,0 +1,21 @@
+{
+    "device": "WAN-IPC-HFW/IPC-HDW-MUM-44",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "198.51.100.198"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "S3cur3_D3m0_P@ss!"
+    }
+}

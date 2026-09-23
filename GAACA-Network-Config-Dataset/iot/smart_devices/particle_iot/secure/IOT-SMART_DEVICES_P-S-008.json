@@ -1,0 +1,8 @@
+{
+    "deviceId": "DMZ-BORON/PHOTON2-SFO-41",
+    "security": {
+        "serverPublicKey": "T3st_P@ssw0rd_Lab!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

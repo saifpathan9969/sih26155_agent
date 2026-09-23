@@ -1,0 +1,52 @@
+{
+  "sample_id": "RT-ARISTA_EOS-S-001",
+  "vendor": "Arista Networks",
+  "product": "7280R / 7500R Router",
+  "device_type": "router",
+  "os": "EOS",
+  "version": "4.30",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "arista_eos_cli",
+  "security_state": "secure",
+  "controls_present": [
+    "ssh_v2",
+    "https_management",
+    "syslog",
+    "ntp",
+    "strong_auth",
+    "password_encryption",
+    "session_timeout",
+    "default_deny_policy"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Fully hardened configuration following vendor best practices and CIS benchmark recommendations",
+  "legacy_device_type": "router",
+  "device_class": "network_switch",
+  "network_role": "edge",
+  "platform": "Arista EOS",
+  "model": null,
+  "capabilities": [
+    "BGP",
+    "L2_SWITCHING"
+  ],
+  "routing_protocols": [
+    "BGP"
+  ],
+  "l2_capable": true,
+  "detected_vendor": "arista_eos",
+  "detected_vendor_display": "Arista EOS",
+  "device_class_basis": "defining construct: layer-2 forwarding constructs present alongside routing protocols (L3 switch)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'router' but the configuration identifies as 'network_switch' via defining construct: layer-2 forwarding constructs present alongside routing protocols (L3 switch). Network role 'edge' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": true
+}

@@ -1,0 +1,10 @@
+{
+    "deviceName": "BR-INSIGHTWAX630-FRA-69",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

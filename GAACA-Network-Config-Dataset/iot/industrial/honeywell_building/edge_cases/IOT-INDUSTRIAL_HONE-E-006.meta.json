@@ -1,0 +1,42 @@
+{
+  "sample_id": "IOT-INDUSTRIAL_HONE-E-006",
+  "vendor": "Honeywell",
+  "product": "Niagara Framework N4 Controller",
+  "device_type": "iot_building_automation",
+  "os": "Niagara 4",
+  "version": "4.12",
+  "category": "iot",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "xml",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "iot_building_automation",
+  "device_class": "iot_controller",
+  "network_role": "ot_cell",
+  "platform": "Tridium Niagara 4",
+  "model": "Honeywell Niagara",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "honeywell",
+  "detected_vendor_display": "Honeywell Niagara",
+  "device_class_basis": "model registry (Honeywell Niagara)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

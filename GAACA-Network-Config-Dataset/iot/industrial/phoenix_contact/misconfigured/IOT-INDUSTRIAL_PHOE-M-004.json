@@ -1,0 +1,9 @@
+{
+    "plc": "HQ-AXCF2152/3152-SEA-55",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

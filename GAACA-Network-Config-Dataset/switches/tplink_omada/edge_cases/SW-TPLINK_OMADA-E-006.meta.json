@@ -1,0 +1,44 @@
+{
+  "sample_id": "SW-TPLINK_OMADA-E-006",
+  "vendor": "TP-Link",
+  "product": "Omada SG3428 / SG3452",
+  "device_type": "switch",
+  "os": "Omada OS",
+  "version": "v5",
+  "category": "switch",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "cisco_ios_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "switch",
+  "device_class": "network_switch",
+  "network_role": "unknown",
+  "platform": "TP-Link Omada",
+  "model": null,
+  "capabilities": [
+    "VLAN"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "tplink_omada",
+  "detected_vendor_display": "TP-Link Omada",
+  "device_class_basis": "filename convention (SW-TPLINK_OMADA-E-006.conf)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

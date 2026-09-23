@@ -1,0 +1,13 @@
+{
+    "name": "BR-MERAKIMR56/MR46-CHI-47",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "OpenPublic",
+            "enabled": true,
+            "authMode": "open",
+            "encryptionMode": "wep",
+            "clientIsolation": false
+        }
+    ]
+}

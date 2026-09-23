@@ -1,0 +1,8 @@
+{
+    "name": "BR-OMADAEAP660HD/EAP670-FRA-69",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

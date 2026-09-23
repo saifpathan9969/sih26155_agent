@@ -1,0 +1,6 @@
+{
+    "hostname": "DMZ-NEBULANWA110AX-NYC-20",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

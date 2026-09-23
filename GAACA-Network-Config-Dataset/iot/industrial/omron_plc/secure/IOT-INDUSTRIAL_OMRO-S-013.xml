@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Omron Sysmac — SECURE — Sample 13 -->
+<SysmacSecurity unit="DIST-SYSMACNJ/NXSERIES-SYD-80">
+  <OperationRights enabled="true" adminPassword="T3st_P@ssw0rd_Lab!"/>
+  <PacketFilter enabled="true">
+    <Rule protocol="EtherNetIP" action="permit" ip="198.51.100.195"/>
+    <Rule protocol="All" action="deny"/>
+  </PacketFilter>
+</SysmacSecurity>

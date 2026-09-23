@@ -1,0 +1,50 @@
+{
+  "sample_id": "RT-ARUBA_AOSCX-S-008",
+  "vendor": "Aruba / HPE",
+  "product": "CX 8325 / 8400 Core Router",
+  "device_type": "router",
+  "os": "AOS-CX",
+  "version": "10.12",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "aruba_aoscx_cli",
+  "security_state": "secure",
+  "controls_present": [
+    "ssh_v2",
+    "https_management",
+    "syslog",
+    "ntp",
+    "strong_auth",
+    "password_encryption",
+    "session_timeout",
+    "default_deny_policy"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Fully hardened configuration following vendor best practices and CIS benchmark recommendations",
+  "legacy_device_type": "router",
+  "device_class": "router",
+  "network_role": "edge",
+  "platform": "Aruba AOS-CX",
+  "model": null,
+  "capabilities": [
+    "BGP"
+  ],
+  "routing_protocols": [
+    "BGP"
+  ],
+  "l2_capable": false,
+  "detected_vendor": "aruba_aoscx",
+  "detected_vendor_display": "Aruba AOS-CX",
+  "device_class_basis": "defining construct: routed interfaces with no layer-2 bridging",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": true
+}

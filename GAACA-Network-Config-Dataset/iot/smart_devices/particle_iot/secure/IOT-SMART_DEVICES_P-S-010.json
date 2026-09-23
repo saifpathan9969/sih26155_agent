@@ -1,0 +1,8 @@
+{
+    "deviceId": "DIST-BORON/PHOTON2-SIN-19",
+    "security": {
+        "serverPublicKey": "Ch@ng3M3_N0w_2026!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

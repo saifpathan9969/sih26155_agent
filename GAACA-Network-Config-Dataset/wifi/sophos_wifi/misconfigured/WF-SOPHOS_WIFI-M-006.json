@@ -1,0 +1,10 @@
+{
+    "device": "DC-APX320/740-FRA-11",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

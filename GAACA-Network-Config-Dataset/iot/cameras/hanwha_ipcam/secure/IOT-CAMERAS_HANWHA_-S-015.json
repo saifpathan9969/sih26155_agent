@@ -1,0 +1,10 @@
+{
+    "camera": "DC-WISENETX-SERIES-LON-40",
+    "security": {
+        "tpm_2_0_active": true,
+        "secure_boot": true,
+        "https_mandatory": true,
+        "digest_auth_rtsp": true,
+        "admin_pass": "S3cur3_D3m0_P@ss!"
+    }
+}

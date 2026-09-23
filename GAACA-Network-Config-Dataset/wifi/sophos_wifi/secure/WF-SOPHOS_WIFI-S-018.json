@@ -1,0 +1,11 @@
+{
+    "device": "CAMPUS-APX320/740-TKY-50",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "P@ssw0rd_PLACEHOLDER",
+            "client_isolation": true
+        }
+    ]
+}

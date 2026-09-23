@@ -1,0 +1,15 @@
+{
+    "device": "DMZ-IPC-HFW/IPC-HDW-NYC-20",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

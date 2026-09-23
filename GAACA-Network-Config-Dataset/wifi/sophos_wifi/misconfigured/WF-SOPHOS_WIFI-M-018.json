@@ -1,0 +1,10 @@
+{
+    "device": "STAGING-APX320/740-BER-62",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

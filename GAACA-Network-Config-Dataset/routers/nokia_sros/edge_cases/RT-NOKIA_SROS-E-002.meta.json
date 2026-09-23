@@ -1,0 +1,42 @@
+{
+  "sample_id": "RT-NOKIA_SROS-E-002",
+  "vendor": "Nokia",
+  "product": "7750 Service Router",
+  "device_type": "router",
+  "os": "SR OS",
+  "version": "23.x",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "nokia_sros_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "router",
+  "device_class": "router",
+  "network_role": "core",
+  "platform": "Nokia SR OS",
+  "model": "Nokia SR OS",
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "nokia_sros",
+  "detected_vendor_display": "Nokia SR OS",
+  "device_class_basis": "model registry (Nokia SR OS)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

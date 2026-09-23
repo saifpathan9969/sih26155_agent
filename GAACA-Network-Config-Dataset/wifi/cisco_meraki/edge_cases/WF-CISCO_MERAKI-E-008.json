@@ -1,0 +1,10 @@
+{
+    "name": "CORE-MERAKIMR56/MR46-AMS-98",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}

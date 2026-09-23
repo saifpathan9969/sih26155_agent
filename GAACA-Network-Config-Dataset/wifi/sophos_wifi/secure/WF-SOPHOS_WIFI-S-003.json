@@ -1,0 +1,11 @@
+{
+    "device": "LAB-APX320/740-BER-46",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "S3cur3_D3m0_P@ss!",
+            "client_isolation": true
+        }
+    ]
+}

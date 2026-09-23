@@ -1,0 +1,8 @@
+{
+    "device": "DMZ-CLOUDECW230-SFO-41",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

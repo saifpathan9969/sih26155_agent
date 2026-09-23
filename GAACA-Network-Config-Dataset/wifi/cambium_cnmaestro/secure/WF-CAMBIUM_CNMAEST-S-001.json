@@ -1,0 +1,9 @@
+{
+    "device": "HQ-CNPILOTXV2-2/CNMAESTRO-SEA-79",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

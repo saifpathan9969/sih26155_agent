@@ -1,0 +1,10 @@
+{
+    "device": "BR-APX320/740-CHI-47",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

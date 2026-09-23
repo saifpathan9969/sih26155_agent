@@ -1,0 +1,21 @@
+{
+    "esphome": {
+        "name": "DMZ-ESP32-S3/ESPHOME-SFO-41"
+    },
+    "wifi": {
+        "ssid": "Secure-IoT",
+        "password": "T3st_P@ssw0rd_Lab!",
+        "eap": {
+            "identity": "esp32",
+            "ca_cert": "CERT_DATA"
+        }
+    },
+    "ota": {
+        "password": "T3st_P@ssw0rd_Lab!"
+    },
+    "api": {
+        "encryption": {
+            "key": "T3st_P@ssw0rd_Lab!"
+        }
+    }
+}

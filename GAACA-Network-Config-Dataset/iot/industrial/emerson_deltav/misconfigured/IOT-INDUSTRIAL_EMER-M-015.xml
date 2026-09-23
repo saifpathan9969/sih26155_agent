@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Emerson DeltaV — MISCONFIGURED — Sample 15 -->
+<DeltaVSecurity node="BR-DELTAVDCS/OVATION-FRA-69">
+  <NodeLockdown enabled="false"/>
+  <SmartFirewall incomingBlocked="false"/>
+</DeltaVSecurity>

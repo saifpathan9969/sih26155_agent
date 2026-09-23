@@ -1,0 +1,7 @@
+{
+    "hostname": "DMZ-NEBULANWA110AX-SFO-41",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "T3st_P@ssw0rd_Lab!",
+    "intra_bss_traffic_blocking": true
+}

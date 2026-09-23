@@ -1,0 +1,9 @@
+{
+    "plc": "WAN-AXCF2152/3152-DXB-09",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

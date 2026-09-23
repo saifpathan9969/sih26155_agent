@@ -1,14 +1,27 @@
 """
-Six synthetic device configs, deliberately designed so a mission run
-demonstrates every interesting path at once:
+UNIT-TEST FIXTURES ONLY — NOT PRODUCT DATA.
+==========================================
+
+These are hand-written inputs for the parser and rule-engine test suite
+(``tests/test_audit_suite.py``). They are deliberately synthetic because a test
+that asserts "this config FAILS the Telnet check" needs an input where Telnet is
+known to be enabled. That is what a fixture is for.
+
+They are **never** served to operators. ``_get_target_configs_for_user()`` in
+``main.py`` returns only configurations the operator uploaded, so nothing here
+appears in the Devices page, Mission Control inventory, or audit reports.
+
+Do not add these to any API response, and do not treat them as a sample
+dataset — real configurations come from the operator's own devices.
+
+Coverage rationale:
   - dev01 (Cisco): mostly hardened, should mostly PASS
   - dev02 (Cisco): Telnet left on, should FAIL that check
   - dev03 (Juniper): hardened EXCEPT one unmapped lockout line
   - dev04 (Juniper): same unmapped lockout pattern, slightly different wording
   - dev05 (Juniper): same unmapped lockout pattern again, different number
-  - dev06 (FortiOS): vendor has no parser yet — everything degrades to
-    "needs human review", demonstrating graceful handling of a genuinely
-    unsupported vendor rather than a wrong guess
+  - dev06 (FortiOS): exercises the graceful-degradation path for a vendor with
+    no dedicated parser
 """
 
 DEVICE_CONFIGS = {

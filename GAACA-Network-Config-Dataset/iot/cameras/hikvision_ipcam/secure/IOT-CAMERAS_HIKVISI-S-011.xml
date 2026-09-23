@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — SECURE — Sample 11 -->
+<SecurityConfig version="2.0">
+  <DeviceName>ACCESS-DS-2CDSERIES-LON-62</DeviceName>
+  <IllegalLoginLock enabled="true" maxAttempts="3" lockTimeMinutes="30"/>
+  <HTTPSPort enabled="true" port="443"/>
+  <HTTPPort enabled="false"/>
+  <ONVIFSecurity authType="digest" digestAlgorithm="SHA256"/>
+  <SecurityAuditLog enabled="true"/>
+  <AdminPassword encrypted="true">P@ssw0rd_PLACEHOLDER</AdminPassword>
+</SecurityConfig>

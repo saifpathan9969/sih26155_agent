@@ -1,0 +1,8 @@
+{
+    "NAME": "DMZ-SONOFF/SHELLYWITHTASMOTA-NYC-20",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

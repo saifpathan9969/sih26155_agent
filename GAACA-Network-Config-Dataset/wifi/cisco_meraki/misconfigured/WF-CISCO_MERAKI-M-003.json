@@ -1,0 +1,13 @@
+{
+    "name": "HQ-MERAKIMR56/MR46-DAL-15",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "OpenPublic",
+            "enabled": true,
+            "authMode": "open",
+            "encryptionMode": "wep",
+            "clientIsolation": false
+        }
+    ]
+}

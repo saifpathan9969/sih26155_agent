@@ -1,0 +1,44 @@
+{
+  "sample_id": "WF-RUCKUS_UNLEASHE-E-006",
+  "vendor": "Ruckus Networks",
+  "product": "Unleashed R650 / R750",
+  "device_type": "wifi_access_point",
+  "os": "Unleashed OS",
+  "version": "200.12",
+  "category": "wifi",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "ruckus_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "wifi_access_point",
+  "device_class": "wireless_ap",
+  "network_role": "wireless_access",
+  "platform": "Ruckus SmartZone",
+  "model": null,
+  "capabilities": [
+    "WIRELESS_SSID"
+  ],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "ruckus_smartzone",
+  "detected_vendor_display": "Ruckus SmartZone",
+  "device_class_basis": "filename convention (WF-RUCKUS_UNLEASHE-E-006.conf)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

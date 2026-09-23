@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Honeywell Niagara — SECURE — Sample 7 -->
+<station name="BR-NIAGARAFRAMEWORKN4CONTROLLER-SEA-53" version="4.12">
+  <securityService>
+    <passwordPolicy minLength="14" requireSpecialChar="true" maxFailedAttempts="3" lockoutMinutes="30"/>
+    <tlsConfig requireTls="true" minTlsVersion="TLSv1.3"/>
+    <foxService enabled="false"/>
+    <foxsService enabled="true" port="4911" certAlias="honeywell-ca"/>
+  </securityService>
+</station>

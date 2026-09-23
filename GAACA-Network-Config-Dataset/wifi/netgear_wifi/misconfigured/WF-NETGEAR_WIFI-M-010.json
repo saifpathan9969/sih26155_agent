@@ -1,0 +1,10 @@
+{
+    "deviceName": "REMOTE-INSIGHTWAX630-MUM-15",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

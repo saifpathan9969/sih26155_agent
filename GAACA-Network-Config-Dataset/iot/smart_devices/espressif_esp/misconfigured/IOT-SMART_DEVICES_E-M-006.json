@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "DC-ESP32-S3/ESPHOME-FRA-11"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

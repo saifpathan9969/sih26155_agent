@@ -1,0 +1,34 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "CORE-SONICLEAF/SPINESWITCH-DXB-68",
+            "hwsku": "Accton-AS7726-32X",
+            "type": "LeafSwitch"
+        }
+    },
+    "VLAN": {
+        "Vlan1618": {
+            "vlanid": "1618"
+        }
+    },
+    "VLAN_MEMBER": {
+        "Vlan1618|Ethernet0": {
+            "tagging_mode": "untagged"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "enabled",
+            "mode": "rapid_pvst",
+            "bpdu_guard": "enabled"
+        }
+    },
+    "NTP_SERVER": {
+        "192.0.2.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.11": {
+            "port": "514"
+        }
+    }
+}

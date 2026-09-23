@@ -1,0 +1,10 @@
+{
+    "name": "BR-MERAKIMR56/MR46-SEA-27",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}

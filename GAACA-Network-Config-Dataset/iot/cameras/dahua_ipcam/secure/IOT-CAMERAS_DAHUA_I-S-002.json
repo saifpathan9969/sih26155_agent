@@ -1,0 +1,21 @@
+{
+    "device": "PROD-IPC-HFW/IPC-HDW-BER-64",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "192.0.2.98"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "REDACTED_ADMIN_PASS"
+    }
+}

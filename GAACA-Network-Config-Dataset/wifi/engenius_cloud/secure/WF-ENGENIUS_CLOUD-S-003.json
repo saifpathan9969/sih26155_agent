@@ -1,0 +1,8 @@
+{
+    "device": "LAB-CLOUDECW230-BER-46",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

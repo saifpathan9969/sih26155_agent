@@ -1,0 +1,41 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "EDGE-SONICENTERPRISEROUTER-PAR-05",
+            "hwsku": "Dell-EMC-Z9332f-O32",
+            "type": "ToRRouter",
+            "mac": "52:54:00:12:34:56",
+            "docker_routing_config_mode": "unified"
+        }
+    },
+    "MGMT_INTERFACE": {
+        "eth0|198.51.100.88/24": {
+            "gwaddr": "198.51.100.134"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|198.51.100.147/30": {}
+    },
+    "BGP_NEIGHBOR": {
+        "203.0.113.222": {
+            "asn": "65182",
+            "name": "CORE-ROUTER-01",
+            "holdtime": "180",
+            "keepalive": "60"
+        }
+    },
+    "NTP_SERVER": {
+        "198.51.100.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.10": {
+            "port": "514"
+        }
+    },
+    "AAA": {
+        "authentication": {
+            "login": "local",
+            "failthrough": "True"
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Omron Sysmac — MISCONFIGURED — Sample 4 -->
+<SysmacSecurity unit="HQ-SYSMACNJ/NXSERIES-SEA-55">
+  <OperationRights enabled="false"/>
+  <PacketFilter enabled="false"/>
+</SysmacSecurity>

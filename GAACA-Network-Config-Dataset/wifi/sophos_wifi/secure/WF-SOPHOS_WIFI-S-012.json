@@ -1,0 +1,11 @@
+{
+    "device": "DIST-APX320/740-AMS-63",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "REDACTED_ADMIN_PASS",
+            "client_isolation": true
+        }
+    ]
+}

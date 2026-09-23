@@ -1,0 +1,8 @@
+{
+    "device": "DMZ-CNPILOTXV2-2/CNMAESTRO-NYC-20",
+    "wlan": {
+        "ssid": "Cambium-Guest",
+        "security": "open",
+        "isolate": false
+    }
+}

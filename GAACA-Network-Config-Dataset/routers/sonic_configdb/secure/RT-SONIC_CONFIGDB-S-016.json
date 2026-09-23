@@ -1,0 +1,41 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "WAN-SONICENTERPRISEROUTER-SFO-21",
+            "hwsku": "Dell-EMC-Z9332f-O32",
+            "type": "ToRRouter",
+            "mac": "52:54:00:12:34:56",
+            "docker_routing_config_mode": "unified"
+        }
+    },
+    "MGMT_INTERFACE": {
+        "eth0|203.0.113.73/24": {
+            "gwaddr": "198.51.100.161"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|198.51.100.238/30": {}
+    },
+    "BGP_NEIGHBOR": {
+        "192.0.2.24": {
+            "asn": "65242",
+            "name": "CORE-ROUTER-01",
+            "holdtime": "180",
+            "keepalive": "60"
+        }
+    },
+    "NTP_SERVER": {
+        "198.51.100.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.10": {
+            "port": "514"
+        }
+    },
+    "AAA": {
+        "authentication": {
+            "login": "local",
+            "failthrough": "True"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "plc": "REMOTE-AXCF2152/3152-SFO-60",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

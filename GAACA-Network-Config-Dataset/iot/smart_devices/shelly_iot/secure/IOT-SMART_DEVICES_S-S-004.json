@@ -1,0 +1,16 @@
+{
+    "id": "CORE-SHELLYPLUS1/PRO4PM-DAL-18",
+    "auth": {
+        "enable": true,
+        "user": "admin",
+        "pass": "P@ssw0rd_PLACEHOLDER"
+    },
+    "mqtt": {
+        "enable": true,
+        "ssl_ca": "ca.pem",
+        "server": "198.51.100.210:8883"
+    },
+    "cloud": {
+        "enable": false
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Siemens S7 PLC — MISCONFIGURED — Sample 7 -->
+<DeviceConfiguration version="2.5">
+  <Device name="REMOTE-SIMATICS7-1500/S7-1200-SFO-60" type="CPU 1516-3 PN/DP">
+    <Security>
+      <ProtectionLevel>NoProtection</ProtectionLevel>
+      <SecurePGPCCommunication>Disabled</SecurePGPCCommunication>
+      <PutGetCommunication enabled="true"/>
+      <WebserverProtection enabled="true" requireHttps="false"/>
+    </Security>
+    <Network>
+      <Interface id="PROFINET_1" ip="198.51.100.6" subnet="255.255.255.0"/>
+    </Network>
+  </Device>
+</DeviceConfiguration>

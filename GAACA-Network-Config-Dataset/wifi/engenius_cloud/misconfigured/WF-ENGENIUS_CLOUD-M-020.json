@@ -1,0 +1,8 @@
+{
+    "device": "LAB-CLOUDECW230-CHI-98",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

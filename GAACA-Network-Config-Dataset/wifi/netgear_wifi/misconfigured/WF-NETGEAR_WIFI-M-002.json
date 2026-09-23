@@ -1,0 +1,10 @@
+{
+    "deviceName": "WAN-INSIGHTWAX630-DXB-02",
+    "ssids": [
+        {
+            "name": "Netgear-Public",
+            "security": "NONE",
+            "clientIsolation": false
+        }
+    ]
+}

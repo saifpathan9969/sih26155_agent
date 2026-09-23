@@ -1,0 +1,52 @@
+{
+  "sample_id": "FW-FORTINET_FORTIG-M-003",
+  "vendor": "Fortinet",
+  "product": "FortiGate",
+  "device_type": "firewall",
+  "os": "FortiOS",
+  "version": "7.x",
+  "category": "firewall",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "fortios_cli",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "firewall",
+  "device_class": "firewall",
+  "network_role": "perimeter",
+  "platform": "FortiOS",
+  "model": "FortiGate",
+  "capabilities": [
+    "STATEFUL_POLICY",
+    "THREAT_PREVENTION"
+  ],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "fortinet_fortios",
+  "detected_vendor_display": "Fortinet FortiOS",
+  "device_class_basis": "model registry (FortiGate)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

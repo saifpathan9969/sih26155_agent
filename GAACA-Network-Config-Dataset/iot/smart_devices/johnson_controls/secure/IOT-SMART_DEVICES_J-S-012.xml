@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Johnson Controls Metasys — SECURE — Sample 12 -->
+<MetasysSecurity engine="DIST-METASYSNAE/SNE-AMS-63">
+  <BACnetSC enabled="true" primaryHub="198.51.100.209" hubCertificateThumbprint="REDACTED_ADMIN_PASS"/>
+  <AuthenticationMode>EncryptedTokenOnly</AuthenticationMode>
+  <AuditLog enabled="true"/>
+</MetasysSecurity>

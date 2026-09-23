@@ -1,0 +1,13 @@
+{
+    "name": "DC-MERAKIMR56/MR46-FRA-11",
+    "ssids": [
+        {
+            "number": 0,
+            "name": "OpenPublic",
+            "enabled": true,
+            "authMode": "open",
+            "encryptionMode": "wep",
+            "clientIsolation": false
+        }
+    ]
+}

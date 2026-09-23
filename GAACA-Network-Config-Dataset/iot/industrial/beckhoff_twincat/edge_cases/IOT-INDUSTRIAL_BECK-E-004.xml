@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Beckhoff TwinCAT — EDGE CASE — Sample 4 -->
+<TcConfig>
+  <Name>WAN-CX5130/CX9020EMBEDDEDPC-LON-65</Name>
+</TcConfig>

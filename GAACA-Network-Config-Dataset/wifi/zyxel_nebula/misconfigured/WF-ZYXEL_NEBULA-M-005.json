@@ -1,0 +1,6 @@
+{
+    "hostname": "EDGE-NEBULANWA110AX-TKY-72",
+    "ssid": "Zyxel-Public",
+    "security": "NONE",
+    "intra_bss_traffic_blocking": false
+}

@@ -1,0 +1,15 @@
+{
+    "device": "DIST-IPC-HFW/IPC-HDW-BER-26",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

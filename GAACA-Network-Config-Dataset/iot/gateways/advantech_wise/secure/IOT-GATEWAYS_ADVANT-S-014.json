@@ -1,0 +1,16 @@
+{
+    "device": "BR-WISE-710/ADAM-6700-DAL-71",
+    "mqtt": {
+        "broker": "tls://198.51.100.200:8883",
+        "tls_cert_validation": true,
+        "client_id": "BR-WISE-710/ADAM-6700-DAL-71",
+        "auth": {
+            "user": "iot-agent",
+            "pass": "REDACTED_ADMIN_PASS"
+        }
+    },
+    "security": {
+        "firewall": "strict",
+        "ssh_key_only": true
+    }
+}

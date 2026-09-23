@@ -1,0 +1,16 @@
+{
+    "device": "DIST-WISE-710/ADAM-6700-SYD-80",
+    "mqtt": {
+        "broker": "tls://198.51.100.200:8883",
+        "tls_cert_validation": true,
+        "client_id": "DIST-WISE-710/ADAM-6700-SYD-80",
+        "auth": {
+            "user": "iot-agent",
+            "pass": "T3st_P@ssw0rd_Lab!"
+        }
+    },
+    "security": {
+        "firewall": "strict",
+        "ssh_key_only": true
+    }
+}

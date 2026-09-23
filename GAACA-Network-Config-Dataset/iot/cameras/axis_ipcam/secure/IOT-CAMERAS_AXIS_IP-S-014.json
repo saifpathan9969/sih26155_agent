@@ -1,0 +1,38 @@
+{
+    "root": {
+        "Properties": {
+            "System": {
+                "SerialNumber": "BR-AXISQ35/P32SERIES-DAL-71"
+            }
+        },
+        "Network": {
+            "HTTP": {
+                "Enabled": "no"
+            },
+            "HTTPS": {
+                "Enabled": "yes",
+                "StrictTransportSecurity": "yes",
+                "Ciphers": "HIGH"
+            },
+            "IEEE8021X": {
+                "Enabled": "yes",
+                "EAPOLVersion": "3"
+            },
+            "RTSP": {
+                "OverHTTP": "no",
+                "OverHTTPS": "yes"
+            },
+            "SSH": {
+                "Enabled": "no"
+            }
+        },
+        "System": {
+            "Accounts": {
+                "root": {
+                    "Password": "REDACTED_ADMIN_PASS",
+                    "RemoteLogin": "no"
+                }
+            }
+        }
+    }
+}

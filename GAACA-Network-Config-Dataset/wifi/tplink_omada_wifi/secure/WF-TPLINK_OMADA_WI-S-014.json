@@ -1,0 +1,11 @@
+{
+    "name": "BR-OMADAEAP660HD/EAP670-DAL-71",
+    "wireless": {
+        "ssid": "Omada-Secure",
+        "security": "WPA3-Personal",
+        "password": "REDACTED_ADMIN_PASS",
+        "pmf": "required",
+        "guest_network": true,
+        "isolate": true
+    }
+}

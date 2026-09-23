@@ -1,0 +1,15 @@
+{
+    "device": "EDGE-IPC-HFW/IPC-HDW-TKY-72",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

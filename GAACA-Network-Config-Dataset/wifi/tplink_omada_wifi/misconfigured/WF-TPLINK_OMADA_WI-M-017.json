@@ -1,0 +1,8 @@
+{
+    "name": "WAN-OMADAEAP660HD/EAP670-DAL-66",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

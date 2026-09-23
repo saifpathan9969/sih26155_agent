@@ -1,0 +1,11 @@
+{
+    "deviceName": "WAN-INSIGHTWAX630-SFO-21",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "P@ssw0rd_PLACEHOLDER",
+            "clientIsolation": true
+        }
+    ]
+}

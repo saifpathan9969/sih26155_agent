@@ -1,0 +1,8 @@
+{
+    "NAME": "DIST-SONOFF/SHELLYWITHTASMOTA-BER-26",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

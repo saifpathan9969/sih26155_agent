@@ -1,0 +1,31 @@
+{
+    "root": {
+        "Properties": {
+            "System": {
+                "SerialNumber": "DC-AXISQ35/P32SERIES-FRA-11"
+            }
+        },
+        "Network": {
+            "HTTP": {
+                "Enabled": "yes",
+                "Port": "80"
+            },
+            "HTTPS": {
+                "Enabled": "no"
+            },
+            "SSH": {
+                "Enabled": "yes"
+            },
+            "UPnP": {
+                "Enabled": "yes"
+            }
+        },
+        "System": {
+            "Accounts": {
+                "root": {
+                    "Password": "root"
+                }
+            }
+        }
+    }
+}

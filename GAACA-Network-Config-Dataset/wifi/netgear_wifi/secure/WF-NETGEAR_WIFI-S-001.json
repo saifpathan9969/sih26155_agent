@@ -1,0 +1,11 @@
+{
+    "deviceName": "HQ-INSIGHTWAX630-SEA-79",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "T3st_P@ssw0rd_Lab!",
+            "clientIsolation": true
+        }
+    ]
+}

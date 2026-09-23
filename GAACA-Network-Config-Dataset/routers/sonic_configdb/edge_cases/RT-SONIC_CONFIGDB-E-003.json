@@ -1,0 +1,13 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "EDGE-SONICENTERPRISEROUTER-CHI-44"
+        }
+    },
+    "ACL_TABLE": {
+        "EMPTY_FILTER": {
+            "type": "L3",
+            "ports": []
+        }
+    }
+}

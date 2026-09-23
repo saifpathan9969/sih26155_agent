@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — GE Vernova — MISCONFIGURED — Sample 12 -->
+<MarkVIePolicy system="DMZ-MARKVIE/PACSYSTEMSRX3I-NYC-20">
+  <DNP3SecureAuth version="disabled"/>
+  <LogicProtection writeLock="false"/>
+</MarkVIePolicy>

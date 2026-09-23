@@ -1,0 +1,51 @@
+{
+  "sample_id": "SW-JUNIPER_JUNOS_S-M-015",
+  "vendor": "Juniper Networks",
+  "product": "EX4300 / EX4400 Switch",
+  "device_type": "switch",
+  "os": "Junos OS",
+  "version": "21.x",
+  "category": "switch",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "junos_hierarchy",
+  "security_state": "misconfigured",
+  "controls_present": [],
+  "controls_absent": [
+    "ssh_hardening",
+    "logging",
+    "password_encryption",
+    "account_lockout",
+    "telnet_disabled"
+  ],
+  "vulnerability_tags": [
+    "telnet_enabled",
+    "http_management",
+    "snmpv2_default_community",
+    "weak_password",
+    "no_logging"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Deliberately insecure configuration with common misconfigurations for compliance testing",
+  "legacy_device_type": "switch",
+  "device_class": "network_switch",
+  "network_role": "access",
+  "platform": "Juniper Junos",
+  "model": "Juniper EX",
+  "capabilities": [
+    "L2_SWITCHING"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "juniper_junos",
+  "detected_vendor_display": "Juniper Junos",
+  "device_class_basis": "model registry (Juniper EX)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

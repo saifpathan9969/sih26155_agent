@@ -1,0 +1,45 @@
+{
+  "sample_id": "RT-DELL_OS10-E-003",
+  "vendor": "Dell Technologies",
+  "product": "PowerSwitch Z-Series",
+  "device_type": "router",
+  "os": "OS10 Enterprise",
+  "version": "10.5.x",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "dell_os10_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "router",
+  "device_class": "network_switch",
+  "network_role": "dc_leaf",
+  "platform": "Dell SmartFabric OS10",
+  "model": "Dell OS10",
+  "capabilities": [
+    "L2_SWITCHING"
+  ],
+  "routing_protocols": [],
+  "l2_capable": true,
+  "detected_vendor": "dell_os10",
+  "detected_vendor_display": "Dell SmartFabric OS10",
+  "device_class_basis": "model registry (Dell OS10)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'router' but the configuration identifies as 'network_switch' via model registry (Dell OS10). Network role 'dc_leaf' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": false
+}

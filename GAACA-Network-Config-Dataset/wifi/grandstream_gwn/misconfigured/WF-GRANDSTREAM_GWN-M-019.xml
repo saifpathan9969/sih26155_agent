@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Grandstream GWN — MISCONFIGURED — Sample 19 -->
+<config version="1.0">
+  <hostname>BR-GWN7660/GWN7664-DXB-50</hostname>
+  <ssid name="GWN-Open">
+    <security>Open</security>
+    <client_isolation>0</client_isolation>
+  </ssid>
+</config>

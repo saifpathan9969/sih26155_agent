@@ -1,0 +1,21 @@
+{
+    "device": "BR-IPC-HFW/IPC-HDW-SEA-53",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "203.0.113.89"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "S3cur3_D3m0_P@ss!"
+    }
+}

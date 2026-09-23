@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "EDGE-ESP32-S3/ESPHOME-TKY-72"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

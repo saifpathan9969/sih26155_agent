@@ -1,0 +1,11 @@
+{
+    "device": "PROD-APX320/740-MUM-15",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "P@ssw0rd_PLACEHOLDER",
+            "client_isolation": true
+        }
+    ]
+}

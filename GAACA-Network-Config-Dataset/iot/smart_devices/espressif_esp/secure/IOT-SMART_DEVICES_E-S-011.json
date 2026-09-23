@@ -1,0 +1,21 @@
+{
+    "esphome": {
+        "name": "ACCESS-ESP32-S3/ESPHOME-LON-62"
+    },
+    "wifi": {
+        "ssid": "Secure-IoT",
+        "password": "P@ssw0rd_PLACEHOLDER",
+        "eap": {
+            "identity": "esp32",
+            "ca_cert": "CERT_DATA"
+        }
+    },
+    "ota": {
+        "password": "P@ssw0rd_PLACEHOLDER"
+    },
+    "api": {
+        "encryption": {
+            "key": "P@ssw0rd_PLACEHOLDER"
+        }
+    }
+}

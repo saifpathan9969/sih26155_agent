@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Grandstream GWN — SECURE — Sample 11 -->
+<config version="1.0">
+  <hostname>ACCESS-GWN7660/GWN7664-LON-62</hostname>
+  <ssid name="GWN-Secure">
+    <security>WPA3-SAE</security>
+    <passphrase>P@ssw0rd_PLACEHOLDER</passphrase>
+    <client_isolation>1</client_isolation>
+  </ssid>
+</config>

@@ -1,0 +1,8 @@
+{
+    "device": "WAN-CLOUDECW230-DAL-66",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

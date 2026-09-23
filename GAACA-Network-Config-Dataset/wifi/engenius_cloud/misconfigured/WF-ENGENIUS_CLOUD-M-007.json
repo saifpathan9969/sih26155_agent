@@ -1,0 +1,8 @@
+{
+    "device": "REMOTE-CLOUDECW230-SFO-60",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

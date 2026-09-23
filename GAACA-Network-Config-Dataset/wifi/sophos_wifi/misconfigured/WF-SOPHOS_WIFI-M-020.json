@@ -1,0 +1,10 @@
+{
+    "device": "LAB-APX320/740-CHI-98",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

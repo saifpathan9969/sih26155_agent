@@ -1,0 +1,8 @@
+{
+    "name": "DMZ-OMADAEAP660HD/EAP670-NYC-20",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

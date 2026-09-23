@@ -1,0 +1,8 @@
+{
+    "device": "EDGE-CLOUDECW230-PAR-05",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "BR-SONICLEAF/SPINESWITCH-TKY-94"
+        }
+    },
+    "VLAN": {
+        "Vlan4090": {}
+    }
+}

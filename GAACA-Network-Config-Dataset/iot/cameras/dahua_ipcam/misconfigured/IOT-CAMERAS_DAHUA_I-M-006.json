@@ -1,0 +1,15 @@
+{
+    "device": "DC-IPC-HFW/IPC-HDW-FRA-11",
+    "Security": {
+        "IPFilter": {
+            "Enable": false
+        },
+        "HTTPS": {
+            "Enable": false
+        },
+        "P2P": {
+            "Enable": true
+        },
+        "Password": "admin"
+    }
+}

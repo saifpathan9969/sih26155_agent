@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Mitsubishi MELSEC — SECURE — Sample 3 -->
+<MelsecConfig cpu="LAB-MELSECIQ-R/IQ-F-BER-46">
+  <IpFilter enabled="true">
+    <AllowRange start="198.51.100.22" end="198.51.100.138"/>
+  </IpFilter>
+  <SlmpSecurity authenticationRequired="true" encryptionKey="S3cur3_D3m0_P@ss!"/>
+</MelsecConfig>

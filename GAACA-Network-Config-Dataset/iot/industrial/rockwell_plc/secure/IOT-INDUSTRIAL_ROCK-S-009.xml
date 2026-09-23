@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Rockwell ControlLogix — SECURE — Sample 9 -->
+<RSLogix5000Project SchemaVersion="34.0">
+  <Controller Name="BR-CONTROLLOGIX5580/COMPACTLOGIX-SYD-41">
+    <CIPSecurity>
+      <EtherNetIPSecurityMode>IntegrityAndConfidentiality</EtherNetIPSecurityMode>
+      <TLSCipherSuites>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</TLSCipherSuites>
+      <PreSharedKey value="Ch@ng3M3_N0w_2026!"/>
+      <FactoryTalkSecurityPolicy enforceSecurity="true"/>
+    </CIPSecurity>
+  </Controller>
+</RSLogix5000Project>

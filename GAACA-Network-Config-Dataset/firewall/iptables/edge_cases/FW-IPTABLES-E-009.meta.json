@@ -1,0 +1,42 @@
+{
+  "sample_id": "FW-IPTABLES-E-009",
+  "vendor": "Linux",
+  "product": "iptables",
+  "device_type": "firewall",
+  "os": "Linux",
+  "version": "kernel 5.x+",
+  "category": "firewall",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "iptables_rules",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "firewall",
+  "device_class": "firewall",
+  "network_role": "segmentation",
+  "platform": "Linux netfilter",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "iptables",
+  "detected_vendor_display": "Linux iptables",
+  "device_class_basis": "defining construct: stateful security policy / zone model",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

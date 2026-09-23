@@ -28,3 +28,19 @@ Thumbs.db
 
 # Uploads directory (user data)
 sih26155_agent/web_ui/uploads/
+
+# Agent runtime artifacts — regenerated on every run, not source
+sih26155_agent/agent_v2/scratch/trace_run_*.json
+sih26155_agent/scratch/trace_run_*.json
+sih26155_agent/agent_v2/scratch/agent_memory.db*
+sih26155_agent/scratch/agent_memory.db*
+sih26155_agent/agent_v2/scratch/test_git_repo/
+sih26155_agent/agent_v2/scratch/test_repo/
+sih26155_agent/agent_v2/scratch/audit_summary_test.md
+
+# Learned-knowledge store: operator-generated, not the citable vendor corpus
+network_config_db/data/learned_knowledge.jsonl
+
+# Local backups
+*.pre-cleanup.bak
+*.bak

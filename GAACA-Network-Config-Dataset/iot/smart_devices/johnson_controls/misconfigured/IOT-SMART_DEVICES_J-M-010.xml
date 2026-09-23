@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Johnson Controls Metasys — MISCONFIGURED — Sample 10 -->
+<MetasysSecurity engine="REMOTE-METASYSNAE/SNE-MUM-15">
+  <BACnetIP unencrypted="true" port="47808"/>
+  <AuthenticationMode>None</AuthenticationMode>
+</MetasysSecurity>

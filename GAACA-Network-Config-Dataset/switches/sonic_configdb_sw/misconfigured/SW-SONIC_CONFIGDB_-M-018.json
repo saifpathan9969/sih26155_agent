@@ -1,0 +1,22 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "STAGING-SONICLEAF/SPINESWITCH-BER-62",
+            "type": "LeafSwitch"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "disabled",
+            "bpdu_guard": "disabled"
+        }
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

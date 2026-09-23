@@ -1,0 +1,16 @@
+{
+    "id": "EDGE-SHELLYPLUS1/PRO4PM-PAR-05",
+    "auth": {
+        "enable": true,
+        "user": "admin",
+        "pass": "S3cur3_D3m0_P@ss!"
+    },
+    "mqtt": {
+        "enable": true,
+        "ssl_ca": "ca.pem",
+        "server": "198.51.100.210:8883"
+    },
+    "cloud": {
+        "enable": false
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Schneider Modicon — MISCONFIGURED — Sample 6 -->
+<PLCConfiguration name="DC-MODICONM580/M241-FRA-11" target="M580">
+  <CyberSecurityProfile>
+    <Level>Disabled</Level>
+    <UserAuthentication required="false"/>
+    <ModbusPortFiltering enabled="false"/>
+    <DisableUnusedProtocols ftp="false" http="false" snmpv1v2="false"/>
+  </CyberSecurityProfile>
+</PLCConfiguration>

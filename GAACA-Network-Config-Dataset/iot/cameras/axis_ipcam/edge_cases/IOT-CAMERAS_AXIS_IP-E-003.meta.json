@@ -1,0 +1,42 @@
+{
+  "sample_id": "IOT-CAMERAS_AXIS_IP-E-003",
+  "vendor": "Axis Communications",
+  "product": "Axis Q35 / P32 Series",
+  "device_type": "iot_camera",
+  "os": "AXIS OS",
+  "version": "11.x",
+  "category": "iot",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "json",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "iot_camera",
+  "device_class": "iot_endpoint",
+  "network_role": "iot_edge",
+  "platform": "AXIS OS",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "axis",
+  "detected_vendor_display": "Axis Communications",
+  "device_class_basis": "vendor product-line prior (axis)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

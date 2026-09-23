@@ -1,0 +1,9 @@
+{
+    "plc": "DMZ-AXCF2152/3152-NYC-20",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

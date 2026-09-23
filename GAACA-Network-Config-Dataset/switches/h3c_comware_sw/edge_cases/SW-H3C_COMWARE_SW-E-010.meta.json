@@ -1,0 +1,42 @@
+{
+  "sample_id": "SW-H3C_COMWARE_SW-E-010",
+  "vendor": "H3C",
+  "product": "S5130 / S5560 Switch",
+  "device_type": "switch",
+  "os": "Comware",
+  "version": "v7",
+  "category": "switch",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "h3c_comware_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "switch",
+  "device_class": "network_switch",
+  "network_role": "unknown",
+  "platform": "H3C Comware",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "h3c_comware",
+  "detected_vendor_display": "H3C Comware",
+  "device_class_basis": "filename convention (SW-H3C_COMWARE_SW-E-010.conf)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

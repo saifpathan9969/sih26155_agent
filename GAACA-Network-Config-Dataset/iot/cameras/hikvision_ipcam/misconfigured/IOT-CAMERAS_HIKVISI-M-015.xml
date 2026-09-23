@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — MISCONFIGURED — Sample 15 -->
+<SecurityConfig version="2.0">
+  <DeviceName>BR-DS-2CDSERIES-FRA-69</DeviceName>
+  <IllegalLoginLock enabled="false"/>
+  <HTTPPort enabled="true" port="80"/>
+  <HTTPSPort enabled="false"/>
+  <ONVIFSecurity authType="none"/>
+  <AdminPassword encrypted="false">12345</AdminPassword>
+</SecurityConfig>

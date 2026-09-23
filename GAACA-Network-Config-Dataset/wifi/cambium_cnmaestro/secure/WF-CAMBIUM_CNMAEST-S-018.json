@@ -1,0 +1,9 @@
+{
+    "device": "CAMPUS-CNPILOTXV2-2/CNMAESTRO-TKY-50",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

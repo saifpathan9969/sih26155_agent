@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "HQ-ESP32-S3/ESPHOME-SEA-55"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

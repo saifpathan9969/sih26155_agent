@@ -1,0 +1,11 @@
+{
+    "deviceName": "CORE-INSIGHTWAX630-DAL-18",
+    "ssids": [
+        {
+            "name": "Netgear-Corp",
+            "security": "WPA3",
+            "passphrase": "P@ssw0rd_PLACEHOLDER",
+            "clientIsolation": true
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "DC-OMADAEAP660HD/EAP670-FRA-11",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

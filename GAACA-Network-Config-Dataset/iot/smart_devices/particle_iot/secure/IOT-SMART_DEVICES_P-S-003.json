@@ -1,0 +1,8 @@
+{
+    "deviceId": "LAB-BORON/PHOTON2-BER-46",
+    "security": {
+        "serverPublicKey": "S3cur3_D3m0_P@ss!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "BR-SONICENTERPRISEROUTER-SYD-41",
+            "hwsku": "Dell-EMC-Z9332f-O32",
+            "type": "ToRRouter",
+            "mac": "52:54:00:12:34:56",
+            "docker_routing_config_mode": "unified"
+        }
+    },
+    "MGMT_INTERFACE": {
+        "eth0|198.51.100.130/24": {
+            "gwaddr": "192.0.2.80"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|198.51.100.110/30": {}
+    },
+    "BGP_NEIGHBOR": {
+        "198.51.100.247": {
+            "asn": "64919",
+            "name": "CORE-ROUTER-01",
+            "holdtime": "180",
+            "keepalive": "60"
+        }
+    },
+    "NTP_SERVER": {
+        "198.51.100.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.11": {
+            "port": "514"
+        }
+    },
+    "AAA": {
+        "authentication": {
+            "login": "local",
+            "failthrough": "True"
+        }
+    }
+}

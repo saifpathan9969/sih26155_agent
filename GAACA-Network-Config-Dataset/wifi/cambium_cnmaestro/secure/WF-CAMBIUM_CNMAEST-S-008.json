@@ -1,0 +1,9 @@
+{
+    "device": "DMZ-CNPILOTXV2-2/CNMAESTRO-SFO-41",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

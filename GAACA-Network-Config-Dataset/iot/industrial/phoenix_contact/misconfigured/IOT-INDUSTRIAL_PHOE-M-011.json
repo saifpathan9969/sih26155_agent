@@ -1,0 +1,9 @@
+{
+    "plc": "BR-AXCF2152/3152-CHI-47",
+    "user_management": {
+        "security_profile": "None"
+    },
+    "firewall": {
+        "input_policy": "ACCEPT"
+    }
+}

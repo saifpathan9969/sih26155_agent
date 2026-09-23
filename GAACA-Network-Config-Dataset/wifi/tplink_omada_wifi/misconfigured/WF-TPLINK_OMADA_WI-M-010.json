@@ -1,0 +1,8 @@
+{
+    "name": "REMOTE-OMADAEAP660HD/EAP670-MUM-15",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

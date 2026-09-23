@@ -1,0 +1,8 @@
+{
+    "NAME": "HQ-SONOFF/SHELLYWITHTASMOTA-DAL-15",
+    "WebPassword": "",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 1883,
+    "MqttUser": "",
+    "MqttPassword": ""
+}

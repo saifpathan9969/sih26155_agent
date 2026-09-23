@@ -1,0 +1,46 @@
+{
+  "sample_id": "RT-RUIJIE_RGOS-E-004",
+  "vendor": "Ruijie Networks",
+  "product": "RSR Series Core Router",
+  "device_type": "router",
+  "os": "RGOS",
+  "version": "11.x",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "ruijie_rgos_cli",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "router",
+  "device_class": "router",
+  "network_role": "wan",
+  "platform": "Ruijie RGOS",
+  "model": null,
+  "capabilities": [
+    "OSPF"
+  ],
+  "routing_protocols": [
+    "OSPF"
+  ],
+  "l2_capable": false,
+  "detected_vendor": "ruijie_rgos",
+  "detected_vendor_display": "Ruijie RGOS",
+  "device_class_basis": "defining construct: routed interfaces with no layer-2 bridging",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": true
+}

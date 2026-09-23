@@ -1,0 +1,44 @@
+{
+  "sample_id": "WF-TPLINK_OMADA_WI-E-004",
+  "vendor": "TP-Link",
+  "product": "Omada EAP660 HD / EAP670",
+  "device_type": "wifi_access_point",
+  "os": "Omada OS",
+  "version": "v5",
+  "category": "wifi",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "json",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "wifi_access_point",
+  "device_class": "wireless_ap",
+  "network_role": "wireless_access",
+  "platform": "Omada OS",
+  "model": null,
+  "capabilities": [
+    "WIRELESS_SSID"
+  ],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "unknown",
+  "detected_vendor_display": "Unknown Vendor",
+  "device_class_basis": "filename convention (WF-TPLINK_OMADA_WI-E-004.json)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

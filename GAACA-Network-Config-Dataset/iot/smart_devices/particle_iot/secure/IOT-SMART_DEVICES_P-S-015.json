@@ -1,0 +1,8 @@
+{
+    "deviceId": "DC-BORON/PHOTON2-LON-40",
+    "security": {
+        "serverPublicKey": "S3cur3_D3m0_P@ss!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

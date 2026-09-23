@@ -1,0 +1,8 @@
+{
+    "deviceId": "BR-BORON/PHOTON2-DAL-71",
+    "security": {
+        "serverPublicKey": "REDACTED_ADMIN_PASS",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "deviceId": "CORE-BORON/PHOTON2-DAL-18",
+    "security": {
+        "serverPublicKey": "P@ssw0rd_PLACEHOLDER",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "id": "DIST-SHELLYPLUS1/PRO4PM-AMS-63",
+    "auth": {
+        "enable": true,
+        "user": "admin",
+        "pass": "REDACTED_ADMIN_PASS"
+    },
+    "mqtt": {
+        "enable": true,
+        "ssl_ca": "ca.pem",
+        "server": "198.51.100.210:8883"
+    },
+    "cloud": {
+        "enable": false
+    }
+}

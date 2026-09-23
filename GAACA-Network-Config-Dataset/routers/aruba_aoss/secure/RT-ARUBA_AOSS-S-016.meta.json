@@ -1,0 +1,52 @@
+{
+  "sample_id": "RT-ARUBA_AOSS-S-016",
+  "vendor": "Aruba / HPE",
+  "product": "2930F / 3810M Routing Switch",
+  "device_type": "router",
+  "os": "AOS-S",
+  "version": "16.10",
+  "category": "router",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "aruba_aoss_cli",
+  "security_state": "secure",
+  "controls_present": [
+    "ssh_v2",
+    "https_management",
+    "syslog",
+    "ntp",
+    "strong_auth",
+    "password_encryption",
+    "session_timeout",
+    "default_deny_policy"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Fully hardened configuration following vendor best practices and CIS benchmark recommendations",
+  "legacy_device_type": "router",
+  "device_class": "network_switch",
+  "network_role": "distribution",
+  "platform": "Aruba AOS-S",
+  "model": "Aruba AOS-S",
+  "capabilities": [
+    "OSPF",
+    "VLAN"
+  ],
+  "routing_protocols": [
+    "OSPF"
+  ],
+  "l2_capable": true,
+  "detected_vendor": "aruba_aoss",
+  "detected_vendor_display": "Aruba AOS-S",
+  "device_class_basis": "model registry (Aruba AOS-S)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "review",
+  "label_disagreement": "Directory-derived label was 'router' but the configuration identifies as 'network_switch' via model registry (Aruba AOS-S). Network role 'distribution' likely explains the original label (a routing role does not change the hardware class).",
+  "routing_capability": true
+}

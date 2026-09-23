@@ -1,0 +1,8 @@
+{
+    "device": "BR-CLOUDECW230-CHI-47",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

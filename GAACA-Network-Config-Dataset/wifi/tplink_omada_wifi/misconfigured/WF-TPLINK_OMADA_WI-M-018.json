@@ -1,0 +1,8 @@
+{
+    "name": "STAGING-OMADAEAP660HD/EAP670-BER-62",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "sample_id": "FW-KERIO_CONTROL-E-005",
+  "vendor": "GFI/Kerio",
+  "product": "Kerio Control",
+  "device_type": "firewall",
+  "os": "Kerio Control",
+  "version": "9.x",
+  "category": "firewall",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "kerio_conf",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "firewall",
+  "device_class": "firewall",
+  "network_role": "segmentation",
+  "platform": "Kerio Control",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "kerio",
+  "detected_vendor_display": "Kerio Control",
+  "device_class_basis": "filename convention (FW-KERIO_CONTROL-E-005.conf)",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

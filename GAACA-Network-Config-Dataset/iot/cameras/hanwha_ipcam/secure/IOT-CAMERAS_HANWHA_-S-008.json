@@ -1,0 +1,10 @@
+{
+    "camera": "DMZ-WISENETX-SERIES-SFO-41",
+    "security": {
+        "tpm_2_0_active": true,
+        "secure_boot": true,
+        "https_mandatory": true,
+        "digest_auth_rtsp": true,
+        "admin_pass": "T3st_P@ssw0rd_Lab!"
+    }
+}

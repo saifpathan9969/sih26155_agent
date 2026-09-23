@@ -1,0 +1,8 @@
+{
+    "device": "DC-CLOUDECW230-FRA-11",
+    "ssid_profile": {
+        "name": "EnGenius-Open",
+        "auth_type": "Open",
+        "isolation": false
+    }
+}

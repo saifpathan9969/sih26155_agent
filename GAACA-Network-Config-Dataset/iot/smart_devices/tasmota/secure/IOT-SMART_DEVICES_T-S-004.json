@@ -1,0 +1,10 @@
+{
+    "NAME": "CORE-SONOFF/SHELLYWITHTASMOTA-DAL-18",
+    "WebPassword": "P@ssw0rd_PLACEHOLDER",
+    "MqttHost": "198.51.100.220",
+    "MqttPort": 8883,
+    "MqttUser": "tasmota_sec",
+    "MqttPassword": "P@ssw0rd_PLACEHOLDER",
+    "SetOption13": 1,
+    "SetOption103": 1
+}

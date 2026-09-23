@@ -1,0 +1,19 @@
+{
+    "controller": "DIST-PFC200CONTROLLER-AMS-63",
+    "security": {
+        "ssh": {
+            "enabled": true,
+            "port": 22,
+            "permit_root_login": false
+        },
+        "https_only": true,
+        "tls_version": "1.3",
+        "openvpn_enabled": true,
+        "modbus_tcp_firewall": {
+            "enabled": true,
+            "allowed_ips": [
+                "198.51.100.209"
+            ]
+        }
+    }
+}

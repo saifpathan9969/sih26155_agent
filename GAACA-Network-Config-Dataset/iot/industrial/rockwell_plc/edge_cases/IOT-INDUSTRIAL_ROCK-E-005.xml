@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Rockwell ControlLogix — EDGE CASE — Sample 5 -->
+<RSLogix5000Project SchemaVersion="34.0">
+  <Controller Name="BR-CONTROLLOGIX5580/COMPACTLOGIX-TKY-94"/>
+</RSLogix5000Project>

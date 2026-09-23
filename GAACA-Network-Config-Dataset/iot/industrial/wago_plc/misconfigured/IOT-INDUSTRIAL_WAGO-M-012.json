@@ -1,0 +1,15 @@
+{
+    "controller": "DMZ-PFC200CONTROLLER-NYC-20",
+    "security": {
+        "telnet": {
+            "enabled": true
+        },
+        "http_only": true,
+        "ssh": {
+            "permit_root_login": true
+        },
+        "modbus_tcp_firewall": {
+            "enabled": false
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "device": "HQ-IPC-HFW/IPC-HDW-SEA-79",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "203.0.113.229"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "T3st_P@ssw0rd_Lab!"
+    }
+}

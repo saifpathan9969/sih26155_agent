@@ -1,0 +1,21 @@
+{
+    "device": "DMZ-IPC-HFW/IPC-HDW-SFO-41",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "198.51.100.209"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "T3st_P@ssw0rd_Lab!"
+    }
+}

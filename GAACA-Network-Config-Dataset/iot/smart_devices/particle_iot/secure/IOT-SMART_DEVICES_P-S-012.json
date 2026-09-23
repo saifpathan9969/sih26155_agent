@@ -1,0 +1,8 @@
+{
+    "deviceId": "DIST-BORON/PHOTON2-AMS-63",
+    "security": {
+        "serverPublicKey": "REDACTED_ADMIN_PASS",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

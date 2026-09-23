@@ -1,0 +1,8 @@
+{
+    "device": "BR-CLOUDECW230-SEA-53",
+    "ssid_profile": {
+        "name": "EnGenius-Sec",
+        "auth_type": "WPA3-Enterprise",
+        "isolation": true
+    }
+}

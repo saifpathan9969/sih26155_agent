@@ -1,0 +1,9 @@
+{
+    "device": "EDGE-CNPILOTXV2-2/CNMAESTRO-PAR-05",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "device": "WAN-APX320/740-DAL-66",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

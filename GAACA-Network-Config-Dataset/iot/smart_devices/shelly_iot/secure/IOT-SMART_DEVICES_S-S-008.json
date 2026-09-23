@@ -1,0 +1,16 @@
+{
+    "id": "DMZ-SHELLYPLUS1/PRO4PM-SFO-41",
+    "auth": {
+        "enable": true,
+        "user": "admin",
+        "pass": "T3st_P@ssw0rd_Lab!"
+    },
+    "mqtt": {
+        "enable": true,
+        "ssl_ca": "ca.pem",
+        "server": "198.51.100.210:8883"
+    },
+    "cloud": {
+        "enable": false
+    }
+}

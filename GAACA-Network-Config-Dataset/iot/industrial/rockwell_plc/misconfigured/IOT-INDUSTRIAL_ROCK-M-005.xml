@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Rockwell ControlLogix — MISCONFIGURED — Sample 5 -->
+<RSLogix5000Project SchemaVersion="34.0">
+  <Controller Name="EDGE-CONTROLLOGIX5580/COMPACTLOGIX-TKY-72">
+    <CIPSecurity>
+      <EtherNetIPSecurityMode>NoSecurity</EtherNetIPSecurityMode>
+      <FactoryTalkSecurityPolicy enforceSecurity="false"/>
+    </CIPSecurity>
+  </Controller>
+</RSLogix5000Project>

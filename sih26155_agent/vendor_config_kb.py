@@ -106,6 +106,115 @@ VENDOR_COMMAND_MAPPINGS: List[Tuple[re.Pattern, str, Any, str]] = [
      "cryptography.certificate_validation_enabled", True, "Cryptography"),
     (re.compile(r"EGRESS-FILTER|egress-filter|filter\s+outbound|chain=forward\s+action=drop", re.I),
      "security_controls.egress_filtering_enabled", True, "SecurityControls"),
+
+    # -----------------------------------------------------------------------
+    # 7. Extended vendor management-plane syntax (ASA, NX-OS, EXOS, OS10,
+    #    Gaia, Sophos, AOS-CX, EdgeOS, Omada)
+    # -----------------------------------------------------------------------
+    (re.compile(r"no\s+feature\s+telnet|disable\s+telnet|no\s+ip\s+telnet\s+server|set\s+net-access\s+telnet\s+off|telnet_disable\s+1|management\.telnet\.enable=0|telnetd\.status=disabled|services\.telnetd\.enable=0|set\s+admin-telnet\s+disable|option\s+telnet\s+'?0'?", re.I),
+     "management.telnet.enabled", ServiceState.DISABLED, "Management"),
+    (re.compile(r"no\s+feature\s+http-server|disable\s+web\s+http|no\s+http\s+server\s+enable|http_disable\s+1|management\.http\.enable=0|httpd\.status=disabled|services\.http\.enable=0|undo\s+http\s+server\s+enable", re.I),
+     "management.http.enabled", ServiceState.DISABLED, "Management"),
+    (re.compile(r"enable\s+web\s+https|ip\s+https\s+server|https-server|https_port|management\.https\.enable=1|services\.https\.enable=1|redirect_https\s+'?1'?|http\s+secure-server\s+enable|set\s+web\s+ssl-port", re.I),
+     "management.https.enabled", ServiceState.ENABLED, "Management"),
+    (re.compile(r"enable\s+sshd2|ip\s+ssh\s+server\s+enable|ssh\s+server\s+v2|sshd\.status=enabled|services\.ssh\.enable=1|set\s+net-access\s+ssh\s+on|management\.ssh\.enable=1|ssh\s+version\s+2", re.I),
+     "management.ssh.enabled", ServiceState.ENABLED, "Management"),
+    (re.compile(r"ssh\s+cipher\s+encryption\s+high|ssh\s+server\s+algorithms\s+cipher\s+aes|ssh\s+server\s+cipher\s+aes|configure\s+sshd2\s+ciphers\s+aes|ip\s+ssh\s+server\s+cipher\s+aes|set\s+ssh\s+server\s+cipher\s+aes|ssh\.cipher=aes|ssh_cipher\s+aes256|set\s+service_param\s+ssh\s+cipher\s+aes", re.I),
+     "cryptography.ssh_ciphers_hardened", True, "Cryptography"),
+    (re.compile(r"ssh\s+key-exchange\s+group\s+dh-group14|ssh\s+server\s+(?:hmac|macs?|mac)\s+(?:sha2_256|hmac-sha2-256)|ssh\s+server\s+algorithm\s+mac\s+hmac-sha2", re.I),
+     "cryptography.ssh_ciphers_hardened", True, "Cryptography"),
+    (re.compile(r"session-idle-timeout\s+(\d+)|configure\s+idletimeout\s+(\d+)|set\s+admin_session_timeout\s+(\d+)|auth\.session_timeout=(\d+)|management\.session\.timeout=(\d+)|ssh\s+timeout\s+(\d+)|console\s+timeout\s+(\d+)|set\s+ssh\s+server\s+idle-timeout\s+(\d+)|set\s+deviceconfig\s+setting\s+management\s+idle-timeout", re.I),
+     "management.ssh.idle_timeout_seconds", 600, "Management"),
+
+    # -----------------------------------------------------------------------
+    # 8. Extended authentication syntax across new vendor families
+    # -----------------------------------------------------------------------
+    (re.compile(r"password-policy\s+min-length\s+(\d+)|set\s+password_complexity\s+min_length\s+(\d+)|min-password-length\s+(\d+)|aaa\s+authentication\s+minimum-password-length\s+(\d+)|set\s+minimum-length\s+(\d+)|account\s+password-policy\s+min-length", re.I),
+     "authentication.password_policy.min_length", 14, "Authentication"),
+    (re.compile(r"configure\s+cli\s+max-failed-logins\s+(\d+)|limit-login-attempts\s+(\d+)|ssh\s+login-attempts\s+(\d+)|set\s+login_security\s+max_failed_attempts\s+(\d+)|auth\.max_failed_attempts=(\d+)|deny-on-failed-attempts\s+allowed-attempts\s+(\d+)|ssh\s+maximum-auth-attempts\s+(\d+)|password-policy\s+lockout-on-login-failures", re.I),
+     "authentication.account_lockout.enabled", True, "Authentication"),
+    (re.compile(r"set\s+lockout-time\s+(\d+)|lockout-time\s+(\d+)|auth\.lockout_seconds=(\d+)|set\s+login_security\s+block_duration\s+(\d+)|lockout-time\s+900|state\s+block\s+fail-times\s+\d+\s+interval\s+(\d+)", re.I),
+     "authentication.account_lockout.lockout_duration_seconds", 900, "Authentication"),
+    (re.compile(r"password-hash\s+\$6\$|password\s+\$6\$|password\s+5\s+\$5\$|secret\s+sha512|password\s+irreversible-cipher|secret\s+10\s+\$6\$|password_hash=\$6\$|phash\s+\$6\$|password\s+ciphertext|set\s+expert-password-hash|secret\s+9\s+\$9\$|password\s+ENC\s+", re.I),
+     "authentication.password_policy.encryption_enabled", True, "Authentication"),
+    (re.compile(r"add\s+rba\s+role|role\s+network-admin|role\s+sysadmin|group\s+administrators|permissions\s+role-based|accprofile\s+\"?super_admin|set\s+login\s+class\s+\S+\s+permissions|privilege\s+level\s+15|users\.\w+\.role=administrator|create\s+account\s+admin", re.I),
+     "authentication.privilege_levels_defined", True, "Authentication"),
+
+    # -----------------------------------------------------------------------
+    # 9. Wireless (WPA / SSID / client isolation) security posture
+    # -----------------------------------------------------------------------
+    (re.compile(r"security\s+wpa\s+wpa3|wpa3(?:-personal|-enterprise|-sae)?|akm\s+sae|wireless\.\w+\.security=wpa3", re.I),
+     "cryptography.wireless.wpa_version", "wpa3", "Cryptography"),
+    (re.compile(r"security\s+wpa\s+wpa2|wpa2-psk|wpa\.mode=2|wireless\.\w+\.security=wpa2|encryption\s+wpa2|set\s+security\s+wpa2", re.I),
+     "cryptography.wireless.wpa_version", "wpa2", "Cryptography"),
+    (re.compile(r"algorithm\s+tkip|pairwise=TKIP|encryption\s+tkip|wpa\.1\.pairwise=TKIP", re.I),
+     "cryptography.wireless.weak_cipher_in_use", True, "Cryptography"),
+    (re.compile(r"encryption\s+none|security\s+open|wireless\.\w+\.security=none|type\s+guest-access.*encryption\s+none", re.I),
+     "cryptography.wireless.open_network", True, "Cryptography"),
+    (re.compile(r"client[_\s-]?isolation[=\s]*'?1'?|l2isolation=true|peer-blocking\s+drop|guest_control=true|set\s+client-isolation\s+enable", re.I),
+     "access_control.wireless.client_isolation_enabled", True, "AccessControl"),
+    (re.compile(r"security\s+pmf\s+mandatory|dot11w\s+mandatory|management-frame-protection\s+required|pmf\s+required", re.I),
+     "cryptography.wireless.management_frame_protection", True, "Cryptography"),
+
+    # -----------------------------------------------------------------------
+    # 10. IoT / OT / embedded device hardening
+    # -----------------------------------------------------------------------
+    (re.compile(r"allow_anonymous\s+true|modbus\.tcp\.auth=none|services\.rtsp\.auth=none|auth\s*=\s*none|bacnet\.foreign_device_registration=1", re.I),
+     "authentication.anonymous_access_permitted", True, "Authentication"),
+    (re.compile(r"factory_default_credentials\s+true|password=admin\b|password=1234\b|password=(?:engineer|operator|viewer|ubnt)\b|username=admin\s*\n\s*.*password=admin", re.I),
+     "authentication.default_credentials_in_use", True, "Authentication"),
+    (re.compile(r"firmware\.signature_verification=1|security\.firmware_signature_verification=1|firmware\.rollback_protection=1", re.I),
+     "security_controls.firmware_integrity_verified", True, "SecurityControls"),
+    (re.compile(r"firmware\.auto_update=1|firmware\.auto-update\s+enable", re.I),
+     "security_controls.automatic_patching_enabled", True, "SecurityControls"),
+    (re.compile(r"security\.debug_port_locked=1|security\.jtag_disabled=1|debug-port\s+disable", re.I),
+     "security_controls.debug_interfaces_disabled", True, "SecurityControls"),
+    (re.compile(r"mqtt\.tls=1|use_tls\s+'?1'?|tls_version\s*'?tlsv?1\.[23]'?|mqtt\.tls_version=1\.[23]|require_certificate\s+'?1'?", re.I),
+     "cryptography.tls.min_version", "1.2", "Cryptography"),
+    (re.compile(r"telemetry\.payload_encryption=1|telemetry\.replay_protection=1|lorawan\.activation=OTAA|security\.secure_element=1|security\.key_storage=hardware", re.I),
+     "cryptography.data_in_transit_encrypted", True, "Cryptography"),
+    (re.compile(r"listener\s+1883\b|services\.http\.port=80\b|modbus\.tcp\.port=502|services\.ftp\.enable=1|services\.upnp\.enable=1|services\.p2p_cloud\.enable=1", re.I),
+     "network_services.insecure_services_enabled", True, "NetworkServices"),
+    (re.compile(r"zigbee\.install_code_required=1|zigbee\.permit_join=0|zigbee\.link_key_policy=unique", re.I),
+     "access_control.device_onboarding_restricted", True, "AccessControl"),
+    (re.compile(r"syslog\.remote\.enable=1|logging\.remote\.enable=1|log\.remote\.enable=1|option\s+log_ip|syslog\.remote\.status=enabled|add\s+syslog\s+log-remote-address|configure\s+syslog\s+add", re.I),
+     "logging.syslog.enabled", True, "Logging"),
+    (re.compile(r"ntp\.enable=1|option\s+enabled\s+'1'|set\s+ntp\s+active\s+on|enable\s+ntp|ntp\s+enable|ntp-service\s+enable|system\.ntp\.server", re.I),
+     "logging.time_synchronization_enabled", True, "Logging"),
+    (re.compile(r"logging\.tamper_events=1|log_type\s+error|mgmt-auditlog\s+on|set\s+syslog\s+mgmt-auditlog", re.I),
+     "logging.administrative_events.config_change_events_logged", True, "Logging"),
+
+    # -----------------------------------------------------------------------
+    # 11. Layer-2 switch attack mitigation (CIS switch benchmarks)
+    # -----------------------------------------------------------------------
+    (re.compile(r"ip\s+dhcp\s+snooping|dhcp\s+snooping\s+vlan|dhcp-snooping\s+enable", re.I),
+     "security_controls.dhcp_snooping_enabled", True, "SecurityControls"),
+    (re.compile(r"ip\s+arp\s+inspection|dynamic\s+arp\s+inspection|arp-protect\s+enable", re.I),
+     "security_controls.arp_inspection_enabled", True, "SecurityControls"),
+    (re.compile(r"spanning-tree\s+(?:portfast\s+)?bpduguard(?:\s+default|\s+enable)?|spanning-tree\s+bpdu-guard|port\s+type\s+edge\s+bpduguard|enable\s+elrp-client", re.I),
+     "security_controls.bpdu_guard_enabled", True, "SecurityControls"),
+    (re.compile(r"switchport\s+port-security|port-security\s+enable|port-security\s+maximum\s+(\d+)|port-security\s+client-limit", re.I),
+     "access_control.port_security_enabled", True, "AccessControl"),
+    (re.compile(r"storm-control\s+broadcast|storm-control\s+multicast|storm-control\s+level", re.I),
+     "security_controls.storm_control_enabled", True, "SecurityControls"),
+    (re.compile(r"switchport\s+trunk\s+native\s+vlan\s+(\d+)|native\s+vlan\s+999|switchport\s+nonegotiate", re.I),
+     "access_control.native_vlan_hardened", True, "AccessControl"),
+    (re.compile(r"spanning-tree\s+loopguard|spanning-tree\s+loop-guard|loop-protect", re.I),
+     "security_controls.loop_guard_enabled", True, "SecurityControls"),
+
+    # -----------------------------------------------------------------------
+    # 12. Firewall policy hygiene (permissive-rule and UTM detection)
+    # -----------------------------------------------------------------------
+    (re.compile(r"set\s+srcaddr\s+\"all\".*set\s+dstaddr\s+\"all\"|permit\s+ip\s+any\s+any|action\s+'?accept'?.*default-action\s+'?accept'?|rule\s+\d+\s+action\s+'accept'.*source.*any|<type>pass</type>.*<any/>.*<any/>|set\s+service\s+\"ALL\"", re.I | re.S),
+     "access_control.permissive_any_any_rule_present", True, "AccessControl"),
+    (re.compile(r"set\s+utm-status\s+enable|set\s+ips-sensor|set\s+av-profile|profile-setting\s+group|set\s+ips\s+\S+|mode\s+prevent|intrusion-policy|profiles\s+vulnerability", re.I),
+     "security_controls.threat_prevention_enabled", True, "SecurityControls"),
+    (re.compile(r"set\s+logtraffic\s+all|log-start\s+yes|log-end\s+yes|set\s+log\s+enable|logging\s+trap\s+informational|set\s+firewall-rule.*log\s+enable", re.I),
+     "logging.firewall_policy_logging_enabled", True, "Logging"),
+    (re.compile(r"option\s+input\s+'DROP'|default-action\s+'?drop'?|deny\s+ip\s+any\s+any|action\s+deny.*DENY-ALL|set\s+firewall-rule.*action\s+drop|option\s+forward\s+'DROP'", re.I),
+     "access_control.default_deny_posture", True, "AccessControl"),
+    (re.compile(r"trusthost1\s+\S+|add\s+allowed-client|set\s+deviceconfig\s+system\s+permitted-ip|ssh\s+10\.\d+\.\d+\.\d+\s+255|address=10\.\d+\.\d+\.\d+/\d+|option\s+Interface\s+'lan'", re.I),
+     "access_control.management_access.restricted_to_specific_hosts", True, "AccessControl"),
 ]
 
 

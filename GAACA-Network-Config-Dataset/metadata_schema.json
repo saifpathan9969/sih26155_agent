@@ -1,0 +1,263 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GAACA Network Configuration Sample Metadata",
+  "description": "Per-configuration metadata sidecar for the GAACA Multi-Vendor Network Config Dataset. Every .conf file has a matching .meta.json file following this schema.",
+  "type": "object",
+  "required": [
+    "sample_id", "vendor", "product", "device_type", "device_class", "network_role",
+    "routing_capability", "os", "version", "category", "source_type",
+    "configuration_format", "security_state", "controls_present", "controls_absent",
+    "contains_secrets", "anonymized", "generation_date", "generator_version"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "description": "Unique sample identifier, format: {CATEGORY_PREFIX}-{VENDOR_SHORT}-{STATE_CHAR}-{SEQ:03d}",
+      "pattern": "^[A-Z]{2,4}-[A-Z0-9_]+-[SME]-\\d{3}$",
+      "examples": ["FW-CISCO_ASA-S-001", "RT-JUNIPER-M-042", "IOT-SIEMENS-E-005"]
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Vendor/manufacturer name",
+      "examples": ["Cisco", "Fortinet", "Palo Alto Networks", "Juniper", "Siemens"]
+    },
+    "product": {
+      "type": "string",
+      "description": "Specific product line or model family",
+      "examples": ["ASA", "FortiGate", "PAN-OS", "SRX", "S7-1500"]
+    },
+    "device_type": {
+      "type": "string",
+      "enum": [
+        "firewall", "router", "switch", "wifi_controller", "wifi_access_point",
+        "iot_plc", "iot_camera", "iot_gateway", "iot_sensor", "iot_building_automation",
+        "load_balancer", "sase_gateway"
+      ],
+      "description": "Functional device classification"
+    },
+    "device_class": {
+      "type": "string",
+      "enum": [
+        "switch", "router", "firewall", "wireless_ap", "wireless_controller",
+        "iot_gateway", "iot_plc", "iot_camera", "iot_sensor", "iot_building_automation",
+        "load_balancer", "security_appliance", "unknown"
+      ],
+      "description": "Physical/product asset class (What is the device?)"
+    },
+    "network_role": {
+      "type": "string",
+      "enum": [
+        "core", "distribution", "access", "edge", "wan",
+        "datacenter_leaf", "datacenter_spine", "branch", "perimeter",
+        "campus", "aggregation", "industrial_control", "surveillance",
+        "field_gateway", "smart_sensor", "unknown"
+      ],
+      "description": "Operational deployment role (How is the device used?)"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Operating platform / software family",
+      "examples": ["AOS-CX", "IOS-XE", "Junos", "EOS", "FortiOS"]
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model identifier",
+      "examples": ["8325", "6200", "9300", "MX480", "ISR4451"]
+    },
+    "routing_capability": {
+      "type": "boolean",
+      "description": "Whether device has Layer 3 routing capabilities enabled"
+    },
+    "l3_capable": {
+      "type": "boolean",
+      "description": "Whether device hardware supports Layer 3 routing"
+    },
+    "routing_protocols": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Active routing protocols configured (e.g. BGP, OSPF, ISIS, STATIC)"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Semantic capabilities detected in configuration"
+    },
+    "ambiguity": {
+      "type": "boolean",
+      "description": "Whether configuration syntax is ambiguous regarding device class"
+    },
+    "ambiguity_reason": {
+      "type": ["string", "null"],
+      "description": "Explanation if ambiguity is true"
+    },
+    "os": {
+      "type": "string",
+      "description": "Operating system or firmware name",
+      "examples": ["ASA OS", "FortiOS", "PAN-OS", "Junos", "IOS", "IOS-XE", "VRP", "RouterOS", "TwinCAT"]
+    },
+    "version": {
+      "type": "string",
+      "description": "OS/firmware version string or range",
+      "examples": ["9.x", "7.4.x", "11.1.x", "23.x", "17.x", "7.x"]
+    },
+    "category": {
+      "type": "string",
+      "enum": ["firewall", "router", "switch", "wifi", "iot"],
+      "description": "Top-level dataset category"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["synthetic", "public_lab", "vendor_doc_example", "open_source_project"],
+      "description": "How this configuration was obtained/created"
+    },
+    "source_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL of public source if applicable, null for synthetic"
+    },
+    "license": {
+      "type": ["string", "null"],
+      "description": "License of source material, null for synthetic",
+      "examples": ["MIT", "Apache-2.0", "GPL-3.0", "BSD-3-Clause", null]
+    },
+    "configuration_format": {
+      "type": "string",
+      "description": "Configuration syntax family",
+      "examples": [
+        "cisco_asa_cli", "fortios_cli", "panos_set_cli", "panos_xml",
+        "checkpoint_clish", "junos_set", "junos_hierarchy", "mikrotik_rsc",
+        "iptables_rules", "xml", "json", "ini", "proprietary_cli"
+      ]
+    },
+    "security_state": {
+      "type": "string",
+      "enum": ["secure", "misconfigured", "edge_case"],
+      "description": "Security posture classification of this configuration sample"
+    },
+    "security_state_details": {
+      "type": "string",
+      "description": "Brief explanation of what makes this config secure, misconfigured, or edge-case"
+    },
+    "controls_present": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Security controls explicitly configured in this sample",
+      "examples": [
+        ["ssh_v2", "https_management", "syslog", "ntp", "aaa_radius", "snmpv3", "default_deny_policy"]
+      ]
+    },
+    "controls_absent": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Security controls deliberately absent or disabled",
+      "examples": [
+        ["telnet_disabled", "logging", "password_encryption"]
+      ]
+    },
+    "vulnerability_tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags for specific vulnerabilities present (for misconfigured/edge_case)",
+      "examples": [
+        ["telnet_enabled", "snmpv2_default_community", "any_any_permit", "http_management"]
+      ]
+    },
+    "contains_secrets": {
+      "type": "boolean",
+      "const": false,
+      "description": "Always false — no real credentials in this dataset"
+    },
+    "anonymized": {
+      "type": "boolean",
+      "const": true,
+      "description": "Always true — all IPs use RFC 5737 ranges, all secrets are placeholder tokens"
+    },
+    "generation_date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when this sample was generated"
+    },
+    "generator_version": {
+      "type": "string",
+      "description": "Version of the generator script that produced this sample",
+      "examples": ["1.0.0"]
+    },
+
+    "legacy_device_type": {
+      "type": ["string", "null"],
+      "description": "Original single-label device_type, preserved verbatim when the separated model was introduced. Retained for auditability."
+    },
+    "device_class": {
+      "type": "string",
+      "enum": [
+        "router", "network_switch", "firewall", "wireless_ap",
+        "wireless_controller", "load_balancer", "security_appliance",
+        "iot_gateway", "iot_controller", "iot_endpoint", "unknown"
+      ],
+      "description": "HARDWARE family. Independent of how the device is deployed. An L3 switch performing a core routing role is still device_class=network_switch."
+    },
+    "network_role": {
+      "type": "string",
+      "enum": [
+        "core", "distribution", "access", "edge", "wan", "internet_gateway",
+        "dc_leaf", "dc_spine", "branch", "wireless_access", "perimeter",
+        "segmentation", "ot_cell", "building_automation", "iot_edge", "unknown"
+      ],
+      "description": "DEPLOYMENT role. This is what the original device_type was often actually describing when it said 'router'."
+    },
+    "platform": {
+      "type": ["string", "null"],
+      "description": "Operating system / firmware family (Level 1 product identity)"
+    },
+    "model": {
+      "type": ["string", "null"],
+      "description": "Identified hardware model, null when the configuration does not name it"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What the configuration proves the device can do. BGP lives here, NOT in device_class.",
+      "examples": [["BGP", "OSPF", "VLAN", "STP", "VRF", "PORT_SECURITY"]]
+    },
+    "routing_protocols": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Subset of capabilities that are routing protocols"
+    },
+    "l2_capable": {
+      "type": "boolean",
+      "description": "Derived from capabilities. True when layer-2 forwarding constructs are present."
+    },
+    "detected_vendor": {
+      "type": "string",
+      "description": "Vendor family as fingerprinted from the configuration text"
+    },
+    "detected_vendor_display": {
+      "type": "string",
+      "description": "Human-readable label for detected_vendor"
+    },
+    "device_class_basis": {
+      "type": "string",
+      "description": "Why this device_class was assigned (model registry / defining construct / filename / vendor prior)"
+    },
+    "label_confidence": {
+      "type": "string",
+      "enum": ["verified", "review", "ambiguous"],
+      "description": "verified = derived class agrees with the original label; review = they disagree and label_disagreement explains why; ambiguous = the configuration does not uniquely identify a hardware class"
+    },
+    "label_disagreement": {
+      "type": "string",
+      "description": "Explanation when label_confidence is 'review' or 'ambiguous'"
+    },
+    "relabel_version": {
+      "type": "string",
+      "description": "Version of relabel_dataset.py that produced the separated labels"
+    },
+    "relabel_date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date the separated labels were written"
+    }
+  },
+  "additionalProperties": false
+}

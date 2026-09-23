@@ -1,0 +1,9 @@
+{
+    "device": "DIST-CNPILOTXV2-2/CNMAESTRO-AMS-63",
+    "wlan": {
+        "ssid": "Cambium-Corp",
+        "security": "wpa3-enterprise",
+        "pmf": "mandatory",
+        "isolate": true
+    }
+}

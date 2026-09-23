@@ -1,0 +1,8 @@
+{
+    "deviceId": "BR-BORON/PHOTON2-SYD-41",
+    "security": {
+        "serverPublicKey": "Ch@ng3M3_N0w_2026!",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

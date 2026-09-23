@@ -1,0 +1,15 @@
+{
+  "samples": 5000,
+  "correct": 4795,
+  "accuracy": 0.959,
+  "wrong_count": 10,
+  "wrong_rate": 0.002,
+  "abstention_count": 195,
+  "abstention_rate": 0.039,
+  "classification_status": {
+    "CONFIDENT": 1611,
+    "LOW_EVIDENCE": 3129,
+    "CONFLICTING_EVIDENCE": 138,
+    "UNKNOWN_EDGE_CASE": 122
+  }
+}

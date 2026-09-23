@@ -1,0 +1,10 @@
+{
+    "name": "WAN-MERAKIMR56/MR46-LON-65",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Hikvision Camera — SECURE — Sample 9 -->
+<SecurityConfig version="2.0">
+  <DeviceName>BR-DS-2CDSERIES-SYD-41</DeviceName>
+  <IllegalLoginLock enabled="true" maxAttempts="3" lockTimeMinutes="30"/>
+  <HTTPSPort enabled="true" port="443"/>
+  <HTTPPort enabled="false"/>
+  <ONVIFSecurity authType="digest" digestAlgorithm="SHA256"/>
+  <SecurityAuditLog enabled="true"/>
+  <AdminPassword encrypted="true">Ch@ng3M3_N0w_2026!</AdminPassword>
+</SecurityConfig>

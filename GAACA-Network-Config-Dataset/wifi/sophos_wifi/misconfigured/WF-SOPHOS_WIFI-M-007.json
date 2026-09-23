@@ -1,0 +1,10 @@
+{
+    "device": "REMOTE-APX320/740-SFO-60",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Open",
+            "encryption": "None",
+            "client_isolation": false
+        }
+    ]
+}

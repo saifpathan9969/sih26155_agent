@@ -1,0 +1,20 @@
+{
+    "name": "LAB-MISTAP43/AP45-BER-46",
+    "wlans": [
+        {
+            "ssid": "Mist-Enterprise",
+            "enabled": true,
+            "auth": {
+                "type": "eap",
+                "pairwise": [
+                    "ccmp",
+                    "gcmp-256"
+                ],
+                "wpa3": true
+            },
+            "isolation": true,
+            "band": "5ghz"
+        }
+    ],
+    "site_id": "site-101"
+}

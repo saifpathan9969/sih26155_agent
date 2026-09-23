@@ -1,0 +1,34 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "PROD-SONICLEAF/SPINESWITCH-MUM-15",
+            "hwsku": "Accton-AS7726-32X",
+            "type": "LeafSwitch"
+        }
+    },
+    "VLAN": {
+        "Vlan3521": {
+            "vlanid": "3521"
+        }
+    },
+    "VLAN_MEMBER": {
+        "Vlan3521|Ethernet0": {
+            "tagging_mode": "untagged"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "enabled",
+            "mode": "rapid_pvst",
+            "bpdu_guard": "enabled"
+        }
+    },
+    "NTP_SERVER": {
+        "203.0.113.123": {}
+    },
+    "SYSLOG_SERVER": {
+        "198.51.100.10": {
+            "port": "514"
+        }
+    }
+}

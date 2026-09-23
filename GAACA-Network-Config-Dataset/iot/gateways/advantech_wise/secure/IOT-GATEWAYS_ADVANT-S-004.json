@@ -1,0 +1,16 @@
+{
+    "device": "CORE-WISE-710/ADAM-6700-DAL-18",
+    "mqtt": {
+        "broker": "tls://198.51.100.200:8883",
+        "tls_cert_validation": true,
+        "client_id": "CORE-WISE-710/ADAM-6700-DAL-18",
+        "auth": {
+            "user": "iot-agent",
+            "pass": "P@ssw0rd_PLACEHOLDER"
+        }
+    },
+    "security": {
+        "firewall": "strict",
+        "ssh_key_only": true
+    }
+}

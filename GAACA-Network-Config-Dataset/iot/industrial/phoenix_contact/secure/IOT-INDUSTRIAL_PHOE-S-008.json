@@ -1,0 +1,15 @@
+{
+    "plc": "DMZ-AXCF2152/3152-SFO-41",
+    "user_management": {
+        "security_profile": "High",
+        "password_complexity": true,
+        "session_timeout_seconds": 300
+    },
+    "firewall": {
+        "input_policy": "DROP",
+        "allow_services": [
+            "ssh",
+            "https"
+        ]
+    }
+}

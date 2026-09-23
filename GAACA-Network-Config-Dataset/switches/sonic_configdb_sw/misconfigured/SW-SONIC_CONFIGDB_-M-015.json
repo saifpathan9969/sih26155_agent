@@ -1,0 +1,22 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "BR-SONICLEAF/SPINESWITCH-FRA-69",
+            "type": "LeafSwitch"
+        }
+    },
+    "STP": {
+        "GLOBAL": {
+            "status": "disabled",
+            "bpdu_guard": "disabled"
+        }
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

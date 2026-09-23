@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Honeywell Niagara — MISCONFIGURED — Sample 12 -->
+<station name="DMZ-NIAGARAFRAMEWORKN4CONTROLLER-NYC-20" version="4.12">
+  <securityService>
+    <passwordPolicy minLength="4" maxFailedAttempts="0"/>
+    <foxService enabled="true" port="1911"/>
+    <foxsService enabled="false"/>
+  </securityService>
+</station>

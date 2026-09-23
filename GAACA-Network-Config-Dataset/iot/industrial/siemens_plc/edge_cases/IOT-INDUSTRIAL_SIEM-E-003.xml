@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — Siemens S7 PLC — EDGE CASE — Sample 3 -->
+<DeviceConfiguration version="2.9">
+  <Device name="EDGE-SIMATICS7-1500/S7-1200-CHI-44">
+    <!-- Corrupted security node -->
+    <Security/>
+  </Device>
+</DeviceConfiguration>

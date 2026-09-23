@@ -1,0 +1,21 @@
+{
+    "device": "DC-IPC-HFW/IPC-HDW-LON-40",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "192.0.2.119"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "S3cur3_D3m0_P@ss!"
+    }
+}

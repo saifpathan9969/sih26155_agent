@@ -1,0 +1,20 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "hostname": "DIST-SONICENTERPRISEROUTER-BER-26",
+            "hwsku": "Generic-Switch",
+            "type": "LeafRouter"
+        }
+    },
+    "INTERFACE": {
+        "Ethernet0|192.0.2.252/24": {}
+    },
+    "SNMP_COMMUNITY": {
+        "public": {
+            "type": "ro"
+        },
+        "private": {
+            "type": "rw"
+        }
+    }
+}

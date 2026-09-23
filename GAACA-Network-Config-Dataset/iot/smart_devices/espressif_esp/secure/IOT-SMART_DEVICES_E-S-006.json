@@ -1,0 +1,21 @@
+{
+    "esphome": {
+        "name": "EDGE-ESP32-S3/ESPHOME-PAR-05"
+    },
+    "wifi": {
+        "ssid": "Secure-IoT",
+        "password": "S3cur3_D3m0_P@ss!",
+        "eap": {
+            "identity": "esp32",
+            "ca_cert": "CERT_DATA"
+        }
+    },
+    "ota": {
+        "password": "S3cur3_D3m0_P@ss!"
+    },
+    "api": {
+        "encryption": {
+            "key": "S3cur3_D3m0_P@ss!"
+        }
+    }
+}

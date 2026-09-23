@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
-  ShieldCheck, Lock, UserCheck, AlertTriangle, Filter,
-  CheckCircle2, XCircle, ChevronRight, Server, Terminal, Eye
+  ShieldCheck, AlertTriangle, Filter, Terminal, Sparkles
 } from 'lucide-react';
 import api from '../api';
-import StatusBadge from './StatusBadge';
 
-export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, onOpenHumanReview }) {
+/**
+ * Autonomy Policy is an intentionally READ-ONLY view.
+ *
+ * It answers "what did the agent decide, and where did it stop?". All
+ * human-in-the-loop resolution is centralised on the AI Retrieval page, which
+ * has the trust score, benchmark context and documentation-upload affordances
+ * needed to make a defensible call. Offering a bare "Resolve" button here
+ * invited verdicts without that context, and duplicated the workflow in two
+ * places with two different UIs.
+ */
+export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, onNavigateTab }) {
   const [autonomyData, setAutonomyData] = useState({});
   const [selectedFile, setSelectedFile] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -114,7 +122,7 @@ export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, on
                 CONFIGURATION AUDIT VERDICTS & COMMANDS
               </h2>
               <p className="text-xs text-slate-400">
-                Filter by configuration file to inspect all passed, failed, and human-gated commands
+                Read-only view of passed, failed and human-gated directives per configuration file
               </p>
             </div>
           </div>
@@ -193,7 +201,34 @@ export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, on
           </button>
         </div>
 
-        {/* Command Verdicts Table */}
+        {/* Read-only notice — resolution lives on the AI Retrieval page */}
+        {stats.human > 0 && (
+          <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="text-xs">
+                <p className="text-amber-200 font-mono font-semibold">
+                  {stats.human} directive{stats.human === 1 ? '' : 's'} halted for operator review.
+                </p>
+                <p className="text-slate-400 text-[11px] mt-0.5">
+                  This page reports autonomy decisions only. Issue verdicts on the AI Retrieval
+                  page, where each directive carries its trust score, mapped benchmark control
+                  and documentation history.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigateTab && onNavigateTab('training')}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition shrink-0 cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Resolve in AI Retrieval ➔</span>
+            </button>
+          </div>
+        )}
+
+        {/* Command Verdicts Table (read-only) */}
         <div className="overflow-x-auto rounded-xl border border-slate-800">
           <table className="w-full text-left text-xs border-collapse font-mono">
             <thead>
@@ -202,13 +237,12 @@ export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, on
                 <th className="py-3 px-4">RULE ID</th>
                 <th className="py-3 px-4">VERDICT</th>
                 <th className="py-3 px-4">EVIDENCE / COMMAND</th>
-                <th className="py-3 px-4">ACTION</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
               {deviceCommands.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-500">
+                  <td colSpan={4} className="py-8 text-center text-slate-500">
                     No commands matched the current filter. Run an audit in Mission Control first to view live verdicts.
                   </td>
                 </tr>
@@ -236,21 +270,9 @@ export default function AutonomyTable({ fixtures = [], findingsByDevice = {}, on
                           </span>
                         )}
                       </td>
-                      <td className="py-2.5 px-4 text-slate-300 max-w-md truncate">
+                      <td className="py-2.5 px-4 text-slate-300 max-w-lg truncate" title={cmd.rawCommand}>
                         <span className="text-slate-500">L{cmd.line}: </span>
                         <span>{cmd.rawCommand}</span>
-                      </td>
-                      <td className="py-2.5 px-4">
-                        {isHumanNeeded && (
-                          <button
-                            type="button"
-                            onClick={() => onOpenHumanReview && onOpenHumanReview(cmd)}
-                            className="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[10px] font-bold flex items-center gap-1 transition"
-                          >
-                            <span>Resolve</span>
-                            <ChevronRight className="w-3 h-3" />
-                          </button>
-                        )}
                       </td>
                     </tr>
                   );

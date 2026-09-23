@@ -1,0 +1,11 @@
+{
+    "device": "BR-APX320/740-SYD-41",
+    "wireless_networks": [
+        {
+            "ssid": "Sophos-Secure",
+            "encryption": "WPA3",
+            "passphrase": "Ch@ng3M3_N0w_2026!",
+            "client_isolation": true
+        }
+    ]
+}

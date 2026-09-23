@@ -1,0 +1,8 @@
+{
+    "deviceId": "PROD-BORON/PHOTON2-BER-64",
+    "security": {
+        "serverPublicKey": "REDACTED_ADMIN_PASS",
+        "sessionTicketTLS": true,
+        "lockProtected": true
+    }
+}

@@ -1,0 +1,1247 @@
+{
+  "failure_families": {},
+  "wrong_vendor_cases": [
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-001",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-002",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-003",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-004",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-005",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-006",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-007",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-008",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-009",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    },
+    {
+      "sample_id": "WF-NETGEAR_WIFI-E-010",
+      "state": "edge_case",
+      "expected_vendor": "Netgear",
+      "product": "Insight WAX630",
+      "detected": "cisco_meraki"
+    }
+  ],
+  "abstention_cases": [
+    {
+      "sample_id": "FW-CISCO_ASA-E-001",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-002",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-004",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-005",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-007",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-008",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-CISCO_ASA-E-010",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "ASA"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-001",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-002",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-003",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-004",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-005",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-006",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-007",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-008",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-009",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-HUAWEI_USG-E-010",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "USG"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-001",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-002",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-003",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-004",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-005",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-006",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-007",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-008",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-009",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "FW-JUNIPER_SRX-E-010",
+      "state": "edge_case",
+      "vendor": "Juniper",
+      "product": "SRX"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-001",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-002",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-003",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-004",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-005",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-006",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-007",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "IOT-INDUSTRIAL_PHOE-E-008",
+      "state": "edge_case",
+      "vendor": "Phoenix Contact",
+      "product": "AXC F 2152 / 3152"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-001",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-002",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-003",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-004",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-005",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-006",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-007",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-008",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-009",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSCX-E-010",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 8325 / 8400 Core Router"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-001",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-002",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-003",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-004",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-005",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-006",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-007",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-008",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-009",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-ARUBA_AOSS-E-010",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "2930F / 3810M Routing Switch"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-001",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-002",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-003",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-004",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-005",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-006",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-007",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-008",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-009",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "RT-CISCO_IOSXE-E-010",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 8000 / ISR 4000"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-001",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-002",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-003",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-004",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-005",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-006",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-007",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-008",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-009",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-ARUBA_AOSCX_SW-E-010",
+      "state": "edge_case",
+      "vendor": "Aruba / HPE",
+      "product": "CX 6200 / 6300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-001",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-002",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-003",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-004",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-005",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-006",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-007",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-008",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-009",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_IOS_SW-E-010",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9300 / 3850"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-001",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-002",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-003",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-004",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-005",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-006",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-007",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-008",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-009",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-E-010",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-001",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-002",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-003",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-004",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-005",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-006",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-007",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-008",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-009",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-010",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-011",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-012",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-013",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-014",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-015",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-016",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-017",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-018",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-019",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-CISCO_NXOS_SW-M-020",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Nexus 9300 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-001",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-002",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-003",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-004",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-005",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-006",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-007",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-008",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-009",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "SW-JUNIPER_JUNOS_S-E-010",
+      "state": "edge_case",
+      "vendor": "Juniper Networks",
+      "product": "EX4300 / EX4400 Switch"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-001",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-002",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-003",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-004",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-005",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-006",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-007",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-008",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-009",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-E-010",
+      "state": "edge_case",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-001",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-002",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-003",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-004",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-005",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-006",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-007",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-008",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-009",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-010",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-011",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-012",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-013",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-014",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-015",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-016",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-017",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-018",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-019",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-CISCO_WLC-M-020",
+      "state": "misconfigured",
+      "vendor": "Cisco",
+      "product": "Catalyst 9800 WLC"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-001",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-002",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-003",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-004",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-005",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-006",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-007",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-008",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-009",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-ENGENIUS_CLOUD-E-010",
+      "state": "edge_case",
+      "vendor": "EnGenius",
+      "product": "Cloud ECW230"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-001",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-002",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-003",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-004",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-005",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-006",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-007",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-008",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-009",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-HUAWEI_AC-E-010",
+      "state": "edge_case",
+      "vendor": "Huawei",
+      "product": "AC6508 / AC6805"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-001",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-002",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-003",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-004",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-005",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-006",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-007",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-008",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-009",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-SOPHOS_WIFI-E-010",
+      "state": "edge_case",
+      "vendor": "Sophos",
+      "product": "APX 320 / 740"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-001",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-002",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-003",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-004",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-005",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-006",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-007",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-008",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-009",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    },
+    {
+      "sample_id": "WF-TPLINK_OMADA_WI-E-010",
+      "state": "edge_case",
+      "vendor": "TP-Link",
+      "product": "Omada EAP660 HD / EAP670"
+    }
+  ]
+}

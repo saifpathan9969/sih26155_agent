@@ -1,0 +1,8 @@
+{
+    "name": "EDGE-OMADAEAP660HD/EAP670-TKY-72",
+    "wireless": {
+        "ssid": "Omada-Open",
+        "security": "None",
+        "isolate": false
+    }
+}

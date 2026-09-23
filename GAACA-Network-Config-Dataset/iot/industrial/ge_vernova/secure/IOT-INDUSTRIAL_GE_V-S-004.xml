@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GAACA Dataset — GE Vernova — SECURE — Sample 4 -->
+<MarkVIePolicy system="CORE-MARKVIE/PACSYSTEMSRX3I-DAL-18">
+  <DNP3SecureAuth version="SAv5" key="P@ssw0rd_PLACEHOLDER"/>
+  <LogicProtection writeLock="true"/>
+  <UDBCertificateCheck strict="true"/>
+</MarkVIePolicy>

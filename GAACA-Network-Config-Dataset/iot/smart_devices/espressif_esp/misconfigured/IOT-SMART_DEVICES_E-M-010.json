@@ -1,0 +1,13 @@
+{
+    "esphome": {
+        "name": "REMOTE-ESP32-S3/ESPHOME-MUM-15"
+    },
+    "wifi": {
+        "ssid": "Open-IoT",
+        "password": ""
+    },
+    "ota": {
+        "password": ""
+    },
+    "api": {}
+}

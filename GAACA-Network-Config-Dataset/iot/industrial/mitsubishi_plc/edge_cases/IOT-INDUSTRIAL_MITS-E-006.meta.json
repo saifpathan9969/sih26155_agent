@@ -1,0 +1,42 @@
+{
+  "sample_id": "IOT-INDUSTRIAL_MITS-E-006",
+  "vendor": "Mitsubishi Electric",
+  "product": "MELSEC iQ-R / iQ-F",
+  "device_type": "iot_plc",
+  "os": "GX Works3",
+  "version": "v1.08",
+  "category": "iot",
+  "source_type": "synthetic",
+  "source_url": null,
+  "license": null,
+  "configuration_format": "xml",
+  "security_state": "edge_case",
+  "controls_present": [
+    "partial"
+  ],
+  "controls_absent": [],
+  "vulnerability_tags": [
+    "ambiguous_syntax",
+    "partial_config"
+  ],
+  "contains_secrets": false,
+  "anonymized": true,
+  "generation_date": "2026-09-22",
+  "generator_version": "1.0.0",
+  "security_state_details": "Partial configuration with deprecated syntax, missing sections, or conflicting rules",
+  "legacy_device_type": "iot_plc",
+  "device_class": "iot_controller",
+  "network_role": "ot_cell",
+  "platform": "Mitsubishi GX Works",
+  "model": null,
+  "capabilities": [],
+  "routing_protocols": [],
+  "l2_capable": false,
+  "detected_vendor": "mitsubishi",
+  "detected_vendor_display": "Mitsubishi MELSEC",
+  "device_class_basis": "defining construct: industrial control platform schema",
+  "relabel_version": "2.0.0",
+  "relabel_date": "2026-09-22",
+  "label_confidence": "verified",
+  "routing_capability": false
+}

@@ -1,0 +1,16 @@
+{
+    "device": "PROD-WISE-710/ADAM-6700-BER-64",
+    "mqtt": {
+        "broker": "tls://198.51.100.200:8883",
+        "tls_cert_validation": true,
+        "client_id": "PROD-WISE-710/ADAM-6700-BER-64",
+        "auth": {
+            "user": "iot-agent",
+            "pass": "REDACTED_ADMIN_PASS"
+        }
+    },
+    "security": {
+        "firewall": "strict",
+        "ssh_key_only": true
+    }
+}

@@ -20,7 +20,22 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-DATASET_FILE = Path(__file__).resolve().parent.parent / "network_config_db" / "data" / "all_vendors_config_db.jsonl"
+_DATA_DIR = Path(__file__).resolve().parent.parent / "network_config_db" / "data"
+
+# The curated vendor-documentation corpus. Every record in it carries a
+# source_url to official vendor documentation and a last_verified_date, which is
+# what makes a finding citable. This engine treats it as READ-ONLY.
+REFERENCE_DATASET_FILE = _DATA_DIR / "all_vendors_config_db.jsonl"
+
+# Runtime-learned records are written here instead. Previously they were
+# appended straight into the reference corpus, which silently mixed
+# operator-generated entries into sourced documentation and destroyed the
+# provenance guarantee — a learned record has no source_url, so there was no way
+# to tell afterwards which entries were citable and which were not.
+LEARNED_DATASET_FILE = _DATA_DIR / "learned_knowledge.jsonl"
+
+# Retained under the old name so existing imports keep working.
+DATASET_FILE = LEARNED_DATASET_FILE
 
 # Known semantic security categories for token weight classification
 SEMANTIC_CATEGORIES = [
@@ -171,13 +186,19 @@ class FederatedLearningCoordinator:
             "federated_round": self.current_round - 1,
         }
 
+        # Mark provenance explicitly so a learned record can never be mistaken
+        # for a documented one.
+        record["source_type"] = "operator_learned"
+        record["source_url"] = None
+        record["citable"] = False
+
         try:
-            DATASET_FILE.parent.mkdir(parents=True, exist_ok=True)
-            with open(DATASET_FILE, "a", encoding="utf-8") as f:
-                f.write(json.dumps(record) + "\n")
-            print(f"[FederatedLearning] Appended learned record to {DATASET_FILE}")
+            LEARNED_DATASET_FILE.parent.mkdir(parents=True, exist_ok=True)
+            with open(LEARNED_DATASET_FILE, "a", encoding="utf-8") as f:
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            print(f"[FederatedLearning] Recorded learned directive in {LEARNED_DATASET_FILE.name}")
         except Exception as e:
-            print(f"[FederatedLearning] Note: could not write to dataset file: {e}")
+            print(f"[FederatedLearning] Note: could not write learned record: {e}")
 
 
 # Singleton coordinator

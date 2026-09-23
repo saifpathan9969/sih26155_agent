@@ -1,0 +1,9 @@
+{
+    "device": "DC-WISE-710/ADAM-6700-DAL-24",
+    "mqtt": {
+        "broker": "tcp://198.51.100.200:1883",
+        "auth": {
+            "anonymous": true
+        }
+    }
+}

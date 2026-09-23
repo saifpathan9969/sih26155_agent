@@ -1,0 +1,10 @@
+{
+    "id": "ACCESS-SHELLYPLUS1/PRO4PM-SFO-36",
+    "auth": {
+        "enable": false
+    },
+    "mqtt": {
+        "enable": true,
+        "server": "198.51.100.210:1883"
+    }
+}

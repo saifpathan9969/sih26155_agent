@@ -1,0 +1,21 @@
+{
+    "device": "EDGE-IPC-HFW/IPC-HDW-PAR-05",
+    "Security": {
+        "IPFilter": {
+            "Enable": true,
+            "Mode": "WhiteList",
+            "IPList": [
+                "192.0.2.76"
+            ]
+        },
+        "HTTPS": {
+            "Enable": true,
+            "CertificateInstalled": true
+        },
+        "P2P": {
+            "Enable": false
+        },
+        "ONVIFAuth": "Digest",
+        "Password": "S3cur3_D3m0_P@ss!"
+    }
+}

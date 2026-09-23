@@ -1,0 +1,7 @@
+{
+    "hostname": "PROD-NEBULANWA110AX-BER-64",
+    "ssid": "Zyxel-Corp",
+    "security": "WPA3",
+    "key": "REDACTED_ADMIN_PASS",
+    "intra_bss_traffic_blocking": true
+}

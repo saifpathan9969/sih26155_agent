@@ -1,0 +1,10 @@
+{
+    "name": "EDGE-MERAKIMR56/MR46-CHI-44",
+    "ssids": [
+        {
+            "number": 1,
+            "name": "Ghost-SSID",
+            "enabled": false
+        }
+    ]
+}
