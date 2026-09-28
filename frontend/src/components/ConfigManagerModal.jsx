@@ -22,7 +22,7 @@ export default function ConfigManagerModal({ isOpen, onClose, onConfigurationsCh
   const fetchAllConfigs = async () => {
     setFetchingConfigs(true);
     try {
-      const data = await api.getConfigurations(null, uname);
+      const data = await api.getConfigurations(uname);
       setConfigs(data.configurations || []);
     } catch (err) {
       console.error("Failed to load configurations:", err);

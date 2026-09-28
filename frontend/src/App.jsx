@@ -56,7 +56,7 @@ export default function App() {
       const h = await api.health();
       setSystemHealth(h.status === 'ok' ? 'online' : 'error');
       const uname = user?.username || user?.email;
-      const f = await api.getFixtures(null, uname);
+      const f = await api.getFixtures(uname);
       const devList = f.devices || [];
       setFixtures(devList);
       setSelectedDevices(devList.map(d => d.filename));
