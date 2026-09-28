@@ -51,10 +51,20 @@ from tools.discovery import discover_configs
 from tools.fingerprint import fingerprint_vendor
 from tools.parsing import parse_config
 
-from blockchain_integrity import BlockchainLedger, compute_data_hash
+from blockchain_integrity import BlockchainLedger, compute_data_hash, compute_block_hash, BlockchainBlock
 from rule_engine import evaluate_baseline, load_rules
+import db as _db
 from rule_manager import RuleManager
 from security_baseline_schema import EvidenceField, Interpretation, InterpretationMethod, VendorFamily
+
+# Remediation workflow imports
+from remediation import (
+    SandboxManager,
+    RemediationProposer,
+    RemediationValidator,
+    PromotionGate,
+    PromotionDecision,
+)
 
 import firebase_service
 from device_classifier import classify_device, summarize_asset_mix, summarize_profiles
@@ -83,6 +93,21 @@ _training_kb = VendorKnowledgeBase()
 _episodic = EpisodicMemory()
 _rule_manager = RuleManager()
 _blockchain = BlockchainLedger()
+
+# Monkey-patch blockchain to always persist every new block to SQLite
+_original_add_block = _blockchain._add_block.__func__
+
+def _patched_add_block(self, event_type, payload):
+    block = _original_add_block(self, event_type, payload)
+    try:
+        import db as _db_local
+        _db_local.save_block(block.to_dict())
+    except Exception:
+        pass
+    return block
+
+import types
+_blockchain._add_block = types.MethodType(_patched_add_block, _blockchain)
 
 # Global dynamic configurations storage — strictly populated only via user uploads
 _all_configs: Dict[str, str] = {}
@@ -120,6 +145,12 @@ _current_report: str = ""
 _current_report_hash: str = ""
 _human_decisions_log: List[dict] = []
 
+# Remediation workflow state
+_sandbox_manager: Optional[SandboxManager] = None
+_remediation_proposer: Optional[RemediationProposer] = None
+_remediation_validator: Optional[RemediationValidator] = None
+_promotion_gate: Optional[PromotionGate] = None
+
 
 def _init_baselines():
     global _parsed_baselines
@@ -135,35 +166,106 @@ _init_baselines()
 
 @app.on_event("startup")
 def startup_event():
-    """Initialize Firebase Firestore on startup if credentials exist."""
+    """Initialize SQLite, Firebase, and hydrate all in-memory state on startup."""
+    global _sandbox_manager, _remediation_proposer, _remediation_validator, _promotion_gate
+
     print("[Startup] Initializing application services...")
+
+    # ── 1. SQLite (always-on local persistence) ────────────────────────────
+    _db.init_db()
+    # Persist genesis block (idempotent — ON CONFLICT DO UPDATE)
+    if _blockchain.chain:
+        _db.save_block(_blockchain.chain[0].to_dict())
+    print("[Startup] SQLite database ready.")
+
+    # ── 2. Load users from SQLite ──────────────────────────────────────────
+    for u in _db.load_all_users():
+        uname = u.get("username")
+        if uname:
+            _users[uname] = u
+    # Always ensure the seed admin exists in DB
+    for uname, udata in _users.items():
+        _db.save_user(udata)
+
+    # ── 3. Load configurations from SQLite ────────────────────────────────
+    for row in _db.load_all_configs():
+        fname = row["filename"]
+        uname = row["username"]
+        content = row["content"]
+        _all_configs[fname] = content
+        if uname not in _user_configs:
+            _user_configs[uname] = {}
+        _user_configs[uname][fname] = content
+    _init_baselines()
+    if _all_configs:
+        print(f"[Startup] Restored {len(_all_configs)} configuration(s) from SQLite.")
+
+    # ── 4. Reload blockchain from SQLite ──────────────────────────────────
+    # The in-memory chain starts fresh each session (genesis is recreated).
+    # We persist each block for audit trail lookup but don't try to re-chain
+    # across sessions (genesis hash differs each restart is a known limitation).
+    # Instead just persist genesis so it's recorded, and keep the fresh chain.
+    if _blockchain.chain:
+        _db.save_block(_blockchain.chain[0].to_dict())
+    saved_count = len(_db.load_all_blocks())
+    print(f"[Startup] Blockchain: fresh session chain (genesis ready). {saved_count} historical block(s) in audit DB.")
+
+    # ── 5. Reload approved rule versions from SQLite ───────────────────────
+    all_saved_versions = _db.load_all_rule_versions()
+    for rule_id, versions in all_saved_versions.items():
+        if rule_id not in _rule_manager._history:
+            continue
+        from rule_manager import RuleVersion, ApprovalStatus
+        rebuilt = []
+        for vd in versions:
+            rv = RuleVersion(
+                rule_data=vd.get("rule_data", {"id": rule_id}),
+                version=vd.get("version", 1),
+                created_by=vd.get("created_by", "system"),
+                rationale=vd.get("rationale", ""),
+            )
+            rv.approvals = vd.get("approvals", [])
+            try:
+                rv.status = ApprovalStatus(vd.get("status", "active"))
+            except ValueError:
+                rv.status = ApprovalStatus.ACTIVE
+            rv.created_at = vd.get("created_at", rv.created_at)
+            rv.activated_at = vd.get("activated_at")
+            rebuilt.append(rv)
+        if rebuilt:
+            _rule_manager._history[rule_id] = rebuilt
+    if all_saved_versions:
+        print(f"[Startup] Restored rule versions for: {', '.join(all_saved_versions.keys())}")
+
+    # ── 6. Firebase (optional cloud layer) ────────────────────────────────
     fs_active = firebase_service.init_firebase()
     if fs_active:
-        print("[Startup] Firebase Firestore connected successfully.")
-        # Ensure default admin profile is in Firestore
+        print("[Startup] Firebase Firestore connected — syncing cloud data.")
         saif = _users.get("saifullahpathan49@gmail.com")
         if saif:
             firebase_service.save_user(saif)
-        # Hydrate local user store from Firestore
         for u in firebase_service.get_all_users():
             uname = u.get("username")
             if uname:
                 _users[uname] = u
-        # Hydrate configurations
+                _db.save_user(u)
         for uname in list(_users.keys()):
             cloud_configs = firebase_service.get_user_configs(uname)
             if cloud_configs:
                 if uname not in _user_configs:
                     _user_configs[uname] = {}
                 for fname, cdata in cloud_configs.items():
-                    _user_configs[uname][fname] = cdata.get("content", "")
-                    _all_configs[fname] = cdata["content"]
+                    content = cdata.get("content", "")
+                    _user_configs[uname][fname] = content
+                    _all_configs[fname] = content
                     if "metadata" in cdata:
                         _custom_metadata[fname] = cdata["metadata"]
+                    _db.save_config(uname, fname, content)
         _init_baselines()
     else:
         print("[Startup] Operating in high-performance local in-memory mode.")
 
+    # ── 7. Vendor knowledge base ───────────────────────────────────────────
     try:
         from vendor_config_kb import vendor_kb
         vendor_kb.seed_agent_kb(_kb)
@@ -171,6 +273,23 @@ def startup_event():
         print(f"[Startup] Pre-seeded agent knowledge base with {len(vendor_kb.dataset_records)} vendor dataset records.")
     except Exception as e:
         print(f"[Startup] Error seeding vendor knowledge base: {e}")
+
+    # ── 8. Remediation workflow ────────────────────────────────────────────
+    try:
+        from pathlib import Path
+        workspace_root = Path(__file__).resolve().parent
+        uploads_dir   = workspace_root / "uploads"
+        sandbox_dir   = workspace_root / "sandbox"
+        output_dir    = workspace_root / "output"
+        for d in [uploads_dir, sandbox_dir, output_dir]:
+            d.mkdir(parents=True, exist_ok=True)
+        _sandbox_manager      = SandboxManager(uploads_dir, sandbox_dir, output_dir)
+        _remediation_proposer = RemediationProposer()
+        _remediation_validator = RemediationValidator()
+        _promotion_gate       = PromotionGate()
+        print("[Startup] Remediation workflow initialized")
+    except Exception as e:
+        print(f"[Startup] Error initializing remediation workflow: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -213,10 +332,6 @@ class VerifyOtpRequest(BaseModel):
     organization: Optional[str] = "NTRO Cybersecurity Directorate"
     audience: Optional[str] = "enterprise"
 
-
-class SwitchAudienceRequest(BaseModel):
-    username: str
-    audience: str  # "enterprise" | "home" | "soho"
 
 
 class ConfigUploadRequest(BaseModel):
@@ -343,6 +458,9 @@ def auth_login(req: LoginRequest):
     if not user or user.get("password") != req.password:
         raise HTTPException(status_code=401, detail="Invalid username or password.")
 
+    # Persist updated user data to SQLite
+    _db.save_user(user)
+
     token = f"sess_{hashlib.sha256(uname.encode()).hexdigest()[:16]}"
     return {
         "success": True,
@@ -434,21 +552,6 @@ def auth_register(req: RegisterRequest):
             "has_prefed_configs": False,
         },
     }
-
-
-@app.post("/api/auth/profile/switch-audience")
-def auth_switch_audience(req: SwitchAudienceRequest):
-    uname = req.username.strip().lower()
-    aud = "soho" if req.audience in ("home", "soho") else "enterprise"
-    user = _users.get(uname)
-    if not user and firebase_service.is_active():
-        user = firebase_service.get_user(uname)
-    if user:
-        user["audience"] = aud
-        _users[uname] = user
-        if firebase_service.is_active():
-            firebase_service.save_user(user)
-    return {"success": True, "username": uname, "audience": aud}
 
 
 
@@ -834,6 +937,9 @@ def upload_configuration(req: ConfigUploadRequest):
     if firebase_service.is_active():
         firebase_service.save_config(uname, fname, req.content.strip(), _custom_metadata[fname])
 
+    # Always persist to SQLite (survives restarts without Firebase)
+    _db.save_config(uname, fname, req.content.strip(), vendor.value)
+
     classification = classify_device(req.content, filename=fname, vendor=vendor.value)
     return {
         "success": True,
@@ -881,6 +987,61 @@ def delete_configuration(filename: str, username: Optional[str] = None):
             firebase_service.delete_config(u, filename)
 
     return {"success": True, "deleted": filename}
+
+
+
+# ---------------------------------------------------------------------------
+# Audit Session History Endpoints
+# ---------------------------------------------------------------------------
+
+@app.get("/api/sessions")
+def list_audit_sessions(username: Optional[str] = None):
+    """Return past audit sessions for the current user, newest first."""
+    uname = (username or "saifullahpathan49@gmail.com").strip().lower()
+    sessions = _db.load_sessions_for_user(uname)
+    return {"success": True, "sessions": sessions}
+
+
+@app.get("/api/sessions/{session_id}")
+def get_audit_session(session_id: int):
+    """Restore a previous audit result by DB row id."""
+    row = _db.load_session_by_id(session_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return {"success": True, "session": row}
+
+
+# ---------------------------------------------------------------------------
+# Rule Integrity Verification Endpoint
+# ---------------------------------------------------------------------------
+
+@app.get("/api/rules/verify/{rule_id}/{version}")
+def verify_rule_integrity(rule_id: str, version: int):
+    """
+    Verify the HMAC signature of a rule version stored in SQLite.
+    Returns whether the rule content has changed since it was approved.
+    This is what makes the rule hash meaningful — the server secret signs
+    the canonical rule fields at approval time; anyone can call this endpoint
+    to prove the rule hasn't been tampered with.
+    """
+    saved = _db.load_rule_versions(rule_id)
+    target = next((v for v in saved if v.get("version") == version), None)
+    if not target:
+        raise HTTPException(status_code=404, detail=f"Rule {rule_id} v{version} not found in DB")
+
+    stored_hmac = target.get("_db_hmac", "")
+    rule_data = target.get("rule_data") or target
+    is_valid = _db.verify_rule_signature(rule_data, version, stored_hmac)
+
+    return {
+        "rule_id": rule_id,
+        "version": version,
+        "sha256_hash": target.get("sha256_hash", ""),
+        "hmac_valid": is_valid,
+        "status": "INTEGRITY VERIFIED" if is_valid else "TAMPERED — HMAC MISMATCH",
+        "approvals": target.get("approvals", []),
+        "activated_at": target.get("activated_at"),
+    }
 
 
 @app.get("/api/devices/{device_id}/baseline")
@@ -1005,8 +1166,16 @@ def run_mission(req: MissionRequest):
             }
         )
 
-    return _cached_mission_result
+    # Always persist audit session + blockchain block to SQLite
+    uname_for_session = (req.username or "saifullahpathan49@gmail.com").strip().lower()
+    _db.save_audit_session(
+        username=uname_for_session,
+        result=_cached_mission_result,
+        goal=req.goal,
+    )
+    _db.save_block(block.to_dict())
 
+    return _cached_mission_result
 
 # ---------------------------------------------------------------------------
 # Interactive Human-in-the-Loop Decision Resolution Endpoint
@@ -2148,144 +2317,333 @@ def submit_vendor_solution(req: SubmitVendorSolutionRequest):
     }
 
 
+# ---------------------------------------------------------------------------
+# Verified Remediation Workflow — GAACA v1
+# ---------------------------------------------------------------------------
+
+
+class RemediationProposeRequest(BaseModel):
+    filename: str
+    username: Optional[str] = None
+
+
+class SandboxTestRequest(BaseModel):
+    session_id: str
+    username: Optional[str] = None
+
+
+class PromoteRequest(BaseModel):
+    session_id: str
+    username: Optional[str] = None
+    force_approve: bool = False
+
+
+@app.post("/api/remediation/propose")
+def propose_remediation(req: RemediationProposeRequest):
+    """
+    STEP 1: Propose remediation fixes for failing controls in a configuration.
+
+    Analyzes the configuration, identifies violations, and proposes vendor-specific
+    fixes. Returns a list of proposed fixes and creates a sandbox session.
+    """
+    if not _sandbox_manager or not _remediation_proposer:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    filename = req.filename.strip()
+    if not filename:
+        raise HTTPException(status_code=400, detail="Filename required")
+
+    # Get the configuration
+    config_text = _all_configs.get(filename)
+    if not config_text:
+        raise HTTPException(status_code=404, detail=f"Configuration {filename} not found")
+
+    # Get the baseline and findings
+    baseline = _parsed_baselines.get(filename)
+    if not baseline:
+        raise HTTPException(status_code=404, detail=f"Baseline for {filename} not found")
+
+    findings = evaluate_baseline(baseline, load_rules())
+    failing_findings = [f for f in findings if f.status == "fail"]
+
+    if not failing_findings:
+        return {
+            "success": True,
+            "message": "No violations found — configuration is compliant",
+            "violations": 0,
+            "fixes": [],
+        }
+
+    # Classify device to get vendor (use fingerprint_vendor for reliability)
+    vendor, _ = fingerprint_vendor(config_text)
+    vendor_str = vendor.value if vendor else "cisco_ios"
+    try:
+        vendor = VendorFamily[vendor_str.upper()]
+    except (KeyError, AttributeError):
+        vendor = VendorFamily.CISCO_IOS  # fallback
+
+    # Propose fixes for all failures
+    fixes_by_rule = _remediation_proposer.batch_propose(failing_findings, vendor, filename)
+
+    # Flatten into list
+    all_fixes = []
+    for rule_id, rule_fixes in fixes_by_rule.items():
+        all_fixes.extend(rule_fixes)
+
+    # Create sandbox session (pass config_text so it can be persisted to disk
+    # if this config was uploaded in-memory and never written to uploads/)
+    session = _sandbox_manager.create_session(
+        filename=filename,
+        vendor=vendor_str,
+        proposed_fixes=all_fixes,
+        username=req.username,
+        config_text=config_text,
+    )
+
+    confidence = _remediation_proposer.estimate_fix_confidence(all_fixes)
+
+    return {
+        "success": True,
+        "session_id": session.session_id,
+        "filename": filename,
+        "vendor": vendor_str,
+        "violations": len(failing_findings),
+        "proposed_fixes": all_fixes,
+        "fix_confidence": confidence,
+        "message": f"Proposed {len(all_fixes)} fix(es) for {len(failing_findings)} violation(s). Ready for sandbox testing.",
+    }
+
+
+@app.post("/api/remediation/sandbox/test")
+def test_in_sandbox(req: SandboxTestRequest):
+    """
+    STEP 2: Test proposed fixes in sandbox with full validation.
+
+    Applies fixes to a candidate config, validates through all four gates:
+    1. Syntax validation
+    2. Target resolution
+    3. Regression audit
+    4. Security invariants
+
+    Returns validation result determining if candidate can be promoted.
+    """
+    if not _sandbox_manager or not _remediation_validator:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    session = _sandbox_manager.get_session(req.session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=f"Sandbox session {req.session_id} not found")
+
+    # Apply fixes to candidate (continue even if no literal change — candidate may
+    # already differ or fixes may be append-only; validation is the real gate)
+    _sandbox_manager.apply_fixes(session.session_id, session.proposed_fixes)
+
+    # Read original and candidate
+    original_text = session.original_path.read_text(encoding="utf-8")
+    candidate_text = session.candidate_path.read_text(encoding="utf-8")
+
+    # Extract target rule IDs from proposed fixes
+    target_rule_ids = list({fix["rule_id"] for fix in session.proposed_fixes if "rule_id" in fix})
+
+    # Get vendor
+    try:
+        vendor = VendorFamily[session.vendor.upper()]
+    except (KeyError, AttributeError):
+        vendor = VendorFamily.CISCO_IOS
+
+    # Validate candidate
+    validation_result = _remediation_validator.validate(
+        original_text=original_text,
+        candidate_text=candidate_text,
+        original_filename=session.filename,
+        target_rule_ids=target_rule_ids,
+        vendor=vendor,
+    )
+
+    # Mark session with validation result
+    _sandbox_manager.mark_validated(session.session_id, validation_result.to_dict())
+
+    return {
+        "success": True,
+        "session_id": session.session_id,
+        "filename": session.filename,
+        "validation": validation_result.to_dict(),
+        "can_promote": validation_result.passed,
+        "diff": _sandbox_manager.get_diff(session.session_id),
+    }
+
+
+@app.post("/api/remediation/promote")
+def promote_candidate(req: PromoteRequest):
+    """
+    STEP 3: Promote validated candidate to output/fixed/.
+
+    Only candidates passing all validation gates can be promoted. Returns the
+    promoted configuration path and promotion record.
+    """
+    if not _sandbox_manager or not _promotion_gate:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    session = _sandbox_manager.get_session(req.session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=f"Sandbox session {req.session_id} not found")
+
+    if session.status != "passed":
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot promote — session status is '{session.status}'. Must pass validation first.",
+        )
+
+    # Build validation result from session
+    from remediation.validator import ValidationResult
+    val_dict = session.validation_result or {}
+    validation_result = ValidationResult(
+        passed=val_dict.get("passed", False),
+        syntax_valid=val_dict.get("gates", {}).get("syntax_validation", {}).get("passed", False),
+        syntax_errors=val_dict.get("gates", {}).get("syntax_validation", {}).get("errors", []),
+        target_resolved=val_dict.get("gates", {}).get("target_resolution", {}).get("passed", False),
+        target_details=val_dict.get("gates", {}).get("target_resolution", {}).get("details", {}),
+        regression_clean=val_dict.get("gates", {}).get("regression_audit", {}).get("passed", False),
+        regression_details=val_dict.get("gates", {}).get("regression_audit", {}).get("details", {}),
+        invariants_held=val_dict.get("gates", {}).get("security_invariants", {}).get("passed", False),
+        invariant_violations=val_dict.get("gates", {}).get("security_invariants", {}).get("violations", []),
+        summary=val_dict.get("summary", ""),
+    )
+
+    # Evaluate promotion decision
+    promotion_record = _promotion_gate.evaluate(
+        session_id=session.session_id,
+        filename=session.filename,
+        validation_result=validation_result,
+        original_hash=session.original_hash,
+        candidate_hash=session.candidate_hash or "",
+        requester=req.username,
+        force_approve=req.force_approve,
+    )
+
+    if promotion_record.decision != PromotionDecision.APPROVED:
+        return {
+            "success": False,
+            "session_id": session.session_id,
+            "decision": promotion_record.decision.value,
+            "rationale": promotion_record.rationale,
+            "promotion_record": promotion_record.to_dict(),
+        }
+
+    # Promote the candidate
+    promoted_path = _sandbox_manager.promote(session.session_id, req.username)
+    if not promoted_path:
+        raise HTTPException(status_code=500, detail="Promotion failed")
+
+    promotion_record.promoted_hash = _sandbox_manager._hash_file(promoted_path)
+
+    # Record in blockchain
+    block = _blockchain.record_human_decision(
+        device_id=session.filename,
+        rule_id="REMEDIATION_PROMOTION",
+        command_raw=f"Promoted {session.filename} from sandbox session {session.session_id}",
+        decision="PROMOTED",
+        reviewer=req.username or "automatic",
+        notes=promotion_record.rationale,
+        uploaded_info=promotion_record.validation_summary,
+    )
+
+    return {
+        "success": True,
+        "session_id": session.session_id,
+        "decision": promotion_record.decision.value,
+        "promoted_path": str(promoted_path),
+        "promotion_record": promotion_record.to_dict(),
+        "blockchain_block": block.index,
+        "message": f"Configuration {session.filename} promoted successfully",
+    }
+
+
+@app.get("/api/remediation/sessions")
+def list_remediation_sessions(status: Optional[str] = None, username: Optional[str] = None):
+    """List all sandbox sessions, optionally filtered by status."""
+    if not _sandbox_manager:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    sessions = _sandbox_manager.list_sessions(status=status)
+    return {
+        "success": True,
+        "sessions": [s.to_dict() for s in sessions],
+    }
+
+
+@app.get("/api/remediation/session/{session_id}")
+def get_remediation_session(session_id: str):
+    """Get details of a specific sandbox session."""
+    if not _sandbox_manager:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    session = _sandbox_manager.get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+
+    return {
+        "success": True,
+        "session": session.to_dict(),
+        "diff": _sandbox_manager.get_diff(session_id),
+    }
+
+
+@app.delete("/api/remediation/session/{session_id}")
+def delete_remediation_session(session_id: str):
+    """Delete a sandbox session and its candidate file."""
+    if not _sandbox_manager:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+
+    _sandbox_manager.cleanup_session(session_id)
+    return {
+        "success": True,
+        "message": f"Session {session_id} deleted",
+    }
+
+
+@app.get("/api/remediation/report/{session_id}")
+def get_remediation_report(session_id: str):
+    """
+    Generate enhanced compliance report with sandbox validation results.
+    
+    Returns markdown report including:
+    - Original audit findings
+    - Proposed remediation
+    - Sandbox validation results (4-gate breakdown)
+    - Configuration diff
+    - Promotion status
+    """
+    if not _sandbox_manager:
+        raise HTTPException(status_code=500, detail="Remediation system not initialized")
+    
+    session = _sandbox_manager.get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+    
+    # Get diff if candidate exists
+    diff = None
+    if session.candidate_path and session.candidate_path.exists():
+        diff = _sandbox_manager.get_diff(session_id)
+    
+    # Build remediation section
+    from remediation.report_builder import build_remediation_section
+    
+    report_md = build_remediation_section(session, diff)
+    
+    return {
+        "success": True,
+        "session_id": session_id,
+        "filename": session.filename,
+        "report_markdown": report_md,
+        "report_format": "markdown",
+    }
+
+
 @app.get("/api/federated/status")
 def get_federated_status():
     from federated_learning import federated_engine
     return federated_engine.get_status()
-
-
-# ---------------------------------------------------------------------------
-# Home & Small Business (SOHO WiFi Router) Security Benchmarks
-# ---------------------------------------------------------------------------
-
-@app.get("/api/soho/checks")
-def get_soho_checks():
-    """
-    Home / Small Business SOHO WiFi Security Audit Benchmarks:
-    Provides simple plain-language security checks, step-by-step fix guides,
-    and exact copy-paste configuration payloads for home routers & WiFi access points.
-    """
-    return {
-        "summary": {
-            "mode": "Home & Small Business (SOHO WiFi)",
-            "health_status": "2 Vulnerabilities Found",
-            "score": 71,
-            "total_checks": 7,
-            "passed": 5,
-            "failed": 2,
-        },
-        "checks": [
-            {
-                "id": "SOHO-WIFI-01",
-                "title": "WiFi Wireless Encryption (WPA2/WPA3 Personal)",
-                "category": "Wireless Security",
-                "status": "PASS",
-                "severity": "CRITICAL",
-                "current_setting": "WPA2-PSK (AES) Active",
-                "recommended": "WPA2-AES or WPA3-SAE",
-                "steps": [
-                    "Step 1: Open your web browser and navigate to http://192.168.1.1 or http://192.168.0.1",
-                    "Step 2: Log in and click on 'Wireless Settings' or 'WiFi Setup'",
-                    "Step 3: Under 'Security Mode', select 'WPA2-PSK (AES)' or 'WPA3-Personal'",
-                    "Step 4: Click 'Save / Apply' to enforce strong wireless encryption."
-                ],
-                "payload": "wireless.security.mode=WPA2-PSK\nwireless.encryption.cipher=AES\nwireless.passphrase.min_length=16"
-            },
-            {
-                "id": "SOHO-WIFI-02",
-                "title": "Default Router Admin Password",
-                "category": "Device Access",
-                "status": "FAIL",
-                "severity": "CRITICAL",
-                "current_setting": "Default factory credentials detected ('admin / admin')",
-                "recommended": "Unique password >= 14 characters",
-                "steps": [
-                    "Step 1: Open router admin dashboard at 192.168.1.1 and sign in",
-                    "Step 2: Navigate to 'Administration' ➔ 'Set Management Password'",
-                    "Step 3: Change the password from factory default to a strong unique passphrase",
-                    "Step 4: Save settings and log back in with your new password."
-                ],
-                "payload": "system.admin.user=admin\nsystem.admin.new_password=SecPass#2026!NTRO\nsystem.admin.force_change_on_first_login=0"
-            },
-            {
-                "id": "SOHO-WIFI-03",
-                "title": "Wi-Fi Protected Setup (WPS) PIN Suppression",
-                "category": "Wireless Vulnerability",
-                "status": "FAIL",
-                "severity": "HIGH",
-                "current_setting": "WPS Enabled (Vulnerable to PIN brute-force attacks like Reaver)",
-                "recommended": "WPS Disabled",
-                "steps": [
-                    "Step 1: In the router admin panel, navigate to 'Wireless' ➔ 'WPS Settings'",
-                    "Step 2: Switch the 'Enable WPS' toggle to 'OFF' or 'Disabled'",
-                    "Step 3: Disable the 'WPS PIN Method' completely",
-                    "Step 4: Click 'Apply'. Existing devices will continue connecting via regular WiFi password."
-                ],
-                "payload": "wireless.wps.enabled=0\nwireless.wps.pin_status=disabled\nwireless.wps.button_trigger=disabled"
-            },
-            {
-                "id": "SOHO-WIFI-04",
-                "title": "Remote Web Management Over Internet (WAN Access)",
-                "category": "Perimeter Exposure",
-                "status": "PASS",
-                "severity": "HIGH",
-                "current_setting": "Remote WAN Management Blocked (Secure)",
-                "recommended": "Remote WAN Management Disabled",
-                "steps": [
-                    "Step 1: Navigate to 'Advanced Settings' ➔ 'Remote Management'",
-                    "Step 2: Ensure 'Allow Remote Access from WAN' is UNCHECKED",
-                    "Step 3: Block port 80 and 8080 from the external Internet."
-                ],
-                "payload": "firewall.wan.remote_admin.enabled=0\nfirewall.wan.remote_admin.port=0"
-            },
-            {
-                "id": "SOHO-WIFI-05",
-                "title": "Guest WiFi Network Isolation",
-                "category": "Network Segmentation",
-                "status": "PASS",
-                "severity": "MEDIUM",
-                "current_setting": "Guest Network Isolated from Private LAN & Smart Home Devices",
-                "recommended": "Client AP Isolation Enabled",
-                "steps": [
-                    "Step 1: Go to 'Guest Network' settings",
-                    "Step 2: Enable 'Guest Network Isolation' / 'AP Isolation'",
-                    "Step 3: Verify guests cannot access your private computers, printers, or NAS."
-                ],
-                "payload": "wireless.guest.enabled=1\nwireless.guest.ap_isolation=1\nwireless.guest.lan_access=0"
-            },
-            {
-                "id": "SOHO-WIFI-06",
-                "title": "UPnP (Universal Plug and Play) Threat Surface",
-                "category": "Automatic Port Forwarding",
-                "status": "PASS",
-                "severity": "HIGH",
-                "current_setting": "UPnP Disabled (Malware cannot stealthily open incoming ports)",
-                "recommended": "UPnP Disabled",
-                "steps": [
-                    "Step 1: Navigate to 'Advanced' ➔ 'NAT Forwarding' ➔ 'UPnP'",
-                    "Step 2: Toggle UPnP to 'Disabled'",
-                    "Step 3: Only manually forward specific ports if required for gaming or servers."
-                ],
-                "payload": "service.upnp.enabled=0\nservice.nat_pmp.enabled=0"
-            },
-            {
-                "id": "SOHO-WIFI-07",
-                "title": "Secure Anti-Malware DNS Configuration",
-                "category": "DNS Hijack Protection",
-                "status": "PASS",
-                "severity": "MEDIUM",
-                "current_setting": "Encrypted Quad9 / Cloudflare Security DNS Configured",
-                "recommended": "Use 1.1.1.2 or 9.9.9.9",
-                "steps": [
-                    "Step 1: Navigate to 'Network' ➔ 'Internet / WAN Settings' ➔ 'DNS'",
-                    "Step 2: Change DNS mode from ISP default to Manual",
-                    "Step 3: Set Primary: 1.1.1.2, Secondary: 9.9.9.9",
-                    "Step 4: Save and restart router DNS proxy."
-                ],
-                "payload": "network.dns.primary=1.1.1.2\nnetwork.dns.secondary=9.9.9.9\nnetwork.dns.doh_enabled=1"
-            }
-        ]
-    }
 
 
 # ---------------------------------------------------------------------------
@@ -2336,6 +2694,12 @@ def activate_rule(req: RuleActivateRequest):
         rationale=version_dict["rationale"],
     )
 
+    # Persist all versions of this rule to SQLite (HMAC-signed)
+    for v in _rule_manager._history.get(req.rule_id, []):
+        _db.save_rule_version(req.rule_id, v.version, v.to_dict())
+    # Persist the new blockchain block
+    _db.save_block(block.to_dict())
+
     return {
         "success": True,
         "active_version": version_dict,
@@ -2363,9 +2727,16 @@ def re_audit_rule(req: RuleActivateRequest):
 
 @app.get("/api/blockchain/ledger")
 def get_blockchain_ledger():
+    # Return current session chain plus historical blocks from SQLite (deduplicated by hash)
+    current_hashes = {b.block_hash for b in _blockchain.chain}
+    db_blocks = [b for b in _db.load_all_blocks() if b.get("block_hash") not in current_hashes]
+    all_blocks = sorted(
+        _blockchain.get_ledger() + db_blocks,
+        key=lambda b: (b.get("timestamp", ""), b.get("index", 0))
+    )
     return {
-        "length": len(_blockchain.chain),
-        "blocks": _blockchain.get_ledger(),
+        "length": len(all_blocks),
+        "blocks": all_blocks,
     }
 
 

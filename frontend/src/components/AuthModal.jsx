@@ -17,7 +17,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
   const [fullName, setFullName] = useState('');
   const [role, setRole] = useState('Lead Security Auditor');
   const [organization, setOrganization] = useState('NTRO Cybersecurity Directorate');
-  const [audience, setAudience] = useState('enterprise'); // 'enterprise' | 'home'
 
   // Custom Google input
   const [customEmail, setCustomEmail] = useState('');
@@ -78,7 +77,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
           role,
           organization,
           full_name: fullName || username,
-          audience,
         });
         setSuccessMsg("Registration successful! Entering workspace...");
         setTimeout(() => {
@@ -112,7 +110,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
         name: account.name || account.email.split('@')[0].replace('.', ' ').replace(/\b\w/g, c => c.toUpperCase()),
         role: 'Lead Security Auditor',
         organization: 'NTRO Cybersecurity Directorate',
-        audience,
       });
 
       setSuccessMsg(`Signed in with Google as ${res.user.full_name || res.user.username}`);
@@ -419,36 +416,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                       placeholder="e.g. NTRO Cybersecurity Directorate"
                       className="w-full bg-[#050811] border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-brand-500"
                     />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-mono text-slate-400 mb-1">
-                    AUDIT PROFILE INTERFACE:
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setAudience('enterprise')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-mono flex items-center justify-center gap-1.5 transition ${
-                        audience === 'enterprise'
-                          ? 'bg-brand-600/30 border-brand-400 text-white font-bold shadow-sm shadow-brand-500/20'
-                          : 'bg-[#050811] border-slate-700 text-slate-400 hover:border-slate-600'
-                      }`}
-                    >
-                      <span>🏢 Enterprise</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setAudience('home')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-mono flex items-center justify-center gap-1.5 transition ${
-                        audience === 'home'
-                          ? 'bg-amber-600/30 border-amber-400 text-white font-bold shadow-sm shadow-amber-500/20'
-                          : 'bg-[#050811] border-slate-700 text-slate-400 hover:border-slate-600'
-                      }`}
-                    >
-                      <span>🏠 Home & SOHO</span>
-                    </button>
                   </div>
                 </div>
               </>

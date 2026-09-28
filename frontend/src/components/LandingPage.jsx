@@ -35,8 +35,8 @@ export default function LandingPage({
   };
 
   const metrics = [
-    { label: 'SUPPORTED PLATFORMS', value: 'Multi-Vendor', isNumber: false, sub: 'Cisco, Juniper, Fortinet, SOHO', color: 'text-white' },
-    { label: 'EVALUATED RULES', value: 20, isNumber: true, suffix: '+ Checks', sub: 'CIS Benchmarks & SOHO Wi-Fi', color: 'text-brand-400' },
+    { label: 'SUPPORTED PLATFORMS', value: 'Multi-Vendor', isNumber: false, sub: 'Cisco, Juniper, Fortinet, Arista', color: 'text-white' },
+    { label: 'EVALUATED RULES', value: 20, isNumber: true, suffix: '+ Checks', sub: 'CIS Benchmarks & NIST Controls', color: 'text-brand-400' },
     { label: 'DECISION ACCURACY', value: 100, isNumber: true, suffix: '%', sub: 'Deterministic Enforcement', color: 'text-emerald-400' },
     { label: 'TAMPER DETECTION', value: 'Instant', isNumber: false, sub: 'SHA-256 Blockchain Ledger', color: 'text-purple-400' },
   ];
@@ -141,10 +141,10 @@ export default function LandingPage({
             <div className="p-1.5 rounded-lg bg-emerald-500/10 card-icon-bounce">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <span>2. Dual Audience Defense</span>
+            <span>2. Deterministic Rule Engine</span>
           </div>
           <p className="text-slate-300 font-sans text-xs leading-relaxed">
-            Enterprise Mode for CIS defense benchmarks alongside Home/SOHO Mode for Wi-Fi routers with step-by-step fix guides and copy payloads.
+            Enterprise-grade CIS Benchmark evaluation across Cisco, Fortinet, Juniper, Arista and MikroTik with zero LLM hallucination on PASS/FAIL verdicts.
           </p>
         </div>
 

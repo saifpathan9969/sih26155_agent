@@ -83,21 +83,18 @@ export const api = {
     client.post('/api/auth/google', data).then(r => r.data),
   sendOtp: (destination, channel = 'sms') =>
     client.post('/api/auth/otp/send', { destination, channel }).then(r => r.data),
-  verifyOtp: (destination, otp, password = null, full_name = null, audience = 'enterprise') =>
-    client.post('/api/auth/otp/verify', { destination, otp, password, full_name, audience }).then(r => r.data),
-
-  switchAudience: (username, audience) =>
-    client.post('/api/auth/profile/switch-audience', { username, audience }).then(r => r.data),
+  verifyOtp: (destination, otp, password = null, full_name = null) =>
+    client.post('/api/auth/otp/verify', { destination, otp, password, full_name, audience: 'enterprise' }).then(r => r.data),
 
   me: (username) =>
     client.get('/api/auth/me', { params: { username } }).then(r => r.data),
 
 
   // Configurations & Devices
-  getFixtures: (audience = null, username = null) =>
-    client.get('/api/fixtures', { params: { ...(audience ? { audience } : {}), ...(username ? { username } : {}) } }).then(r => r.data),
-  getConfigurations: (audience = null, username = null) =>
-    client.get('/api/configurations', { params: { ...(audience ? { audience } : {}), ...(username ? { username } : {}) } }).then(r => r.data),
+  getFixtures: (username = null) =>
+    client.get('/api/fixtures', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
+  getConfigurations: (username = null) =>
+    client.get('/api/configurations', { params: { ...(username ? { username } : {}) } }).then(r => r.data),
   uploadConfiguration: (filename, content, vendor = 'auto', username = null) =>
     client.post('/api/configurations/upload', { filename, content, vendor, username }).then(r => r.data),
   // encodeURIComponent matters: filenames legitimately contain dots and may
@@ -165,7 +162,29 @@ export const api = {
     client.post('/api/remediation/submit-vendor-solution', payload).then(r => r.data),
   getFederatedStatus: () =>
     client.get('/api/federated/status').then(r => r.data),
-  getSohoChecks: () => client.get('/api/soho/checks').then(r => r.data),
+
+  // ── Verified Remediation Workflow ───────────────────────────────────────
+  // PROPOSE → SANDBOX → VALIDATE → PROMOTE → REPORT
+  remediationPropose: (filename, username) =>
+    client.post('/api/remediation/propose', { filename, username }).then(r => r.data),
+  remediationSandboxTest: (session_id) =>
+    client.post('/api/remediation/sandbox/test', { session_id }).then(r => r.data),
+  remediationPromote: (session_id, approved_by, force_approve = false) =>
+    client.post('/api/remediation/promote', { session_id, approved_by, force_approve }).then(r => r.data),
+  remediationGetSession: (session_id) =>
+    client.get(`/api/remediation/session/${encodeURIComponent(session_id)}`).then(r => r.data),
+  remediationGetSessions: () =>
+    client.get('/api/remediation/sessions').then(r => r.data),
+  remediationDeleteSession: (session_id) =>
+    client.delete(`/api/remediation/session/${encodeURIComponent(session_id)}`).then(r => r.data),
+  remediationReport: (session_id) =>
+    client.get(`/api/remediation/report/${encodeURIComponent(session_id)}`).then(r => r.data),
+
+  // ── Audit Session History ────────────────────────────────────────────────
+  listAuditSessions: (username) =>
+    client.get('/api/sessions', { params: username ? { username } : {} }).then(r => r.data),
+  getAuditSession: (id) =>
+    client.get(`/api/sessions/${id}`).then(r => r.data),
   trainingReuse: () => client.post('/api/training/reuse').then(r => r.data),
   trainingReset: () => client.post('/api/training/reset').then(r => r.data),
 

@@ -38,9 +38,29 @@ sih26155_agent/agent_v2/scratch/test_git_repo/
 sih26155_agent/agent_v2/scratch/test_repo/
 sih26155_agent/agent_v2/scratch/audit_summary_test.md
 
+# Chat console runtime state — transcripts, provenance chain, generated reports
+sih26155_agent/agent_v2/scratch/chat_sessions.db*
+sih26155_agent/agent_v2/scratch/ledger.json
+sih26155_agent/agent_v2/scratch/reports/
+
+# Operator device configurations. Real network configs are sensitive: they carry
+# hostnames, addressing, community strings and password hashes. The console reads
+# this directory; nothing in it belongs in version control.
+sih26155_agent/agent_v2/scratch/inventory/
+
 # Learned-knowledge store: operator-generated, not the citable vendor corpus
 network_config_db/data/learned_knowledge.jsonl
 
 # Local backups
 *.pre-cleanup.bak
 *.bak
+
+# SQLite persistence DB (runtime data, not source)
+sih26155_agent/gaaca_data.db
+sih26155_agent/gaaca_data.db-shm
+sih26155_agent/gaaca_data.db-wal
+
+# Sandbox / remediation runtime dirs
+sih26155_agent/sandbox/
+sih26155_agent/output/
+sih26155_agent/uploads/
