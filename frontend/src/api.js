@@ -1,14 +1,17 @@
 import axios from 'axios';
 
-// Resolve Backend API URL with multi-tier fallback:
-// 1. URL Query parameter ?backend=... or ?api=... (instant judge link sharing)
-// 2. localStorage 'ntro_backend_url' (in-app configuration modal)
-// 3. import.meta.env.VITE_API_BASE_URL (standard Vercel environment variable)
-// 4. Local Vite dev server fallback (port 5173 -> localhost:8000)
-// 5. Default window.location.origin
+// Resolve Backend API URL — production-safe for Railway + same-origin deployments.
+//
+// Priority:
+//   1. ?backend= or ?api= query param (judge sharing links)
+//   2. VITE_API_BASE_URL build-time env var (set in Railway variables)
+//   3. Same-origin empty string — works when frontend + backend are on the same domain
+//   4. localStorage override — ONLY used if it matches current origin (prevents stale URLs)
+//   5. localhost:8000 for local dev (port 5173 only)
 export function resolveApiBaseUrl() {
   if (typeof window !== 'undefined') {
     try {
+      // 1. Explicit query param override — always wins, updates localStorage
       const params = new URLSearchParams(window.location.search);
       const queryBackend = params.get('backend') || params.get('api');
       if (queryBackend) {
@@ -16,27 +19,43 @@ export function resolveApiBaseUrl() {
         localStorage.setItem('ntro_backend_url', cleanUrl);
         return cleanUrl;
       }
-
-      const saved = localStorage.getItem('ntro_backend_url');
-      if (saved && saved.trim()) {
-        return saved.trim().replace(/\/+$/, '');
-      }
-    } catch (e) {
-      // Ignore in SSR / strict mode
-    }
+    } catch (e) { /* ignore */ }
   }
 
+  // 2. Build-time env var set in Railway / Vercel dashboard
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   if (envUrl && envUrl.trim()) {
     return envUrl.trim().replace(/\/+$/, '');
   }
 
   if (typeof window !== 'undefined') {
+    // 3. Local dev fallback
     if (window.location.port === '5173') {
       return 'http://localhost:8000';
     }
-    // In production (e.g. Vercel), return empty string so requests route to same-origin /api
-    // and are handled by Vercel edge reverse proxy to Railway, bypassing any local ISP DNS blocks!
+
+    // 4. Same-origin production deployment (Railway, Vercel, etc.)
+    // Frontend and backend on the same domain — use relative paths.
+    // Also auto-clears any stale localStorage URL from previous deployments
+    // so judges / new visitors never see the offline banner.
+    try {
+      const saved = localStorage.getItem('ntro_backend_url');
+      if (saved && saved.trim()) {
+        // Only trust the saved URL if it points to the same origin as current page.
+        // If it's a different origin (stale old Railway URL) — clear it silently.
+        const savedOrigin = new URL(saved.trim()).origin;
+        if (savedOrigin === window.location.origin) {
+          return saved.trim().replace(/\/+$/, '');
+        } else {
+          localStorage.removeItem('ntro_backend_url');
+        }
+      }
+    } catch (e) {
+      // Malformed saved URL — clear it
+      try { localStorage.removeItem('ntro_backend_url'); } catch (_) {}
+    }
+
+    // Same-origin: return empty string so all /api/* calls hit current domain
     return '';
   }
 
