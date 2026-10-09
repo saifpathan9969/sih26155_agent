@@ -50,7 +50,7 @@ export default function App() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [activeHumanReview, setActiveHumanReview] = useState(null);
 
-  // Load initial data
+  // Load initial data — with retry so Railway cold starts don't mark us offline permanently
   const loadInitialData = async (user = currentUser) => {
     try {
       const h = await api.health();
@@ -65,6 +65,8 @@ export default function App() {
     } catch (err) {
       console.error("Health check / initial load error:", err);
       setSystemHealth('offline');
+      // Auto-retry after 4 seconds — handles Railway cold starts
+      setTimeout(() => loadInitialData(user), 4000);
     }
   };
 
@@ -295,8 +297,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* Backend Offline Banner */}
-      {systemHealth === 'offline' && (
+      {/* Backend Offline Banner — only shown when using a custom backend URL that is unreachable */}
+      {systemHealth === 'offline' && api.getBaseUrl() !== '' && (
         <div className="bg-amber-950/90 border-b border-amber-500/40 px-4 py-2 text-xs font-mono text-amber-200 flex flex-wrap items-center justify-between gap-2 shadow-md">
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 animate-bounce" />
