@@ -12,8 +12,8 @@ __pycache__/
 serviceAccountKey*.json
 *firebase-adminsdk*.json
 
-# Build outputs
-frontend/dist/
+# Build outputs — dist committed so Railway doesn't need Node.js build step
+# frontend/dist/   <-- intentionally tracked so Railway serves pre-built UI
 frontend/dist-ssr/
 *.local
 
